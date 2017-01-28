@@ -1,4 +1,12 @@
 # gitignore for tankode
+
+*.swp
+*~
+*.o
+*.so
+*.hi
+*.a
+
 etc
 tankode
 display/tankode-display
