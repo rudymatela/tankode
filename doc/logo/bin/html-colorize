@@ -1,0 +1,19 @@
+#!/bin/bash
+dir=`dirname $0`
+original=$dir/../tankode-logo.svg
+palette=$dir/../../../logic/bin/palette
+
+get_colour() {
+	colour=`$palette | grep "^$1 " | sed -e "s/.*#//"`
+	if [ -n "$colour" ]
+	then
+		echo $colour
+	else
+		echo $1
+	fi
+}
+
+background=` get_colour $1`
+
+cat $dir/../greybg.html |
+sed "s/#808080/#$background/"

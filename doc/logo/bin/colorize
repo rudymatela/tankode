@@ -1,0 +1,31 @@
+#!/bin/bash
+dir=`dirname $0`
+original=$dir/../tankode-logo.svg
+palette=$dir/../../../logic/bin/palette
+
+get_colour() {
+	colour=`$palette | grep "^$1 " | sed -e "s/.*#//"`
+	if [ -n "$colour" ]
+	then
+		echo $colour
+	else
+		echo $1
+	fi
+}
+
+background=` get_colour $1`
+letter=`     get_colour $2`
+track=`      get_colour $3`
+body=`       get_colour $4`
+gun=`        get_colour $5`
+radar=`      get_colour $6`
+bullet=`     get_colour $7`
+
+cat $dir/../tankode-logo.svg |
+sed "s/#eeeeee/#$background/" |
+sed "s/#111111/#$letter/" |
+sed "s/#222222/#$track/" |
+sed "s/#444444/#$body/" |
+sed "s/#888888/#$gun/" |
+sed "s/#333333/#$radar/" |
+sed "s/#777777/#$bullet/"
