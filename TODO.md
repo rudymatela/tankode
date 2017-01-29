@@ -1,14 +1,6 @@
 Tankode's TODO list
 ===================
 
-* move project to a repository of its own;
-
-* add a function to draw a rectangle from two points and thickness;
-
-* draw black lines not as lines but as very thin rectangles;
-
-* draw scan rays not as lines but as very thin rectangles;
-
 * draw true scan rays (only up to the scanned point):
   I'll have to change the logic module for this (it should also produce the
   point pointed by the scan ray).  When doing this, use a small full-colored

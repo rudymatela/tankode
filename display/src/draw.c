@@ -1,5 +1,6 @@
 #include <math.h>
 #include "draw.h"
+#include <stdio.h>
 
 #define CIRCLE_SEGMENTS 30
 
@@ -31,6 +32,38 @@ void drawCircle(float cx, float cy, float r)
 		y = r * sinf(angle);
 		glVertex2f(x + cx, y + cy);
 	}
+	glEnd();
+}
+
+
+void drawLine(float x0, float y0, float x1, float y1, float thickness)
+{
+	drawRectangle(x0,y0,x1,y1,thickness);
+}
+
+
+void drawRectangle(float x0, float y0, float x1, float y1, float thickness)
+{
+	float
+		opp = y1 - y0,
+		adj = x1 - x0,
+		hyp = sqrt(opp*opp + adj*adj),
+		sin = opp / hyp,
+		cos = adj / hyp;
+	float
+		x0l = x0 + sin * thickness / 2.,
+		y0l = y0 - cos * thickness / 2.,
+		x0r = x0 - sin * thickness / 2.,
+		y0r = y0 + cos * thickness / 2.,
+		x1l = x1 + sin * thickness / 2.,
+		y1l = y1 - cos * thickness / 2.,
+		x1r = x1 - sin * thickness / 2.,
+		y1r = y1 + cos * thickness / 2.;
+    glBegin(GL_QUADS);
+	glVertex2f(x0l, y0l);
+	glVertex2f(x0r, y0r);
+	glVertex2f(x1r, y1r);
+	glVertex2f(x1l, y1l);
 	glEnd();
 }
 
@@ -90,10 +123,7 @@ void drawScan(struct tank t)
 	rotate(&fx, &fy, t.radar_dir + t.turret_dir + t.base_dir);
 	rotate(&bx, &by, t.radar_dir + t.turret_dir + t.base_dir);
 	glColor(t.scan_colour);
-	glBegin(GL_LINES);
-	glVertex2f(t.x + bx, t.y + by);
-	glVertex2f(t.x + fx, t.y + fy);
-	glEnd();
+	drawLine(t.x + bx, t.y + by, t.x + fx, t.y + fy, 1./30.);
 }
 
 
@@ -166,16 +196,10 @@ void drawField(struct field field)
 	glColor4f(0.,0.,0.,1./2.);
 	// field.obstacle_colour.a = 1./6.; glColor(field.obstacle_colour);
 	for(f=0.; f <= field.height; f+=1.) {
-		glBegin(GL_LINES);
-		glVertex2f(0.         ,f);
-		glVertex2f(field.width,f);
-		glEnd();
+		drawLine(0.,f,field.width,f,3./60.);
 	}
 	for(f=0.; f <= field.width; f+=1.) {
-		glBegin(GL_LINES);
-		glVertex2f(f, 0.          );
-		glVertex2f(f, field.height);
-		glEnd();
+		drawLine(f,0.,f,field.height,3./60.);
 	}
 	field.obstacle_colour.a = 1.;
 	glColor(field.obstacle_colour);

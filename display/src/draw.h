@@ -7,6 +7,8 @@
 #include <GL/glu.h>
 
 void drawCircle(float cx, float cy, float r);
+void drawLine(float x0, float y0, float x1, float y1, float thickness);
+void drawRectangle(float x0, float y0, float x1, float y1, float thickness);
 void glColor(struct colour);
 
 void drawField(struct field);
