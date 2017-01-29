@@ -25,7 +25,7 @@ run-display: display
 	./display/bin/tankode-display
 
 run-logic: logic
-	./logic/bin/tankode-logic # +RTS -p -RTS
+	./logic/bin/tankode-logic $(TANKODES) # +RTS -p -RTS
 
 run: display logic haskell
 	./bin/tankode $(TANKODES)
