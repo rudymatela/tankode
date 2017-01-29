@@ -189,12 +189,18 @@ intersectionPointLL l1@(a1,b1,c1) l2@(a2,b2,c2) =
 -- for parallel segments, returns Nothing
 intersectionPointSS :: Segment -> Segment -> Maybe Point
 intersectionPointSS s1 s2 =
-  case intersectionPointLL (lineFromSegment s1) (lineFromSegment s2) of
-    Nothing -> Nothing
-    Just p ->
-      if p `insideBox` bboxS s1 && p `insideBox` bboxS s2
-        then Just p
-        else Nothing
+  if intersectSS b1 b2
+    then
+      case intersectionPointLL (lineFromSegment s1) (lineFromSegment s2) of
+        Nothing -> Nothing
+        Just p ->
+          if p `insideBox` b1 && p `insideBox` b2
+            then Just p
+            else Nothing
+    else Nothing
+  where
+  b1 = bboxS s1
+  b2 = bboxS s2
 
 -- as defined here: http://mathworld.wolfram.com/Circle-LineIntersection.html
 -- this returns the secant points of the line defined by the segment, not the segment itself
