@@ -91,10 +91,6 @@ void update_state()
 {
 	static int reading = 1;
 	if (reading) {
-		/* skips two ticks */
-		read_tick(&state);
-		read_tick(&state);
-		/* only one in every 3 ticks matter */
 		reading = read_tick(&state);
 	}
 }
@@ -103,12 +99,12 @@ void render_and_reschedule(int val)
 {
 	glutTimerFunc(1000 / FPS, render_and_reschedule, val);
 	glClear(GL_COLOR_BUFFER_BIT);
-	update_state();
-	draw();
-	glAccum(GL_LOAD,  .333);
-	update_state();
-	draw();
-	glAccum(GL_ACCUM, .666);
+	update_state(); draw(); glAccum(GL_LOAD,  1./6.);
+	update_state(); draw(); glAccum(GL_ACCUM, 1./6.);
+	update_state(); draw(); glAccum(GL_ACCUM, 1./6.);
+	update_state(); draw(); glAccum(GL_ACCUM, 1./6.);
+	update_state(); draw(); glAccum(GL_ACCUM, 1./6.);
+	update_state(); draw(); glAccum(GL_ACCUM, 1./6.);
 	glAccum(GL_RETURN, 1.);
 	glutSwapBuffers();
 }
