@@ -104,9 +104,10 @@ void drawTank(struct tank t)
 
 void drawIntegrityBar(struct tank t)
 {
-	float y  =  9./12.,
-	      x0 = -1./2.,
-		  x1 = x0 + t.integrity;
+	const float length = 5./6.;
+	float y  =   9./12.,
+	      x0 = - length / 2.,
+		  x1 =   x0 + t.integrity * length;
 	glColor4f(1.,1.,1.,2./3.);
 	drawLine(t.x+x0,t.y+y,t.x+x1,t.y+y,2./30.);
 }
