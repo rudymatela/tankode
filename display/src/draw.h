@@ -19,5 +19,6 @@ void drawBase(struct tank);
 void drawTurret(struct tank);
 void drawRadar(struct tank);
 void drawScan(struct tank);
+void drawIntegrityBar(struct tank);
 
 #endif /* _DRAW_H */

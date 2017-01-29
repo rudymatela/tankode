@@ -68,6 +68,7 @@ int read_tankpos(struct tank *t)
 	t->base_dir   = get_ratio()*2*M_PI; if (isNaN(t->base_dir))   return 0;
 	t->turret_dir = get_ratio()*2*M_PI; if (isNaN(t->turret_dir)) return 0;
 	t->radar_dir  = get_ratio()*2*M_PI; if (isNaN(t->radar_dir))  return 0;
+	t->integrity  = get_ratio();        if (isNaN(t->integrity))  return 0;
 	return 1;
 }
 

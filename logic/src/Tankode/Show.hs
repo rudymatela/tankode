@@ -47,9 +47,10 @@ showPos :: Tank -> String
 showPos t = unwords
   [ "tankpos"
   , showLoc $ loc t
-  , showR $ heading t
-  , showR $ gun     t
-  , showR $ radar   t
+  , showR $ heading   t
+  , showR $ gun       t
+  , showR $ radar     t
+  , showR $ integrity t
   ]
 {- for debug:
         ++ "\n"

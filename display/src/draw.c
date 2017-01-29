@@ -94,10 +94,21 @@ void drawTank(struct tank t)
 	drawBase(t);
 	drawTurret(t);
 	drawRadar(t);
+	drawIntegrityBar(t);
 	glColor(t.bullet_colour);
 	for (i=0; i<t.n_bullets; i++)
 		drawBullet(t.bullets[i]);
 	drawScan(t);
+}
+
+
+void drawIntegrityBar(struct tank t)
+{
+	float y  =  9./12.,
+	      x0 = -1./2.,
+		  x1 = x0 + t.integrity;
+	glColor4f(1.,1.,1.,2./3.);
+	drawLine(t.x+x0,t.y+y,t.x+x1,t.y+y,2./30.);
 }
 
 

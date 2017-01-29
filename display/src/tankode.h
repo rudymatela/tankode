@@ -38,6 +38,9 @@ struct tank {
 		turret_dir,
 		radar_dir;
 
+	/* status */
+	float integrity;
+
 	/* bullets */
 	int n_bullets;
 	struct bullet bullets[MAX_BULLETS];
