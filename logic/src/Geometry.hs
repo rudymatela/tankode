@@ -189,7 +189,7 @@ intersectionPointLL l1@(a1,b1,c1) l2@(a2,b2,c2) =
 -- for parallel segments, returns Nothing
 intersectionPointSS :: Segment -> Segment -> Maybe Point
 intersectionPointSS s1 s2 =
-  if intersectSS b1 b2
+  if intersectBB b1 b2
     then
       case intersectionPointLL (lineFromSegment s1) (lineFromSegment s2) of
         Nothing -> Nothing
