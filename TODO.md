@@ -1,6 +1,10 @@
 Tankode's TODO list
 ===================
 
+* add make prof target
+
+* add some tests.
+
 * draw scan rays as solid triangles;
 	- then as fading triangles;
 
@@ -13,9 +17,7 @@ Tankode's TODO list
 later
 -----
 
-* add examples to c raw interface;
-
-* add some tests.
+* add examples to c raw interface
 
 
 later later
