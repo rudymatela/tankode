@@ -65,7 +65,7 @@ printStates maxTicks n f ts
   putStrLn $ showTick n ts
   printStates maxTicks (n+1) f =<< nextState f ts
   where
-  showTick i ts = "tick " ++ show i ++ "\n" ++ showState ts
+  showTick i ts = "tick " ++ show i ++ "\n" ++ showState f ts
 
 mainWith :: Args -> IO ()
 mainWith Args{showHelp = True} = print $ helpText [] HelpFormatDefault (prepareArgs args)

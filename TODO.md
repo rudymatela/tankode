@@ -1,11 +1,6 @@
 Tankode's TODO list
 ===================
 
-* draw true scan rays (only up to the scanned point):
-  I'll have to change the logic module for this (it should also produce the
-  point pointed by the scan ray).  When doing this, use a small full-colored
-  ball (1 alpha) to mark the destination point for a cool effect;
-
 * draw scan rays as solid triangles;
 	- then as fading triangles;
 

@@ -131,11 +131,13 @@ void drawRadar(struct tank t)
 
 void drawScan(struct tank t)
 {
-	float fx=0, fy=30, bx=0, by=0.5;
+	float fx=0, fy=t.scan_dist+0.5, bx=0, by=0.5;
 	rotate(&fx, &fy, t.radar_dir + t.turret_dir + t.base_dir);
 	rotate(&bx, &by, t.radar_dir + t.turret_dir + t.base_dir);
-	glColor(t.scan_colour);
+	t.scan_colour.a = 1./3.; glColor(t.scan_colour);
 	drawLine(t.x + bx, t.y + by, t.x + fx, t.y + fy, 1./30.);
+	t.scan_colour.a = 1./1.; glColor(t.scan_colour);
+	drawCircle(t.x + fx, t.y + fy, 1./30.);
 }
 
 

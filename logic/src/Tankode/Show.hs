@@ -7,6 +7,8 @@ import Colour (Colour (..))
 -- import Colour.OpenColor
 import Tankode.Data
 import Tankode.Palette
+import Tankode.Physics
+import Tankode.Constants
 import Data.Ratio
 import Data.Maybe
 import Data.Char
@@ -40,18 +42,25 @@ showId t = unwords
   , showColour $ scanColour   t
   ]
 
-showPosAndBullets :: Tank -> String
-showPosAndBullets t = showPos t ++ "\n" ++ showBullets (bullets t)
+showPosAndBullets :: Field -> State -> Tank -> String
+showPosAndBullets f ts t = showPos f ts t ++ "\n" ++ showBullets (bullets t)
 
-showPos :: Tank -> String
-showPos t = unwords
+showPos :: Field -> State -> Tank -> String
+showPos f ts t = unwords
   [ "tankpos"
   , showLoc $ loc t
   , showR $ heading   t
   , showR $ gun       t
   , showR $ radar     t
   , showR $ integrity t
+  , showR
+  $ case scan t f ts of
+      (Nothing,Nothing) -> scanRadius
+      (Just  e,Nothing) -> e
+      (Nothing,Just  w) -> w
+      (Just  e,Just  w) -> min e w
   ]
+  where
 {- for debug:
         ++ "\n"
         ++ unlines
@@ -85,8 +94,8 @@ showMR Nothing  = "-"
 showMR (Just r) = show (numerator r) ++ "/" ++ show (denominator r)
 
 
-showState :: [Tank] -> String
-showState = concat . map showPosAndBullets
+showState :: Field -> State -> String
+showState f ts = concatMap (showPosAndBullets f ts) ts
 
 readR :: String -> Rational
 readR = fromJust . readMR

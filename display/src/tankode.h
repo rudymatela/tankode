@@ -40,6 +40,7 @@ struct tank {
 
 	/* status */
 	float integrity;
+	float scan_dist;
 
 	/* bullets */
 	int n_bullets;
