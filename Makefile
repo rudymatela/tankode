@@ -1,6 +1,6 @@
 # top-level Makefile for tankode
 
-TANKODES=haskell/eg/raw/{sitting-duck,chaser,escaper,left-turner,right-turner}
+TANKODES=haskell/eg/raw/{sitting-duck,chaser,escaper,left-turner,right-turner,zigzagger}
 
 all: display logic haskell
 
@@ -41,7 +41,7 @@ save-bench: display logic haskell
 	make kill
 
 kill:
-	killall sitting-duck chaser escaper left-turner right-turner
+	killall sitting-duck chaser escaper left-turner right-turner zigzagger
 
 clean:
 	make -Cdisplay  clean
