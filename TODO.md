@@ -43,6 +43,10 @@ later later
 * explicitly export stuff from modules (including module re-exports)
   so I don't have to import Tankode.Etc everywhere.
 
+* draw health bar as a torus section on top of the body on the back of the gun;
+
+* draw gun energy somehow (line on top of gun, two torus sections in front).
+
 display
 -------
 
