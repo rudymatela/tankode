@@ -8,7 +8,6 @@
 *.a
 
 etc
-tankode
 display/tankode-display
 display/bin/tankode-display
 display/src/tankode-display
