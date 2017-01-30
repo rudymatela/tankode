@@ -16,6 +16,9 @@ logic:
 haskell:
 	make -C haskell
 
+test: all
+	make -Clogic test
+
 .PHONY: doc
 doc:
 	markdown doc/tankode-protocol.md > doc/tankode-protocol.html
