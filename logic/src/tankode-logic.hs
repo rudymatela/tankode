@@ -31,8 +31,8 @@ prepareArgs args =
   , "hhelp"       --.   \a -> a {showHelp = True}
   ]
   where
-  (short:long) --= fun = flagReq  [[short | short /= ' '],long] ((Right .) . fun) "X" ""
-  (short:long) --. fun = flagNone [[short | short /= ' '],long] fun                   ""
+  (short:long) --= fun = flagReq  (filter (/= " ") [[short],long]) ((Right .) . fun) "X" ""
+  (short:long) --. fun = flagNone (filter (/= " ") [[short],long]) fun                   ""
 
 args :: Args
 args = Args
