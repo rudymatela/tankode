@@ -27,6 +27,11 @@ setupTankode command = do
   tk i o (l,s,e,w) = do
     hPutStrLn o $ unwords [showR l, showR s, showMR e, showMR w]
     [a,b,g,r,s] <- words <$> hGetLine i
-    return (readR a, readR b, readR g, readR r, readR s)
+    return (readIncDec a, readIncDec b, readR g, readR r, readR s)
 -- TODO: detect errors (like file not found, could not execute)
 -- to do that I'll need to modify `pun`
+
+readIncDec :: String -> Rational
+readIncDec "+" =  1
+readIncDec "=" =  0
+readIncDec "-" = -1

@@ -104,16 +104,21 @@ readInput str = Input
   [l,s,e,w] = words str
 
 showOutput :: Output -> String
-showOutput o = unwords . map showR $
-  [ accel o
-  , body  o
-  , gun   o
-  , radar o
-  , shoot o
+showOutput o = unwords
+  [ showIncDec $ accel o
+  , showIncDec $ body  o
+  , showR $ gun   o
+  , showR $ radar o
+  , showR $ shoot o
   ]
 
 showR :: Rational -> String
 showR r = show (numerator r) ++ "/" ++ show (denominator r)
+
+showIncDec :: Rational -> String
+showIncDec r | r > 0     = "+"
+             | r < 0     = "-"
+             | otherwise = "="
 
 readR :: String -> Rational
 readR = fromJust . readMR
