@@ -8,7 +8,7 @@ ident = Id
   , gunColour    = "orange5"
   , bulletColour = "orange5"
   , radarColour  = "grey9"
-  , scanColour   = "grey9"
+  , scanColour   = "orange2"
   }
 
 
