@@ -1,10 +1,6 @@
 Tankode's TODO list
 ===================
 
-* add make prof target
-
-* add some tests.
-
 * draw scan rays as solid triangles;
 	- then as fading triangles;
 
@@ -43,6 +39,13 @@ later later
 * draw health bar as a torus section on top of the body on the back of the gun;
 
 * draw gun energy somehow (line on top of gun, two torus sections in front).
+
+
+later later later
+-----------------
+
+* add more tests to geometry module
+
 
 display
 -------
