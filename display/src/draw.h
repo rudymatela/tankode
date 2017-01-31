@@ -14,7 +14,7 @@ void glColor(struct colour);
 void drawField(struct field);
 void drawObstacle(struct obstacle);
 void drawBullet(struct bullet);
-void drawTank(struct tank);
+void drawTank(struct tank, struct colour obstacle_colour);
 void drawBase(struct tank);
 void drawTurret(struct tank);
 void drawRadar(struct tank);

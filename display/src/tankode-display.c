@@ -77,7 +77,7 @@ static void draw()
 	int i;
 	drawField(state.field);
 	for (i=0; i<state.n_tanks; i++)
-		drawTank(state.tanks[i]);
+		drawTank(state.tanks[i],state.field.obstacle_colour);
 }
 
 static void render()

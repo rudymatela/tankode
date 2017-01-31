@@ -14,6 +14,15 @@ void rotate(float *x, float *y, float dir)
 }
 
 
+void mix(struct colour *c, const struct colour *d, float amount)
+{
+	c->r = c->r * (1 - amount) + d->r * amount;
+	c->g = c->g * (1 - amount) + d->g * amount;
+	c->b = c->b * (1 - amount) + d->b * amount;
+	c->a = c->a * (1 - amount) + d->a * amount;
+}
+
+
 void glColor(struct colour c)
 {
 	glColor4f(c.r, c.g, c.b, c.a);
@@ -88,17 +97,26 @@ void drawBullet(struct bullet b)
 }
 
 
-void drawTank(struct tank t)
+void drawTank(struct tank t, struct colour obstacle)
 {
 	int i;
+	float fade = 7./12.;
+	if (t.integrity <= 0) {
+		mix(&t.base_colour  ,&obstacle,fade);
+		mix(&t.turret_colour,&obstacle,fade);
+		mix(&t.radar_colour ,&obstacle,fade);
+		mix(&t.track_colour ,&obstacle,fade);
+	}
 	drawBase(t);
 	drawTurret(t);
 	drawRadar(t);
-	drawIntegrityBar(t);
+	if (t.integrity > 0)
+		drawIntegrityBar(t);
 	glColor(t.bullet_colour);
 	for (i=0; i<t.n_bullets; i++)
 		drawBullet(t.bullets[i]);
-	drawScan(t);
+	if (t.integrity > 0)
+		drawScan(t);
 }
 
 
