@@ -67,9 +67,17 @@ scanObstacle t f = fmap (subtract tankRadius)
   p = loc t
   scanSegment = (p, translate (radarHeading t) scanRadius $ p)
 
+scanObstacleOrInactiveTank :: Tank -> Field -> State -> Maybe Rational
+scanObstacleOrInactiveTank t f ts =
+  case (scanTank t $ filter inactive ts, scanObstacle t f) of
+    (Nothing, Nothing) -> Nothing
+    (Just td, Nothing) -> Just td
+    (Nothing, Just od) -> Just od
+    (Just td, Just od) -> Just $ min td od
+
 scan :: Tank -> Field -> State -> (Maybe Rational, Maybe Rational)
 scan t f ts =
-  case (scanTank t ts, scanObstacle t f) of
+  case (scanTank t $ discard inactive ts, scanObstacleOrInactiveTank t f ts) of
     (Nothing, Nothing) -> (Nothing, Nothing)
     (Just td, Nothing) -> (Just td, Nothing)
     (Nothing, Just od) -> (Nothing, Just od)
