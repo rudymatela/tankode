@@ -1,7 +1,7 @@
 Tankode's TODO list
 ===================
 
-* grey-out inactive tanks (mix with wall color)
+* logic: identify inactive tanks as walls
 
 
 after
