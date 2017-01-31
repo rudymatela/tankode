@@ -134,6 +134,9 @@ updatePower f t = t {power = f $ power t}
 updateHeat :: (Rational -> Rational) -> Tank -> Tank
 updateHeat f t = t {heat = f $ heat t}
 
+updateIntegrity :: (Rational -> Rational) -> Tank -> Tank
+updateIntegrity f t = t {integrity = f $ integrity t}
+
 updateObstacles :: ([Obstacle] -> [Obstacle]) -> Field -> Field
 updateObstacles g f = f {obstacles = g $ obstacles f}
 

@@ -5,6 +5,7 @@ module List
   , choices
   , choicesWith
   , maybeMinimum
+  , compose
   )
 where
 
@@ -29,3 +30,7 @@ choicesWith f = m []
 maybeMinimum :: Ord a => [a] -> Maybe a
 maybeMinimum [] = Nothing
 maybeMinimum xs = Just $ minimum xs
+
+compose :: [a -> a] -> a -> a
+compose [] = id
+compose (f:fs) = f . compose fs

@@ -103,7 +103,8 @@ fly b = translateBullet (bulletHeading b) bulletSpeed b
 
 -- should be done before fly!  or maybe called within fly??
 processHits :: Field -> [Tank] -> [Tank]
-processHits f ts = map ph1 ts
+processHits f ts = compose (map damageTanks allBullets)
+                 $ map ph1 ts
   where
   ph1 :: Tank -> Tank
   ph1 = updateBullets $ (discard hitObstacle) . (discard hitAnyTank)
@@ -111,6 +112,16 @@ processHits f ts = map ph1 ts
   hitObstacle :: Bullet -> Bool
   hitObstacle b = any (intersectSS ((bulletLoc b),(bulletLoc $ fly b)))
                 $ segments (obstacles f)
+  allBullets = concatMap bullets ts
+
+damageTanks :: Bullet -> [Tank] -> [Tank]
+damageTanks b = map (damageTank b)
+
+damageTank :: Bullet -> Tank -> Tank
+damageTank b t =
+  if sqDistancePP (bulletLoc b) (loc t) <= squaredTankRadius
+    then updateIntegrity (subtract $ bulletCharge b) t
+    else t
 
 hitTank :: Bullet -> Tank -> Bool
 hitTank b t = sqDistancePP (bulletLoc b) (loc t) <= squaredTankRadius
