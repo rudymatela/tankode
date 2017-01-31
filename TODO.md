@@ -1,7 +1,7 @@
 Tankode's TODO list
 ===================
 
-* process tank damage
+* grey-out inactive tanks (mix with wall color)
 
 
 after
@@ -45,6 +45,8 @@ later later
 * draw health bar as a torus section on top of the body on the back of the gun;
 
 * draw gun energy somehow (line on top of gun / two torus sections in front).
+
+* when a tank is deactivated, it should deaccelerate to 0, instead of plain stopping
 
 
 later later later
