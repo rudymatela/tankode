@@ -152,7 +152,7 @@ accelerate a = updateSpeed (\s -> (s + a*maxAccel) `min` 1 `max` (-1))
 
 -- | asks the tankode for an action and perform it when possible
 act :: Tank -> Field -> State -> IO Tank
-act t f ts | integrity t <= 0 = return t
+act t f ts | inactive t = return t
 act t f ts = do
   (accel, bt, gt, rt, s) <- tankode t (integrity t, speed t, enemy, wall)
   return . turnRadar (rt * maxRadarSpeed)
@@ -188,3 +188,6 @@ startingPositions f gen = id
 
 startingHeadings :: RandomGen g => g -> [Rational]
 startingHeadings = map (%24) . randomRs (0,24)
+
+inactive :: Tank -> Bool
+inactive t = integrity t <= 0
