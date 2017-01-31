@@ -120,7 +120,7 @@ damageTanks b = map (damageTank b)
 damageTank :: Bullet -> Tank -> Tank
 damageTank b t =
   if sqDistancePP (bulletLoc b) (loc t) <= squaredTankRadius
-    then updateIntegrity (subtract $ bulletCharge b) t
+    then updateIntegrity ((`max` 0). subtract (bulletCharge b)) t
     else t
 
 hitTank :: Bullet -> Tank -> Bool
