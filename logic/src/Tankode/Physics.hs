@@ -98,7 +98,7 @@ shoot p t
     -- need to start flying right away or will detect collision with shooter?
 
 charge :: Tank -> Tank
-charge = updatePower (+ charging)
+charge = updatePower $ (1 `min`) . (+ charging)
 
 cool :: Tank -> Tank
 cool = updateHeat (subtract cooling)
