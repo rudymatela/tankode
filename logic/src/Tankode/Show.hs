@@ -53,6 +53,7 @@ showPos f ts t = unwords
   , showR $ gun       t
   , showR $ radar     t
   , showR $ integrity t
+  , showR $ power     t
   , showR
   $ case scan t f ts of
       (Nothing,Nothing) -> scanRadius

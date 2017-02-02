@@ -143,8 +143,10 @@ void drawTank(struct tank t, struct colour obstacle)
 	drawBase(t);
 	drawTurret(t);
 	drawRadar(t);
-	if (t.integrity > 0)
+	if (t.integrity > 0) {
 		drawIntegrityBar(t);
+		drawPowerBar(t);
+	}
 	glColor(t.bullet_colour);
 	for (i=0; i<t.n_bullets; i++)
 		drawBullet(t.bullets[i]);
@@ -160,6 +162,16 @@ void drawIntegrityBar(struct tank t)
 	      x = t.integrity * length / 2.;
 	glColor4f(1.,1.,1.,2./3.);
 	drawPill(t.x-x,t.y+y,t.x+x,t.y+y,2./30.,integrity_layer);
+}
+
+
+void drawPowerBar(struct tank t)
+{
+	const float length = 5./6.;
+	float x  = 9./12.,
+	      y  = t.power * length / 2.;
+	glColor4f(1.,1.,1.,2./3.);
+	drawPill(t.x+x,t.y-y,t.x+x,t.y+y,2./30.,integrity_layer);
 }
 
 
