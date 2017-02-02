@@ -2,6 +2,7 @@
 #include "draw.h"
 #include <stdio.h>
 
+/* always make the following divisible by 2 and 3 */
 #define CIRCLE_SEGMENTS 30
 
 /* rotate given x and y destructively */
@@ -42,6 +43,31 @@ void drawCircle(float cx, float cy, float r)
 		glVertex2f(x + cx, y + cy);
 	}
 	glEnd();
+}
+
+
+/* TODO: fix drawSemiCircle, it is not working well; then, use on drawPill */
+void drawSemiCircle(float cx, float cy, float r, float angle0)
+{
+	int i;
+	float angle, x, y;
+	glBegin(GL_TRIANGLE_FAN);
+	glVertex2f(cx,cy);
+	for (i = 0; i <= CIRCLE_SEGMENTS / 2; i++) {
+		angle = angle0 + 2.0 * M_PI * (float)i / (float)CIRCLE_SEGMENTS;
+		x = r * cosf(angle);
+		y = r * sinf(angle);
+		glVertex2f(x + cx, y + cy);
+	}
+	glEnd();
+}
+
+
+void drawPill(float x0, float y0, float x1, float y1, float thickness)
+{
+	drawRectangle(x0, y0, x1, y1, thickness);
+	drawCircle(x0, y0, thickness / 2);
+	drawCircle(x1, y1, thickness / 2);
 }
 
 
@@ -124,10 +150,9 @@ void drawIntegrityBar(struct tank t)
 {
 	const float length = 5./6.;
 	float y  =   9./12.,
-	      x0 = - length / 2.,
-		  x1 =   x0 + t.integrity * length;
+	      x = t.integrity * length / 2.;
 	glColor4f(1.,1.,1.,2./3.);
-	drawLine(t.x+x0,t.y+y,t.x+x1,t.y+y,2./30.);
+	drawPill(t.x-x,t.y+y,t.x+x,t.y+y,2./30.);
 }
 
 
@@ -180,34 +205,15 @@ void drawTurret(struct tank t)
 
 void drawBase(struct tank t)
 {
-	float lflx=-11./24., lfly=+1./2., lfrx=- 6./24., lfry=+1./2.,
-	      lblx=-11./24., lbly=-1./2., lbrx=- 6./24., lbry=-1./2.,
-	      rflx=+ 6./24., rfly=+1./2., rfrx=+11./24., rfry=+1./2.,
-	      rblx=+ 6./24., rbly=-1./2., rbrx=+11./24., rbry=-1./2.;
+	float flx=- 21./60., fly=+24./60., frx=+21./60., fry=+24./60.,
+	      blx=- 21./60., bly=-24./60., brx=+21./60., bry=-24./60.;
 
-	rotate(&lflx, &lfly, t.base_dir);
-	rotate(&lfrx, &lfry, t.base_dir);
-	rotate(&lblx, &lbly, t.base_dir);
-	rotate(&lbrx, &lbry, t.base_dir);
-	rotate(&rflx, &rfly, t.base_dir);
-	rotate(&rfrx, &rfry, t.base_dir);
-	rotate(&rblx, &rbly, t.base_dir);
-	rotate(&rbrx, &rbry, t.base_dir);
+	rotate(&flx, &fly, t.base_dir); rotate(&frx, &fry, t.base_dir);
+	rotate(&blx, &bly, t.base_dir); rotate(&brx, &bry, t.base_dir);
 
 	glColor(t.track_colour);
-    glBegin(GL_QUADS);
-    glVertex2f(t.x + lflx, t.y + lfly);
-    glVertex2f(t.x + lfrx, t.y + lfry);
-    glVertex2f(t.x + lbrx, t.y + lbry);
-    glVertex2f(t.x + lblx, t.y + lbly);
-    glEnd();
-
-    glBegin(GL_QUADS);
-    glVertex2f(t.x + rflx, t.y + rfly);
-    glVertex2f(t.x + rfrx, t.y + rfry);
-    glVertex2f(t.x + rbrx, t.y + rbry);
-    glVertex2f(t.x + rblx, t.y + rbly);
-    glEnd();
+	drawPill(t.x + flx, t.y + fly, t.x + blx, t.y + bly, 14./60.);
+	drawPill(t.x + frx, t.y + fry, t.x + brx, t.y + bry, 14./60.);
 
 	glColor(t.base_colour);
 	drawCircle(t.x, t.y, 1./2.);
