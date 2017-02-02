@@ -88,7 +88,7 @@ scan t f ts =
 
 shoot :: Rational -> Tank -> Tank
 shoot p t
-  | p == 0 || p > power t || heat t > p = t
+  | p == 0 || p > power t || heat t > 0 = t
   | otherwise = updatePower   (subtract p)
               . updateHeat    (+ heating)
               $ updateBullets (fly (Bullet p lo th):) t
@@ -98,10 +98,10 @@ shoot p t
     -- need to start flying right away or will detect collision with shooter?
 
 charge :: Tank -> Tank
-charge = updatePower $ (1 `min`) . (+ charging)
+charge = updatePower $ min 1 . (+ charging)
 
 cool :: Tank -> Tank
-cool = updateHeat (subtract cooling)
+cool = updateHeat $ max 0 . subtract cooling
 
 flyBullets :: Tank -> Tank
 flyBullets = updateBullets (map fly)
