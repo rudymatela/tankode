@@ -1,6 +1,11 @@
 Tankode's TODO list
 ===================
 
+* draw charge beside tank (useful for afterwards refining game rules)
+
+* refine game rules
+
+
 after
 -----
 
