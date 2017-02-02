@@ -1,9 +1,6 @@
 Tankode's TODO list
 ===================
 
-* logic: identify inactive tanks as walls
-
-
 after
 -----
 
@@ -57,14 +54,6 @@ later later later
 
 display
 -------
-
-* leave a configurable "trail" with decreasing alpha for all objects drawn
-  (when implementing, add motion blur *after* this)
-
-* add motion blur:
-  `https://en.wikibooks.org/wiki/OpenGL_Programming/Motion_Blur`,
-  two frames at first.  Then test up to 6 frames (the maximum
-  number of frames sent by tankode-logic).
 
 * make bullet area proportional to power.  Instead of bullet radius proportional to power.
 
