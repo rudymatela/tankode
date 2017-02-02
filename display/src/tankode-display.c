@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 	print_state(state);
 	glutInit(&argc, argv);
 	glutInitContextVersion(2, 1);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_MULTISAMPLE);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_MULTISAMPLE | GLUT_DEPTH);
 	glutInitWindowSize(WIDTH, HEIGHT);
 	glutCreateWindow("tankode");
 	glMatrixMode(GL_PROJECTION);
@@ -35,8 +35,9 @@ int main(int argc, char *argv[])
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glEnable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glOrtho(0., state.field.width, 0.,state.field.height, 0., 1.);
+	glOrtho(0., state.field.width, 0.,state.field.height, -1., 1.);
 	glClearColor(state.field.obstacle_colour.r, state.field.obstacle_colour.g, state.field.obstacle_colour.b, 1.);
 	GLenum error = glGetError();
 	if (error != GL_NO_ERROR)
@@ -82,7 +83,7 @@ static void draw()
 
 static void render()
 {
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	draw();
 	glutSwapBuffers();
 }
@@ -98,13 +99,12 @@ void update_state()
 void render_and_reschedule(int val)
 {
 	glutTimerFunc(1000 / FPS, render_and_reschedule, val);
-	glClear(GL_COLOR_BUFFER_BIT);
-	update_state(); draw(); glAccum(GL_LOAD,  1./6.);
-	update_state(); draw(); glAccum(GL_ACCUM, 1./6.);
-	update_state(); draw(); glAccum(GL_ACCUM, 1./6.);
-	update_state(); draw(); glAccum(GL_ACCUM, 1./6.);
-	update_state(); draw(); glAccum(GL_ACCUM, 1./6.);
-	update_state(); draw(); glAccum(GL_ACCUM, 1./6.);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_LOAD,  1./6.);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_ACCUM, 1./6.);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_ACCUM, 1./6.);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_ACCUM, 1./6.);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_ACCUM, 1./6.);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_ACCUM, 1./6.);
 	glAccum(GL_RETURN, 1.);
 	glutSwapBuffers();
 }

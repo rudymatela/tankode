@@ -6,9 +6,24 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
-void drawCircle(float cx, float cy, float r);
-void drawLine(float x0, float y0, float x1, float y1, float thickness);
-void drawRectangle(float x0, float y0, float x1, float y1, float thickness);
+enum layer {
+	floor_layer,
+	floor_line_layer,
+	obstacle_layer,
+	track_layer,
+	base_layer,
+	gun_layer,
+	scan_layer,
+	dot_layer,
+	radar_layer,
+	bullet_layer,
+	integrity_layer,
+	n_layers
+};
+
+void drawCircle(float cx, float cy, float r, enum layer l);
+void drawLine(float x0, float y0, float x1, float y1, float thickness, enum layer l);
+void drawRectangle(float x0, float y0, float x1, float y1, float thickness, enum layer l);
 void glColor(struct colour);
 
 void drawField(struct field);

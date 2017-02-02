@@ -54,7 +54,3 @@ display
 -------
 
 * make bullet area proportional to power.  Instead of bullet radius proportional to power.
-
-* use z axis on opengl so that tracks are always below bodies (even between
-  different tanks).  Also think about similar things with other elements
-  (bullets, radars, etc).
