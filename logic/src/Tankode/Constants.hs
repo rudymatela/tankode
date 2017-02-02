@@ -8,6 +8,7 @@ module Tankode.Constants
   , cooling
   , heating
   , bulletSpeed
+  , damageFactor
   , tankDiameter
   , tankRadius
   , scanRadius
@@ -29,6 +30,9 @@ charging, cooling, heating :: Rational
 charging = 1 % 360
 cooling  = 3 % 360
 heating  = 1
+
+damageFactor :: Rational
+damageFactor = 1 % 12
 
 -- TODO: bulletSpeed in function of charge/power -- more power = less speed
 bulletSpeed :: Rational
