@@ -7,8 +7,6 @@ after
 * draw scan rays as solid triangles;
 	- then as fading triangles;
 
-* add function to draw "pills", use it to draw health bars and tank tracks;
-
 * improve protocol, use `+/-/= +/-/= -1..1 -3..3` as tankode output.  e.g.:
   `+ - 1 -3`.  The `+/-` part is done, now to `-1..1`.
 
