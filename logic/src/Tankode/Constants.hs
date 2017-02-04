@@ -19,16 +19,19 @@ where
 
 import Data.Ratio
 
+ticksPerSecond :: Num a => a
+ticksPerSecond = 360
+
 maxAccel, maxSpeed, maxTurnSpeed, maxGunSpeed, maxRadarSpeed :: Rational
-maxAccel      = 1 % 360 -- 1 second to reach full speed
-maxSpeed      = 2 % 360 -- in units per tick
-maxTurnSpeed  = 1 / 2  /  360
+maxAccel      = 1 / ticksPerSecond -- 1 second to reach full speed
+maxSpeed      = 2 / ticksPerSecond -- in units per tick
+maxTurnSpeed  = 1 / 2  /  ticksPerSecond
 maxGunSpeed   = maxTurnSpeed * 2
 maxRadarSpeed = maxGunSpeed * 3
 
 charging, cooling, heating :: Rational
-charging = 1 % 360
-cooling  = 6 % 360 -- 6 shots per second
+charging = 1 / ticksPerSecond -- 1 second to reach full charge
+cooling  = 6 / ticksPerSecond -- max 6 shots per second
 heating  = 1
 
 damageFactor :: Rational
@@ -36,7 +39,7 @@ damageFactor = 1 % 12
 
 -- TODO: bulletSpeed in function of charge/power -- more power = less speed
 bulletSpeed :: Rational
-bulletSpeed = 6 % 360
+bulletSpeed = 6 / ticksPerSecond
 
 tankDiameter, tankRadius, scanRadius :: Rational
 tankDiameter = 1
