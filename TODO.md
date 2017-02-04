@@ -19,8 +19,6 @@ game rules
 * make tank turn slower when at higher speeds (the new protocol helps, as the
   turning is symbolized by just `+/-/=`);
 
-* make bullets of higher charge travel slower;
-
 * refine collision between tanks:
   if one can move without the other moving (and not vice-versa) move it;
 
