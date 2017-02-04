@@ -11,7 +11,6 @@ ident = Id
   , scanColour   = "blue1"
   }
 
-
 chaser :: Tankode () -- :: Input -> () -> ((),Output)
 chaser Input {enemy = Just d}
   | d > 1     = \_ -> ((), Output   1  0 0 0 1)

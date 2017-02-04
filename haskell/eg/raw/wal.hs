@@ -11,7 +11,6 @@ ident = Id
   , scanColour   = "grey4"
   }
 
-
 wal :: Tankode () -- :: Input -> () -> ((),Output)
 wal Input {wall = Just d}
   | d > 1     = \_ -> ((), Output   1  0 0 0 1)

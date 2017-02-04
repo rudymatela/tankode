@@ -11,7 +11,6 @@ ident = Id
   , scanColour   = "orange2"
   }
 
-
 sittingDuck :: Tankode () -- :: Input -> () -> ((),Output)
 sittingDuck input () = ((), Output 0 0 0 0 0)
 

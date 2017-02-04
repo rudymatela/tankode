@@ -12,8 +12,7 @@ ident = Id
   , scanColour   = "magenta9"
   }
 
-
-zigZagger :: Tankode Bool -- :: Input -> () -> ((),Output)
+zigZagger :: Tankode Bool -- :: Input -> Bool -> (Bool,Output)
 zigZagger input back' =
   ( back
   , output
