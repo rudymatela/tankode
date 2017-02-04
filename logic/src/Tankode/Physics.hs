@@ -18,6 +18,10 @@ bulletSpeed :: Bullet -> Rational
 bulletSpeed Bullet{bulletCharge = c} =
   (1-c) * (bulletMaxSpeed - bulletMinSpeed) + bulletMinSpeed
 
+turnSpeed :: Tank -> Rational
+turnSpeed Tank{speed = s} =
+  maxTurnSpeed
+
 circle :: Tank -> Circle
 circle t = (loc t, 1%2)
 
@@ -169,7 +173,7 @@ act t f ts = do
   (accel, bt, gt, rt, s) <- tankode t (integrity t, speed t, enemy, wall)
   return . turnRadar (rt * maxRadarSpeed)
          . turnGun   (gt * maxGunSpeed)
-         . turn      (bt * maxTurnSpeed)
+         . turn      (bt * turnSpeed t)
          . shoot s
          . accelerate accel
          . walk
