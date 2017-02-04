@@ -19,8 +19,6 @@ game rules
 
 * calibrate constants of `Tankode.Constants`;
 
-* improve function that calculates bullet damage (something related to square)
-
 * refine collision between tanks:
   if one can move without the other moving (and _not_ vice-versa) move it;
 
