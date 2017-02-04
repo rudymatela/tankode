@@ -22,6 +22,10 @@ turnSpeed :: Tank -> Rational
 turnSpeed Tank{speed = s} =
   (1 - abs s) * (maxTurn - minTurn) + minTurn
 
+bulletDamage :: Bullet -> Rational
+bulletDamage Bullet{bulletCharge = c} =
+  c * damageFactor
+
 circle :: Tank -> Circle
 circle t = (loc t, 1%2)
 
@@ -136,7 +140,7 @@ damageTanks b = map (damageTank b)
 damageTank :: Bullet -> Tank -> Tank
 damageTank b t =
   if sqDistancePP (bulletLoc b) (loc t) <= squaredTankRadius
-    then updateIntegrity ((`max` 0) . subtract (bulletCharge b * damageFactor)) t
+    then updateIntegrity ((`max` 0) . subtract (bulletDamage b)) t
     else t
 
 hitTank :: Bullet -> Tank -> Bool
