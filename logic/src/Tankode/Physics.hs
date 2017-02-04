@@ -14,6 +14,9 @@ import Data.Maybe
 
 type State = [Tank]
 
+bulletSpeed :: Bullet -> Rational
+bulletSpeed _ = 6 / ticksPerSecond
+
 circle :: Tank -> Circle
 circle t = (loc t, 1%2)
 
@@ -107,7 +110,7 @@ flyBullets :: Tank -> Tank
 flyBullets = updateBullets (map fly)
 
 fly :: Bullet -> Bullet
-fly b = translateBullet (bulletHeading b) bulletSpeed b
+fly b = translateBullet (bulletHeading b) (bulletSpeed b) b
 
 -- should be done before fly!  or maybe called within fly??
 processHits :: Field -> [Tank] -> [Tank]

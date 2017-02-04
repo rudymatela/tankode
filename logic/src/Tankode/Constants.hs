@@ -1,5 +1,6 @@
 module Tankode.Constants
-  ( maxSpeed
+  ( ticksPerSecond
+  , maxSpeed
   , maxAccel
   , maxTurnSpeed
   , maxGunSpeed
@@ -7,7 +8,8 @@ module Tankode.Constants
   , charging
   , cooling
   , heating
-  , bulletSpeed
+  , bulletMinSpeed
+  , bulletMaxSpeed
   , damageFactor
   , tankDiameter
   , tankRadius
@@ -37,9 +39,9 @@ heating  = 1
 damageFactor :: Rational
 damageFactor = 1 % 12
 
--- TODO: bulletSpeed in function of charge/power -- more power = less speed
-bulletSpeed :: Rational
-bulletSpeed = 6 / ticksPerSecond
+bulletMinSpeed, bulletMaxSpeed :: Rational
+bulletMinSpeed = maxSpeed * 3 / 2
+bulletMaxSpeed = maxSpeed * 3
 
 tankDiameter, tankRadius, scanRadius :: Rational
 tankDiameter = 1
