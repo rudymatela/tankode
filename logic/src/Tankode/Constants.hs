@@ -28,7 +28,7 @@ maxRadarSpeed = maxGunSpeed * 3
 
 charging, cooling, heating :: Rational
 charging = 1 % 360
-cooling  = 3 % 360 -- 3 shots per second
+cooling  = 6 % 360 -- 6 shots per second
 heating  = 1
 
 damageFactor :: Rational
