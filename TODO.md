@@ -26,6 +26,8 @@ game rules
 
 * sanitize tankode commands (e.g.: do not allow shooting beyond limit, etc);
 
+* damage tanks when they collide with each other or walls
+
 ### low priority
 
 * when a tank is deactivated, it should deaccelerate to 0, instead of plain

@@ -40,8 +40,8 @@ damageFactor :: Rational
 damageFactor = 1 % 12
 
 bulletMinSpeed, bulletMaxSpeed :: Rational
-bulletMinSpeed = maxSpeed * 3 / 2
-bulletMaxSpeed = maxSpeed * 3
+bulletMinSpeed = maxSpeed * 3
+bulletMaxSpeed = maxSpeed * 5
 
 tankDiameter, tankRadius, scanRadius :: Rational
 tankDiameter = 1

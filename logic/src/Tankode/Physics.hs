@@ -15,7 +15,8 @@ import Data.Maybe
 type State = [Tank]
 
 bulletSpeed :: Bullet -> Rational
-bulletSpeed _ = 6 / ticksPerSecond
+bulletSpeed Bullet{bulletCharge = c} =
+  (1-c) * (bulletMaxSpeed - bulletMinSpeed) + bulletMinSpeed
 
 circle :: Tank -> Circle
 circle t = (loc t, 1%2)
