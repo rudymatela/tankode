@@ -27,7 +27,7 @@ ticksPerSecond = 360
 maxAccel, maxSpeed, maxTurnSpeed, maxGunSpeed, maxRadarSpeed :: Rational
 maxAccel      = 1 / ticksPerSecond -- 1 second to reach full speed
 maxSpeed      = 2 / ticksPerSecond -- in units per tick
-maxTurnSpeed  = 1 / 2  /  ticksPerSecond
+maxTurnSpeed  = 1/2 / ticksPerSecond
 maxGunSpeed   = maxTurnSpeed * 2
 maxRadarSpeed = maxGunSpeed * 3
 
