@@ -26,6 +26,10 @@ bulletDamage :: Bullet -> Rational
 bulletDamage Bullet{bulletCharge = c} =
   ((c + c*c) / 2) * damageFactor
 
+collisionDamage :: Tank -> Rational
+collisionDamage Tank{speed = s} =
+  ((s + s*s) / 2) * damageFactor / 2 -- divided between two objects
+
 circle :: Tank -> Circle
 circle t = (loc t, 1%2)
 
@@ -153,7 +157,7 @@ processCrashes f ts = map pc1 ts
   where
   pc1 :: Tank -> Tank
   pc1 t = if crashes $ walk t
-            then t {speed = 0}
+            then t {speed = 0, integrity = max 0 (integrity t - collisionDamage t)}
             else t
   crashes :: Tank -> Bool
   crashes t = any (t `intersectTS`) $ segments (obstacles f)
