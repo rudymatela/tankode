@@ -10,6 +10,9 @@ interface
 
 * complete c raw interface; add examples;
 
+* change obstacles to be arbitrary convex polygons instead of triangles (easier
+  to compute on logic, not actually harder to draw)
+
 
 game rules
 ----------
