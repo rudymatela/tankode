@@ -20,7 +20,7 @@ game rules
   turning is symbolized by just `+/-/=`);
 
 * refine collision between tanks:
-  if one can move without the other moving (and not vice-versa) move it;
+  if one can move without the other moving (and _not_ vice-versa) move it;
 
 * sanitize tankode commands (e.g.: do not allow shooting beyond limit, etc);
 
