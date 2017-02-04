@@ -24,7 +24,7 @@ turnSpeed Tank{speed = s} =
 
 bulletDamage :: Bullet -> Rational
 bulletDamage Bullet{bulletCharge = c} =
-  c * damageFactor
+  ((c + c*c) / 2) * damageFactor
 
 circle :: Tank -> Circle
 circle t = (loc t, 1%2)
