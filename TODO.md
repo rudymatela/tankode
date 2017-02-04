@@ -19,9 +19,6 @@ game rules
 
 * calibrate constants of `Tankode.Constants`;
 
-* make tank turn slower when at higher speeds (the new protocol helps, as the
-  turning is symbolized by just `+/-/=`);
-
 * refine collision between tanks:
   if one can move without the other moving (and _not_ vice-versa) move it;
 

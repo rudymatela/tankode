@@ -20,7 +20,7 @@ bulletSpeed Bullet{bulletCharge = c} =
 
 turnSpeed :: Tank -> Rational
 turnSpeed Tank{speed = s} =
-  maxTurnSpeed
+  (1 - abs s) * (maxTurn - minTurn) + minTurn
 
 circle :: Tank -> Circle
 circle t = (loc t, 1%2)

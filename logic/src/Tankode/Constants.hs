@@ -2,7 +2,8 @@ module Tankode.Constants
   ( ticksPerSecond
   , maxSpeed
   , maxAccel
-  , maxTurnSpeed
+  , maxTurn
+  , minTurn
   , maxGunSpeed
   , maxRadarSpeed
   , charging
@@ -24,11 +25,12 @@ import Data.Ratio
 ticksPerSecond :: Num a => a
 ticksPerSecond = 360
 
-maxAccel, maxSpeed, maxTurnSpeed, maxGunSpeed, maxRadarSpeed :: Rational
+maxAccel, maxSpeed, minTurn, maxTurn, maxGunSpeed, maxRadarSpeed :: Rational
 maxAccel      = 1 / ticksPerSecond -- 1 second to reach full speed
 maxSpeed      = 2 / ticksPerSecond -- in units per tick
-maxTurnSpeed  = 1/2 / ticksPerSecond
-maxGunSpeed   = maxTurnSpeed * 2
+minTurn       = 1/4 / ticksPerSecond
+maxTurn       = 3/4 / ticksPerSecond
+maxGunSpeed   = 1 / ticksPerSecond -- 1 full turn per second
 maxRadarSpeed = maxGunSpeed * 3
 
 charging, cooling, heating :: Rational
