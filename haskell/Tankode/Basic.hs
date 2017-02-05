@@ -53,9 +53,33 @@ fromRawInput g r rawInput = Input
   , radarHeading = r
   }
 
-toRawOutput :: Rational -> Rational -> s -> Output -> ((Rational,Rational,s),Raw.Output)
-toRawOutput g r s output = undefined
+toRawOutput :: Rational -> Rational -> s -> Output -> ((s,Rational,Rational),Raw.Output)
+toRawOutput g r s output = (rawState, rawOutput)
+  where
+  rawState = ( s
+             , g + gun   output * maxGunSpeed
+             , r + radar output * maxRadarSpeed
+             )
+  rawOutput = Raw.Output
+    { Raw.accel = accel output
+    , Raw.body  = body  output
+    , Raw.gun   = gun   output
+    , Raw.radar = radar output
+    , Raw.shoot = shoot output
+    }
 
--- R.Input -> s -> (s,gunHeading,radarHeading) -> IO ((s,gunHeading,radarHeading),R.Output)
--- toRaw :: Tankode s -> R.Tankode (s,Rational,Rational)
--- toRaw tk  rin (s,g,r) = (s',g',r',rout)
+toRaw :: Tankode s -> Raw.Tankode (s,Rational,Rational)
+toRaw tk  rin (s,g,r) = toRawOutput g r s' out
+  where
+  (s',out) = tk (fromRawInput g r rin) s
+
+toRawIO :: TankodeIO s -> Raw.TankodeIO (s,Rational,Rational)
+toRawIO tk  rin (s,g,r) = do
+  (s',out) <- tk (fromRawInput g r rin) s
+  return $ toRawOutput g r s' out
+
+run :: Id -> Tankode s -> s -> IO ()
+run id tk s0 = Raw.run id (toRaw tk) (s0,0,0)
+
+runIO :: Id -> TankodeIO s -> s -> IO ()
+runIO id tk s0 = Raw.runIO id (toRawIO tk) (s0,0,0)
