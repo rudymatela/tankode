@@ -52,7 +52,7 @@ maxBulletCharge = 12
 tankDiameter, tankRadius, scanRadius :: Rational
 tankDiameter = 1
 tankRadius   = tankDiameter / 2
-scanRadius = tankDiameter * 30
+scanRadius   = tankDiameter * 30
 
 squaredTankDiameter, squaredTankRadius :: Rational
 squaredTankDiameter = tankDiameter * tankDiameter
