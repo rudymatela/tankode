@@ -1,5 +1,7 @@
 module Tankode.Basic0
-  ( Id (..)
+  ( Id (..), Colour, IncDec (..)
+  , Input (..), Output (..), output
+  , Tankode, TankodeIO, run, runIO
   , module Tankode.Constants
   )
 where
