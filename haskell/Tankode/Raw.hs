@@ -1,6 +1,7 @@
 module Tankode.Raw
-  ( Id (..)
+  ( Id (..), Colour
   , Input (..), Output (..), output
+  , IncDec (..)
   , Tankode, TankodeIO
   , run, runIO
   , module Tankode.Constants
@@ -115,7 +116,6 @@ showId i = unwords
   , scanColour   i
   ]
 
--- TODO: implement me
 readInput :: String -> Input
 readInput str = Input
   { life  = readR l

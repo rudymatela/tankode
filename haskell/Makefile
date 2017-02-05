@@ -1,3 +1,5 @@
+GHC = ghc -O2
+GHCI = ghci
 EGS = \
 	eg/raw/chaser       \
 	eg/raw/escaper      \
@@ -7,16 +9,19 @@ EGS = \
 	eg/raw/wal          \
 	eg/raw/sitting-duck
 
-all: Tankode/Raw.o $(EGS)
+all: Tankode/Raw.o Tankode/Basic.o $(EGS)
 
 Tankode/Raw.o: Tankode/Raw.hs Tankode/Constants.hs
-	ghc -O2 Tankode/Raw.hs
+	$(GHC) Tankode/Raw.hs
+
+Tankode/Basic.o: Tankode/Basic.hs Tankode/Constants.hs
+	$(GHC) Tankode/Basic.hs
 
 eg/raw/%: eg/raw/%.hs Tankode/Raw.o
-	ghc -O2 $<
+	$(GHC) $<
 
 ghci:
-	ghci Tankode/Raw.hs
+	$(GHCI) Tankode/Raw.hs
 
 clean:
 	rm -f */*.{o,hi} */*/*.{o,hi} $(EGS)
