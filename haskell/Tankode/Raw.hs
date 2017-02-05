@@ -3,6 +3,7 @@ module Tankode.Raw
   , Input (..), Output (..), output
   , Tankode, TankodeIO
   , run, runIO
+  , module Tankode.Constants
   )
 where
 
@@ -10,6 +11,7 @@ import Data.Ratio
 import Data.Maybe
 import Control.Monad
 import System.IO
+import Tankode.Constants
 
 type Colour = String
 

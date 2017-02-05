@@ -9,7 +9,7 @@ EGS = \
 
 all: Tankode/Raw.o $(EGS)
 
-Tankode/Raw.o: Tankode/Raw.hs
+Tankode/Raw.o: Tankode/Raw.hs Tankode/Constants.hs
 	ghc -O2 Tankode/Raw.hs
 
 eg/raw/%: eg/raw/%.hs Tankode/Raw.o
