@@ -7,6 +7,8 @@ import Tankode.Data
 import Tankode.Show
 import PipeRun
 import System.IO
+import Tankode.Constants
+import Data.Ratio ((%))
 
 -- runs a tankode and initializes necessary fields
 setupTankode :: [String] -> IO (Maybe Tank)
@@ -35,3 +37,9 @@ readIncDec :: String -> Rational
 readIncDec "+" =  1
 readIncDec "=" =  0
 readIncDec "-" = -1
+
+readAngle :: String -> Rational
+readAngle s = read s % 360
+
+readShoot :: String -> Rational
+readShoot s = read s % maxBulletCharge
