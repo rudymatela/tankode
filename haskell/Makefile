@@ -8,7 +8,9 @@ EGS = \
 	eg/escaper          \
 	eg/left-turner      \
 	eg/right-turner     \
-  eg/sitting-duck     \
+	eg/zigzagger        \
+	eg/wal              \
+	eg/sitting-duck     \
 	eg/raw1/zigzagger   \
 	eg/raw/chaser       \
 	eg/raw/escaper      \
