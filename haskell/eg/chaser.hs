@@ -12,12 +12,18 @@ ident = Id
   }
 
 chaser :: Tankode () -- :: Input () -> Output ()
-chaser Input {enemy = Just d} = output {shoot = 1, accel = a}
+chaser Input {enemy = Just d} = output
+  { shoot = 1
+  , accel = a
+  }
   where
   a | d > 1     =  1
     | d < 1     = -1
     | otherwise =  0
-chaser Input {enemy = Nothing, speed = s} = output {body  = 1, accel = a}
+chaser Input {enemy = Nothing, speed = s} = output
+  { body = 1
+  , accel = a
+  }
   where
   a | s > 0     = -1
     | s < 0     =  1

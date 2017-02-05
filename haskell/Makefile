@@ -5,6 +5,8 @@ LISTHS = find . -name \*.hs
 ALLHS = $(shell $(LISTHS))
 EGS = \
 	eg/chaser           \
+	eg/escaper          \
+	eg/left-turner      \
 	eg/raw1/zigzagger   \
 	eg/raw/chaser       \
 	eg/raw/escaper      \
