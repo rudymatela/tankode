@@ -78,6 +78,10 @@ Tankode/Constants.o: \
 Tankode/Raw0.o: \
   Tankode/Raw0.hs \
   Tankode/Constants.hs
+Tankode/Raw1.o: \
+  Tankode/Raw1.hs \
+  Tankode/Raw0.hs \
+  Tankode/Constants.hs
 Tankode/Raw.o: \
   Tankode/Raw.hs \
   Tankode/Raw0.hs \

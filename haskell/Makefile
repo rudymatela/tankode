@@ -11,8 +11,13 @@ EGS = \
 	eg/raw/zigzagger    \
 	eg/raw/wal          \
 	eg/raw/sitting-duck
+LIBS = \
+  Tankode/Raw.o \
+  Tankode/Raw0.o \
+  Tankode/Raw1.o \
+  Tankode/Basic.o
 
-all: Tankode/Raw.o Tankode/Basic.o $(EGS)
+all: $(LIBS) $(EGS)
 
 ghci: Tankode/Basic.ghci
 
