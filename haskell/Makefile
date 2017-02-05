@@ -1,5 +1,8 @@
-GHC = ghc -O2
+GHCFLAGS = -O2
+GHCIMPORTDIRS = .
 GHCI = ghci
+LISTHS = find . -name \*.hs
+ALLHS = $(shell $(LISTHS))
 EGS = \
 	eg/raw/chaser       \
 	eg/raw/escaper      \
@@ -11,17 +14,9 @@ EGS = \
 
 all: Tankode/Raw.o Tankode/Basic.o $(EGS)
 
-Tankode/Raw.o: Tankode/Raw.hs Tankode/Constants.hs
-	$(GHC) Tankode/Raw.hs
+ghci: Tankode/Basic.ghci
 
-Tankode/Basic.o: Tankode/Basic.hs Tankode/Constants.hs
-	$(GHC) Tankode/Basic.hs
+clean: clean-hi-o
+	rm -f $(EGS)
 
-eg/raw/%: eg/raw/%.hs Tankode/Raw.o
-	$(GHC) $<
-
-ghci:
-	$(GHCI) Tankode/Raw.hs
-
-clean:
-	rm -f */*.{o,hi} */*/*.{o,hi} $(EGS)
+include mk/haskell.mk
