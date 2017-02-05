@@ -1,16 +1,14 @@
 module Tankode.Raw1
-  ( Id (..), Colour
+  ( Id (..), Colour, IncDec (..)
   , Input (..), Output (..), output
-  , IncDec (..)
---, Tankode, TankodeIO
---, run, runIO
+  , Tankode, TankodeIO, run, runIO
   , module Tankode.Constants
   )
 where
 
 import Tankode.Constants
 import qualified Tankode.Raw0 as Raw0
-import Tankode.Raw0 (IncDec(..), Id (..), Colour)
+import Tankode.Common
 
 data Input s = Input
   { life   :: Rational

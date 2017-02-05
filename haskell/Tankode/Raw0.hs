@@ -1,52 +1,17 @@
 module Tankode.Raw0
-  ( Id (..), Colour
+  ( Id (..), Colour, IncDec (..)
   , Input (..), Output (..), output
-  , IncDec (..)
-  , Tankode, TankodeIO
-  , run, runIO
+  , Tankode, TankodeIO, run, runIO
   , module Tankode.Constants
   )
 where
 
+import Tankode.Common
 import Data.Ratio
 import Data.Maybe
 import Control.Monad
 import System.IO
 import Tankode.Constants
-
-type Colour = String
-
-data IncDec = Dec | Nul | Inc
-  deriving Show
-
-instance Num IncDec where
-  fromInteger x | x < 0     = Dec
-                | x > 0     = Inc
-                | otherwise = Nul
-  Dec + Inc = Nul
-  Dec + _   = Dec
-  Nul + x   = x
-  Inc + _   = Inc
-  Nul * _   = Nul
-  Inc * x   = x
-  Dec * x   = negate x
-  abs Dec = Inc
-  abs x   = x
-  signum = id
-  negate Dec = Inc
-  negate Nul = Nul
-  negate Inc = Dec
-
-data Id = Id
-  { name         :: String
-  , trackColour  :: Colour
-  , bodyColour   :: Colour
-  , gunColour    :: Colour
-  , radarColour  :: Colour
-  , bulletColour :: Colour
-  , scanColour   :: Colour
-  }
-  deriving Show
 
 data Input  = Input
   { life  :: Rational
