@@ -171,8 +171,12 @@ processCollisions = choicesWith pc1
                else t
 
 accelerate :: Rational -> Tank -> Tank
-accelerate a = updateSpeed (\s -> (s + a*maxAccel) `min` 1 `max` (-1))
-
+accelerate 0 t = t
+accelerate a t@Tank{speed = s}
+  | a > 0 && s >= (-1) = t{speed = (s +     maxAccel) `min`   1 }
+  | a > 0 && s <  (-1) = t{speed = (s + 2 * maxAccel) `min`   1 }
+  | a < 0 && s <=   1  = t{speed = (s -     maxAccel) `max` (-1)}
+  | a < 0 && s >    1  = t{speed = (s - 2 * maxAccel) `max` (-1)}
 
 -- | asks the tankode for an action and perform it when possible
 act :: Tank -> Field -> State -> IO Tank
