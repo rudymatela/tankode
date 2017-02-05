@@ -16,7 +16,7 @@ chaser Input {enemy = Just d} = output
   { shoot = 1
   , accel = case () of _ | d > 1     ->  1
                          | d < 1     -> -1
-                         | otherwise -> 0
+                         | otherwise ->  0
   }
 chaser Input {enemy = Nothing, speed = s} = output
   { body  = 1
