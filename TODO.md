@@ -8,6 +8,8 @@ interface
 * improve protocol, use `+/-/= +/-/= -1..1 -3..3` as tankode output.  e.g.:
   `+ - 1 -3`.  The `+/-` part is done, now to `-1..1`.
 
+* implement basic Haskell interface
+
 * complete c raw interface; add examples;
 
 * change obstacles to be arbitrary convex polygons instead of triangles (easier

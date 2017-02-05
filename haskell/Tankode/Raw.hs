@@ -130,9 +130,9 @@ showOutput :: Output -> String
 showOutput o = unwords
   [ showIncDec $ accel o
   , showIncDec $ body  o
-  , showR $ gun   o
-  , showR $ radar o
-  , showR $ shoot o
+  , showR $ gun   o `min` 1 `max` (-1)
+  , showR $ radar o `min` 1 `max` (-1)
+  , showR $ shoot o `min` 1 `max` (-1)
   ]
 
 showR :: Rational -> String
