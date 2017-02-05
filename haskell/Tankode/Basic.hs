@@ -8,7 +8,7 @@ import Data.Ratio
 import Data.Maybe
 import Control.Monad
 import System.IO
-import qualified Tankode.Raw as R
+import qualified Tankode.Raw as Raw
 import Tankode.Raw (Id(..), Colour, IncDec(..))
 import Tankode.Constants
 
@@ -42,3 +42,20 @@ output = Output
   , radar = 0
   , shoot = 0
   }
+
+fromRawInput :: Rational -> Rational -> Raw.Input -> Input
+fromRawInput g r rawInput = Input
+  { life  = Raw.life  rawInput
+  , speed = Raw.speed rawInput
+  , enemy = Raw.enemy rawInput
+  , wall  = Raw.wall  rawInput
+  , gunHeading   = g
+  , radarHeading = r
+  }
+
+toRawOutput :: Rational -> Rational -> s -> Output -> ((Rational,Rational,s),Raw.Output)
+toRawOutput g r s output = undefined
+
+-- R.Input -> s -> (s,gunHeading,radarHeading) -> IO ((s,gunHeading,radarHeading),R.Output)
+-- toRaw :: Tankode s -> R.Tankode (s,Rational,Rational)
+-- toRaw tk  rin (s,g,r) = (s',g',r',rout)
