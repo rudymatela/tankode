@@ -8,78 +8,81 @@ import Data.Ratio
 import Data.Maybe
 import Control.Monad
 import System.IO
-import qualified Tankode.Raw as Raw
+import qualified Tankode.Raw1 as Raw
 import Tankode.Raw (Id(..), Colour, IncDec(..))
 import Tankode.Constants
 
-type Tankode s   = Input -> s ->    (s,Output)
-type TankodeIO s = Input -> s -> IO (s,Output)
+type Tankode s   = Input s ->     Output s
+type TankodeIO s = Input s -> IO (Output s)
 
-data Input  = Input
-  { life  :: Rational
-  , speed :: Rational
-  , enemy :: Maybe Rational
-  , wall  :: Maybe Rational
+data Input s = Input
+  { life   :: Rational
+  , speed  :: Rational
+  , enemy  :: Maybe Rational
+  , wall   :: Maybe Rational
   , gunHeading   :: Rational
   , radarHeading :: Rational
+  , istate :: s
   }
   deriving Show
 
-data Output = Output
-  { accel :: IncDec
-  , body  :: IncDec
-  , gun   :: Rational
-  , radar :: Rational
-  , shoot :: Rational
+data Output s = Output
+  { accel  :: IncDec
+  , body   :: IncDec
+  , gun    :: Rational
+  , radar  :: Rational
+  , shoot  :: Rational
+  , ostate :: s
   }
   deriving Show
 
-output :: Output
+output :: Output s
 output = Output
-  { accel = Nul
-  , body  = Nul
-  , gun   = 0
-  , radar = 0
-  , shoot = 0
+  { accel  = Nul
+  , body   = Nul
+  , gun    = 0
+  , radar  = 0
+  , shoot  = 0
+  , ostate = error "output: undefined state"
   }
 
-fromRawInput :: Rational -> Rational -> Raw.Input -> Input
-fromRawInput g r rawInput = Input
+fromRawInput :: Raw.Input (Rational,Rational,s) -> Input s
+fromRawInput rawInput = Input
   { life  = Raw.life  rawInput
   , speed = Raw.speed rawInput
   , enemy = Raw.enemy rawInput
   , wall  = Raw.wall  rawInput
   , gunHeading   = g
   , radarHeading = r
+  , istate       = s
+  }
+  where
+  (g,r,s) = Raw.istate rawInput
+
+toRawOutput :: Rational -> Rational -> Output s -> Raw.Output (Rational,Rational,s)
+toRawOutput g r output = Raw.Output
+  { Raw.accel  = accel output
+  , Raw.body   = body  output
+  , Raw.gun    = gun   output
+  , Raw.radar  = radar output
+  , Raw.shoot  = shoot output
+  , Raw.ostate = (g,r,ostate output)
   }
 
-toRawOutput :: Rational -> Rational -> s -> Output -> ((s,Rational,Rational),Raw.Output)
-toRawOutput g r s output = (rawState, rawOutput)
+toRaw :: Tankode s -> Raw.Tankode (Rational,Rational,s)
+toRaw tk rin = toRawOutput g r out
   where
-  rawState = ( s
-             , g + gun   output * maxGunSpeed
-             , r + radar output * maxRadarSpeed
-             )
-  rawOutput = Raw.Output
-    { Raw.accel = accel output
-    , Raw.body  = body  output
-    , Raw.gun   = gun   output
-    , Raw.radar = radar output
-    , Raw.shoot = shoot output
-    }
+  out = tk $ fromRawInput rin
+  (g,r,_) = Raw.istate rin
 
-toRaw :: Tankode s -> Raw.Tankode (s,Rational,Rational)
-toRaw tk  rin (s,g,r) = toRawOutput g r s' out
-  where
-  (s',out) = tk (fromRawInput g r rin) s
-
-toRawIO :: TankodeIO s -> Raw.TankodeIO (s,Rational,Rational)
-toRawIO tk  rin (s,g,r) = do
-  (s',out) <- tk (fromRawInput g r rin) s
-  return $ toRawOutput g r s' out
+toRawIO :: TankodeIO s -> Raw.TankodeIO (Rational,Rational,s)
+toRawIO tk rin = do
+  let (g,r,_) = Raw.istate rin
+  out <- tk $ fromRawInput rin
+  return $ toRawOutput g r out
 
 run :: Id -> Tankode s -> s -> IO ()
-run id tk s0 = Raw.run id (toRaw tk) (s0,0,0)
+run id tk s0 = Raw.run id (toRaw tk) (0,0,s0)
 
 runIO :: Id -> TankodeIO s -> s -> IO ()
-runIO id tk s0 = Raw.runIO id (toRawIO tk) (s0,0,0)
+runIO id tk s0 = Raw.runIO id (toRawIO tk) (0,0,s0)
