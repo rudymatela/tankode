@@ -13,6 +13,27 @@ import System.IO
 
 type Colour = String
 
+data IncDec = Dec | Nul | Inc
+  deriving Show
+
+instance Num IncDec where
+  fromInteger x | x < 0     = Dec
+                | x > 0     = Inc
+                | otherwise = Nul
+  Dec + Inc = Nul
+  Dec + _   = Dec
+  Nul + x   = x
+  Inc + _   = Inc
+  Nul * _   = Nul
+  Inc * x   = x
+  Dec * x   = negate x
+  abs Dec = Inc
+  abs x   = x
+  signum = id
+  negate Dec = Inc
+  negate Nul = Nul
+  negate Inc = Dec
+
 data Id = Id
   { name         :: String
   , trackColour  :: Colour
@@ -33,8 +54,8 @@ data Input  = Input
   deriving Show
 
 data Output = Output
-  { accel :: Rational
-  , body  :: Rational
+  { accel :: IncDec
+  , body  :: IncDec
   , gun   :: Rational
   , radar :: Rational
   , shoot :: Rational
@@ -43,8 +64,8 @@ data Output = Output
 
 output :: Output
 output = Output
-  { accel = 0
-  , body  = 0
+  { accel = Nul
+  , body  = Nul
   , gun   = 0
   , radar = 0
   , shoot = 0
@@ -115,10 +136,10 @@ showOutput o = unwords
 showR :: Rational -> String
 showR r = show (numerator r) ++ "/" ++ show (denominator r)
 
-showIncDec :: Rational -> String
-showIncDec r | r > 0     = "+"
-             | r < 0     = "-"
-             | otherwise = "="
+showIncDec :: IncDec -> String
+showIncDec Inc = "+"
+showIncDec Dec = "-"
+showIncDec Nul = "="
 
 readR :: String -> Rational
 readR = fromJust . readMR

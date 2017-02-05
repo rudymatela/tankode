@@ -52,6 +52,9 @@ performance
 * explicitly export stuff from modules (including module re-exports)
   so I don't have to import Tankode.Etc everywhere.
 
+* do not compute scan twice somehow (currently computing when passing scanned
+  point to tank and to display)
+
 
 display
 -------
