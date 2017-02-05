@@ -1,3 +1,15 @@
+eg/raw1/zigzagger.o: \
+  Tankode/Raw1.hs \
+  Tankode/Raw0.hs \
+  Tankode/Constants.hs \
+  Tankode/Common.hs \
+  eg/raw1/zigzagger.hs
+eg/raw1/zigzagger: \
+  Tankode/Raw1.hs \
+  Tankode/Raw0.hs \
+  Tankode/Constants.hs \
+  Tankode/Common.hs \
+  eg/raw1/zigzagger.hs
 eg/raw/chaser.o: \
   Tankode/Raw.hs \
   Tankode/Raw0.hs \
@@ -82,12 +94,21 @@ eg/raw/zigzagger: \
   Tankode/Constants.hs \
   Tankode/Common.hs \
   eg/raw/zigzagger.hs
-Tankode/Basic.o: \
+Tankode/Basic0.o: \
   Tankode/Raw.hs \
+  Tankode/Raw1.hs \
   Tankode/Raw0.hs \
   Tankode/Constants.hs \
   Tankode/Common.hs \
-  Tankode/Basic.hs
+  Tankode/Basic0.hs
+Tankode/Basic.o: \
+  Tankode/Raw.hs \
+  Tankode/Raw1.hs \
+  Tankode/Raw0.hs \
+  Tankode/Constants.hs \
+  Tankode/Common.hs \
+  Tankode/Basic.hs \
+  Tankode/Basic0.hs
 Tankode/Common.o: \
   Tankode/Common.hs
 Tankode/Constants.o: \
