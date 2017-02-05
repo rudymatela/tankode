@@ -7,7 +7,7 @@ BIN = bin/tankode-logic bin/html-palette bin/palette
 TESTS = \
 	tests/test-ratiomath \
 	tests/test-tankode
-TANKODES=../haskell/eg/raw/{sitting-duck,chaser,escaper,left-turner,right-turner,zigzagger}
+TANKODES=../haskell/eg/{sitting-duck,chaser,escaper,left-turner,right-turner,zigzagger}
 
 all: $(BIN)
 

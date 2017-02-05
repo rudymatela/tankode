@@ -1,6 +1,6 @@
 # top-level Makefile for tankode
 
-TANKODES=haskell/eg/raw/{sitting-duck,chaser,escaper,left-turner,right-turner,zigzagger}
+TANKODES=haskell/eg/{sitting-duck,chaser,escaper,left-turner,right-turner,zigzagger}
 
 all: display logic haskell
 
