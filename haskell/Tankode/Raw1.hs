@@ -42,20 +42,35 @@ output = Output
 type Tankode s   = Input s ->     Output s
 type TankodeIO s = Input s -> IO (Output s)
 
-fromRaw0Input :: (s,Raw0.Input) -> Input s
-fromRaw0Input = undefined
+fromRaw0Input :: s -> Raw0.Input -> Input s
+fromRaw0Input s in0 = Input
+  { life   = Raw0.life   in0
+  , speed  = Raw0.speed  in0
+  , enemy  = Raw0.enemy  in0
+  , wall   = Raw0.wall   in0
+  , istate = s
+  }
 
 toRaw0Output :: Output s -> (s,Raw0.Output)
-toRaw0Output = undefined
-
-toRaw0 :: Tankode s -> Raw0.Tankode s
-toRaw0 = undefined
+toRaw0Output output = (ostate output,output0)
+  where
+  output0 = Raw0.Output
+    { Raw0.accel = accel output
+    , Raw0.body  = body  output
+    , Raw0.gun   = gun   output
+    , Raw0.radar = radar output
+    , Raw0.shoot = shoot output
+    }
 
 toRaw0IO :: TankodeIO s -> Raw0.TankodeIO s
-toRaw0IO = undefined
+toRaw0IO tk in0 s = do
+  output <- tk $ fromRaw0Input s in0
+  return $ toRaw0Output output
 
 run :: Id -> Tankode s -> s -> IO ()
-run = undefined
+run ident tk = runIO ident tkIO
+  where
+  tkIO i = return $ tk i
 
 runIO :: Id -> TankodeIO s -> s -> IO ()
-runIO = undefined
+runIO id tk = Raw0.runIO id (toRaw0IO tk)
