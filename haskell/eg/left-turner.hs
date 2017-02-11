@@ -15,7 +15,7 @@ leftTurner :: Tankode ()
 leftTurner input = output
   { accel = 0
   , body  = 0
-  , gun   = 1
+  , gun   = maxGunTurn
   , shoot = case enemy input of
               Nothing -> 0
               Just _  -> 1/3

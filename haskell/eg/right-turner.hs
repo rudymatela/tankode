@@ -15,7 +15,7 @@ rightTurner :: Tankode ()
 rightTurner input = output
   { accel = 1
   , body  = -1
-  , gun   = -1
+  , gun   = -maxGunTurn
   , shoot = case enemy input of
               Nothing -> 0
               Just _  -> 1/3
