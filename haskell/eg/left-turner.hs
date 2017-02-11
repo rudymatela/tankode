@@ -13,8 +13,8 @@ ident = Id
 
 leftTurner :: Tankode ()
 leftTurner input = output
-  { accel = 1
-  , body  = 1
+  { accel = 0
+  , body  = 0
   , gun   = 1
   , shoot = case enemy input of
               Nothing -> 0
