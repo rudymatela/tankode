@@ -30,9 +30,9 @@ maxAccel, maxSpeed, minTurn, maxTurn, maxGunSpeed, maxRadarSpeed :: Rational
 maxAccel      = 1 / ticksPerSecond -- 1 second to reach full speed
 maxSpeed      = 2 / ticksPerSecond -- in units per tick
 minTurn       = 1/4 / ticksPerSecond
-maxTurn       = 2/3 / ticksPerSecond
-maxGunSpeed   = 1 / ticksPerSecond -- 1 full turn per second
-maxRadarSpeed = maxGunSpeed * 3
+maxTurn       = 1/2 / ticksPerSecond
+maxGunSpeed   = 2/3 / ticksPerSecond -- 1 full turn per second
+maxRadarSpeed = 3 / ticksPerSecond -- 3 full turns per second
 
 charging, cooling, heating :: Rational
 charging = 1 / ticksPerSecond -- 1 second to reach full charge
