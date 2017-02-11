@@ -24,7 +24,7 @@ data Args = Args
 prepareArgs :: Args -> Mode Args
 prepareArgs args =
   mode "speculate" args "" (flagArg (\s a -> Right a {tankodes = s:tankodes a}) "")
-  [ "ttime-limit" --= \s a -> a {maxTicks = read s * 360}
+  [ "ttime-limit" --= \s a -> a {maxTicks = read s * ticksPerSecond}
   , "ssize"       --= \s a -> a {field = let (w,'x':h) = span (/= 'x') s
                                                 in makeField (read w % 1) (read h % 1)}
   , " seed"       --= \s a -> a {seed = Just $ read s}
@@ -37,7 +37,7 @@ prepareArgs args =
 args :: Args
 args = Args
   { tankodes = []
-  , maxTicks = 36000 -- 100 seconds!
+  , maxTicks = 100 * ticksPerSecond
   , field = updateObstacles (++ obstacles) $ makeField 12 8
   , showHelp = False
   , seed = Nothing

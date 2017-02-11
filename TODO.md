@@ -23,8 +23,6 @@ game rules
 
 * calibrate constants of `Tankode.Constants`;
 
-* 120 ticks per second should be enough
-
 * refine collision between tanks:
   if one can move without the other moving (and _not_ vice-versa) move it;
 

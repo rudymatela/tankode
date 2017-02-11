@@ -24,7 +24,7 @@ where
 import Data.Ratio
 
 ticksPerSecond :: Num a => a
-ticksPerSecond = 360
+ticksPerSecond = 120
 
 maxAccel, maxSpeed, minTurn, maxTurn, maxGunSpeed, maxRadarSpeed :: Rational
 maxAccel      = 1 / ticksPerSecond -- 1 second to reach full speed
