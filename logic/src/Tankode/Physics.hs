@@ -183,8 +183,8 @@ act :: Tank -> Field -> State -> IO Tank
 act t f ts | inactive t = return t
 act t f ts = do
   (accel, bt, gt, rt, s) <- tankode t (integrity t, speed t, enemy, wall)
-  return . turnRadar (rt * maxRadarSpeed)
-         . turnGun   (gt * maxGunSpeed)
+  return . turnRadar (rt * maxRadarTurn)
+         . turnGun   (gt * maxGunTurn)
          . turn      (bt * turnSpeed t)
          . shoot s
          . accelerate accel
