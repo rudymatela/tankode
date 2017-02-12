@@ -22,8 +22,6 @@ game rules
 
 * calibrate constants of `Tankode.Constants`;
 
-* sanitize tankode commands (e.g.: do not allow shooting beyond limit, etc);
-
 * damage tanks when they collide with each other
 
 ### low priority

@@ -29,7 +29,7 @@ setupTankode command = do
   tk i o (l,s,e,w) = do
     hPutStrLn o $ unwords [showR l, showR s, showMR e, showMR w]
     [a,b,g,r,s] <- words <$> hGetLine i
-    return (readIncDec a, readIncDec b, readR g, readR r, readR s)
+    return (readIncDec a, readIncDec b, readGunTurn g, readRadarTurn r, readShoot s)
 -- TODO: detect errors (like file not found, could not execute)
 -- to do that I'll need to modify `pun`
 
@@ -38,8 +38,7 @@ readIncDec "+" =  1
 readIncDec "=" =  0
 readIncDec "-" = -1
 
-readAngle :: String -> Rational
-readAngle s = read s % 360
-
-readShoot :: String -> Rational
-readShoot s = read s % maxBulletCharge
+readGunTurn, readRadarTurn, readShoot :: String -> Rational
+readGunTurn   s = readR s `max` (-maxGunTurn) `min` maxGunTurn
+readRadarTurn s = readR s `max` (-maxRadarTurn) `min` maxRadarTurn
+readShoot     s = readR s `max` 0 `min` maxShoot

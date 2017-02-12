@@ -11,13 +11,13 @@ module Tankode.Constants
   , heating
   , bulletMinSpeed
   , bulletMaxSpeed
+  , maxShoot
   , damageFactor
   , tankDiameter
   , tankRadius
   , scanRadius
   , squaredTankDiameter
   , squaredTankRadius
-  , maxBulletCharge
   )
 where
 
@@ -46,8 +46,8 @@ bulletMinSpeed, bulletMaxSpeed :: Rational
 bulletMinSpeed = maxSpeed * 3
 bulletMaxSpeed = maxSpeed * 5
 
-maxBulletCharge :: Integer
-maxBulletCharge = 12
+maxShoot :: Rational
+maxShoot = 1
 
 tankDiameter, tankRadius, scanRadius :: Rational
 tankDiameter = 1
