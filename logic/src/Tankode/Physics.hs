@@ -166,9 +166,14 @@ processCollisions :: [Tank] -> [Tank]
 processCollisions = choicesWith pc1
   where
   pc1 :: Tank -> [Tank] -> Tank
-  pc1 t ts = if any (collide $ walk t) $ map walk ts
+  pc1 t ts = if any (guilty t) ts
                then t {speed = 0}
                else t
+  guilty t0 t1 = walk t0 `collide` walk t1
+              && not (notGuilty t0 t1)
+  notGuilty t0 t1 = not (walk t0 `collide` t1)
+                 && walk t1 `collide` walk t0
+                 && walk t1 `collide` t0 -- not sure if needed
 
 accelerate :: Rational -> Tank -> Tank
 accelerate 0 t = t

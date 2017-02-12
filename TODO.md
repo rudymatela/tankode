@@ -22,9 +22,6 @@ game rules
 
 * calibrate constants of `Tankode.Constants`;
 
-* refine collision between tanks:
-  if one can move without the other moving (and _not_ vice-versa) move it;
-
 * sanitize tankode commands (e.g.: do not allow shooting beyond limit, etc);
 
 * damage tanks when they collide with each other
