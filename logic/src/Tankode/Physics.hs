@@ -26,9 +26,11 @@ bulletDamage :: Bullet -> Rational
 bulletDamage Bullet{bulletCharge = c} =
   ((c + c*c) / 2) * damageFactor
 
+-- hitting a wall at full speed is equivalent to a full charge bullet hit
+-- two tanks crashing at full speed, is equivalent to 2 full charge bullet hits
 collisionDamage :: Tank -> Rational
 collisionDamage Tank{speed = s} =
-  ((s + s*s) / 2) * damageFactor / 2 -- divided between two objects
+  ((s + s*s) / 2) * damageFactor
 
 circle :: Tank -> Circle
 circle t = (loc t, 1%2)
