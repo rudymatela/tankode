@@ -99,8 +99,8 @@ void update_state()
 void render_and_reschedule(int val)
 {
 	glutTimerFunc(1000 / FPS, render_and_reschedule, val);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_LOAD,  1./6.);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_ACCUM, 1./6.);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_LOAD,  1./2.);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_ACCUM, 1./2.);
 	glAccum(GL_RETURN, 1.);
 	glutSwapBuffers();
 }
