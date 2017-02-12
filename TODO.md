@@ -5,9 +5,6 @@ Tankode's TODO list
 interface
 ---------
 
-* improve protocol, use `+/-/= +/-/= -1..1 -3..3` as tankode output.  e.g.:
-  `+ - 1 -3`.  The `+/-` part is done, now to `-1..1`.
-
 * complete c raw interface; add examples;
 
 * write ruby raw interface; add examples;
