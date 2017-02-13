@@ -30,7 +30,7 @@ bulletDamage Bullet{bulletCharge = c} =
 -- two tanks crashing at full speed, is equivalent to 2 full charge bullet hits
 collisionDamage :: Tank -> Rational
 collisionDamage Tank{speed = s} =
-  ((s + s*s) / 2) * damageFactor
+  ((abs s + s*s) / 2) * damageFactor
 
 circle :: Tank -> Circle
 circle t = (loc t, 1%2)
