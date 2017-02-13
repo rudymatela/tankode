@@ -22,8 +22,6 @@ game rules
 
 * calibrate constants of `Tankode.Constants`;
 
-* damage tanks when they collide with each other
-
 ### low priority
 
 * add `Tankode.Functions`, parallel to `Tankode.Constants` but with functions
@@ -66,6 +64,12 @@ display
 
 * draw scan rays as solid triangles;
 	- then as fading triangles;
+
+### low priority
+
+* draw gun blast when shooting (reverse drop?)
+
+* draw bullet explosion when hitting wall or tank (simple circle?)
 
 
 documentation and project organization
