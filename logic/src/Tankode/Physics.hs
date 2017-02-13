@@ -165,11 +165,15 @@ processCrashes f ts = map pc1 ts
   crashes t = any (t `intersectTS`) $ segments (obstacles f)
 
 processCollisions :: [Tank] -> [Tank]
-processCollisions = choicesWith pc1
+processCollisions = choicesWith pc1 . mapChoices pd1
   where
+  pd1 :: Tank -> [Tank] -> [Tank]
+  pd1 t ts = if any (guilty t) ts
+               then map (\t' -> t' {integrity = max 0 (integrity t' - collisionDamage t)}) ts
+               else ts
   pc1 :: Tank -> [Tank] -> Tank
   pc1 t ts = if any (guilty t) ts
-               then t {speed = 0}
+               then t {speed = 0, integrity = max 0 (integrity t - collisionDamage t)}
                else t
   guilty t0 t1 = walk t0 `collide` walk t1
               && not (notGuilty t0 t1)

@@ -4,6 +4,7 @@ module List
   , discardLater
   , choices
   , choicesWith
+  , mapChoices
   , maybeMinimum
   , compose
   )
@@ -26,6 +27,14 @@ choicesWith f = m []
   where
   m ys []     = []
   m ys (x:xs) = f x (ys ++ xs) : m (ys++[x]) xs
+
+mapChoices :: (a -> [a] -> [a]) -> [a] -> [a]
+mapChoices f = m []
+  where
+  m ys []     = ys
+  m ys (x:xs) = let ys' = f x ys
+                    xs' = f x xs
+                in  m (ys'++[x]) xs'
 
 maybeMinimum :: Ord a => [a] -> Maybe a
 maybeMinimum [] = Nothing
