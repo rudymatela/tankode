@@ -54,6 +54,7 @@ showPos f ts t = unwords
   , showR $ radar     t
   , showR $ integrity t
   , showR $ power     t
+  , showR $ heat      t
   , showR
   $ case scan t f ts of
       (Nothing,Nothing) -> scanRadius

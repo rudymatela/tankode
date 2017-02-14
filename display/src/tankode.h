@@ -42,6 +42,7 @@ struct tank {
 	float integrity;
 	float power;
 	float scan_dist;
+	float heat;
 
 	/* bullets */
 	int n_bullets;

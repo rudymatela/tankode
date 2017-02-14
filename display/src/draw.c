@@ -153,6 +153,7 @@ void drawTank(struct tank t, struct colour obstacle)
 		drawPowerBar(t);
 	}
 	glColor(t.bullet_colour);
+	drawShotFlare(t);
 	for (i=0; i<t.n_bullets; i++)
 		drawBullet(t.bullets[i]);
 	if (t.integrity > 0)
@@ -226,6 +227,23 @@ void drawTurret(struct tank t)
     glVertex3f(t.x + brx, t.y + bry, z);
     glVertex3f(t.x + blx, t.y + bly, z);
     glEnd();
+}
+
+
+void drawShotFlare(struct tank t)
+{
+	float x = 0, y = 7./12.;
+	float radius = ((float)t.heat) / 9.;
+	if (t.heat <= 1./2.)
+		return;
+	rotate(&x,&y,t.turret_dir+t.base_dir);
+	drawDrop(t.x+x,t.y+y,radius, t.turret_dir+t.base_dir+M_PI, bullet_layer);
+	/* TODO: add explosion layer?, maybe semi-transparent explosion */
+	/* TODO: make shot flare actually *not* turn with gun,
+	         that only requires modifications on the display program:
+			 record wherever whenever heat is 1.0
+			 will have to add 3 fields to tank:
+			 flare_x, flare_y, flare_dir */
 }
 
 
