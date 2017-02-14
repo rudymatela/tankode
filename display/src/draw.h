@@ -26,6 +26,7 @@ void drawDrop(float cx, float cy, float r, float th, enum layer l);
 void drawLine(float x0, float y0, float x1, float y1, float thickness, enum layer l);
 void drawRectangle(float x0, float y0, float x1, float y1, float thickness, enum layer l);
 void glColor(struct colour);
+void glColorAlpha(struct colour, float alpha);
 
 void drawField(struct field);
 void drawObstacle(struct obstacle);

@@ -37,6 +37,12 @@ void glColor(struct colour c)
 }
 
 
+void glColorAlpha(struct colour c, float a)
+{
+	glColor4f(c.r, c.g, c.b, a);
+}
+
+
 void drawCircle(float cx, float cy, float r, enum layer l)
 {
 	int i;
@@ -156,6 +162,7 @@ void drawTank(struct tank t, struct colour obstacle)
 	}
 	glColor(t.bullet_colour);
 	drawShotFlare(t);
+	glColor(t.bullet_colour);
 	for (i=0; i<t.n_bullets; i++)
 		drawBullet(t.bullets[i]);
 	if (t.integrity > 0)
@@ -234,8 +241,11 @@ void drawTurret(struct tank t)
 
 void drawShotFlare(struct tank t)
 {
+	static const struct colour white = {1., 1., 1., 1.};
+	mix(&t.bullet_colour, &white, .66);
+	glColorAlpha(t.bullet_colour, .66);
 	if (t.heat >= 1./2.)
-		drawDrop(t.flare_x, t.flare_y, t.heat / 9., t.flare_dir+M_PI, bullet_layer);
+		drawDrop(t.flare_x, t.flare_y, t.heat / 6., t.flare_dir+M_PI, bullet_layer);
 }
 
 
