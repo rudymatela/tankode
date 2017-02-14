@@ -96,7 +96,7 @@ static void update_flare(struct tank *t)
 	/* just shot!, update flare position */
 	if (t->heat >= 1.) {
 		t->flare_x = 0.;
-		t->flare_y = 7./12.;
+		t->flare_y = 8./12.;
 		t->flare_dir = t->turret_dir + t->base_dir;
 		rotate(&t->flare_x, &t->flare_y, t->flare_dir);
 		t->flare_x += t->x;
