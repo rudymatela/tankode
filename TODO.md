@@ -38,6 +38,8 @@ stability
 
 * kill subprocesses before exiting (remove `make kill` workaround);
 
+### low priority
+
 * add more tests to geometry module
 
 
@@ -58,16 +60,14 @@ display
 
 * add configuration switches
 
-* draw health bar as a torus section on top of the body on the back of the gun;
-
 * make bullet area proportional to power.  Instead of bullet radius proportional to power.
-
-* draw scan rays as solid triangles;
-	- then as fading triangles;
 
 ### low priority
 
-* draw gun blast when shooting (reverse drop?)
+* draw health bar as a torus section on top of the body on the back of the gun;
+
+* draw scan rays as solid triangles;
+	- then as fading triangles;
 
 * draw bullet explosion when hitting wall or tank (simple circle?)
 
