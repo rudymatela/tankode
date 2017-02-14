@@ -22,6 +22,7 @@ enum layer {
 };
 
 void drawCircle(float cx, float cy, float r, enum layer l);
+void drawDrop(float cx, float cy, float r, float th, enum layer l);
 void drawLine(float x0, float y0, float x1, float y1, float thickness, enum layer l);
 void drawRectangle(float x0, float y0, float x1, float y1, float thickness, enum layer l);
 void glColor(struct colour);
@@ -36,5 +37,6 @@ void drawRadar(struct tank);
 void drawScan(struct tank);
 void drawIntegrityBar(struct tank);
 void drawPowerBar(struct tank);
+void drawShotFlare(struct tank);
 
 #endif /* _DRAW_H */

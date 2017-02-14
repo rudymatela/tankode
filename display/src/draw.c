@@ -51,6 +51,26 @@ void drawCircle(float cx, float cy, float r, enum layer l)
 }
 
 
+void drawDrop(float cx, float cy, float r, float th, enum layer l)
+{
+	float z = lay(bullet_layer);
+	float x = cos(M_PI/6.) * r;
+	float y = sin(M_PI/6.) * r;
+	float lx = - x, ly = - y;
+	float rx = + x, ry = - y;
+	float bx =   0, by = - 2*r;
+	drawCircle(cx, cy, r, l);
+	rotate(&lx, &ly, th);
+	rotate(&rx, &ry, th);
+	rotate(&bx, &by, th);
+	glBegin(GL_TRIANGLES);
+	glVertex3f(cx + lx,cy + ly, z);
+	glVertex3f(cx + rx,cy + ry, z);
+	glVertex3f(cx + bx,cy + by, z);
+	glEnd();
+}
+
+
 /* TODO: fix drawSemiCircle, it is not working well; then, use on drawPill */
 void drawSemiCircle(float cx, float cy, float r, float angle0)
 {
@@ -111,22 +131,7 @@ void drawRectangle(float x0, float y0, float x1, float y1, float thickness, enum
 
 void drawBullet(struct bullet b)
 {
-	float z = lay(bullet_layer);
-	float r = (1./2. + b.charge) / 12.;
-	float x = cos(M_PI/6.) * r;
-	float y = sin(M_PI/6.) * r;
-	float lx = - x, ly = - y;
-	float rx = + x, ry = - y;
-	float bx =   0, by = - 2*r;
-	drawCircle(b.x, b.y, r, bullet_layer);
-	rotate(&lx, &ly, b.dir);
-	rotate(&rx, &ry, b.dir);
-	rotate(&bx, &by, b.dir);
-	glBegin(GL_TRIANGLES);
-	glVertex3f(b.x + lx,b.y + ly, z);
-	glVertex3f(b.x + rx,b.y + ry, z);
-	glVertex3f(b.x + bx,b.y + by, z);
-	glEnd();
+	drawDrop(b.x, b.y, (1./2. + b.charge) / 12., b.dir, bullet_layer);
 }
 
 
