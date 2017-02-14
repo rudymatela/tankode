@@ -7,6 +7,20 @@
 const float NaN = 0./0.;
 int isNaN(float f) {return f != f;}
 
+static void update_flare(struct tank *t);
+static void rotate(float *x, float *y, float dir);
+
+
+/* rotate given x and y destructively */
+/* FIXME: this function is duplicated in another file */
+static void rotate(float *x, float *y, float dir)
+{
+	float x0 = *x,
+	      y0 = *y;
+	*x = x0 * cos(dir) - y0 * sin(dir);
+	*y = x0 * sin(dir) + y0 * cos(dir);
+}
+
 
 /* TODO: move printing to debug.h and debug.c?? */
 /* for debug only: */
@@ -72,7 +86,22 @@ int read_tankpos(struct tank *t)
 	t->power      = get_ratio();        if (isNaN(t->power))      return 0;
 	t->heat       = get_ratio();        if (isNaN(t->heat))       return 0;
 	t->scan_dist  = get_ratio();        if (isNaN(t->scan_dist))  return 0;
+	update_flare(t);
 	return 1;
+}
+
+
+static void update_flare(struct tank *t)
+{
+	/* just shot!, update flare position */
+	if (t->heat >= 1.) {
+		t->flare_x = 0.;
+		t->flare_y = 7./12.;
+		t->flare_dir = t->turret_dir + t->base_dir;
+		rotate(&t->flare_x, &t->flare_y, t->flare_dir);
+		t->flare_x += t->x;
+		t->flare_y += t->y;
+	}
 }
 
 

@@ -5,13 +5,15 @@
 /* always make the following divisible by 2 and 3 */
 #define CIRCLE_SEGMENTS 30
 
+static void rotate(float *x, float *y, float dir);
+
 float lay(enum layer l)
 {
 	return (float)l / (float)n_layers;
 }
 
 /* rotate given x and y destructively */
-void rotate(float *x, float *y, float dir)
+static void rotate(float *x, float *y, float dir)
 {
 	float x0 = *x,
 	      y0 = *y;
@@ -232,18 +234,8 @@ void drawTurret(struct tank t)
 
 void drawShotFlare(struct tank t)
 {
-	float x = 0, y = 7./12.;
-	float radius = ((float)t.heat) / 9.;
-	if (t.heat <= 1./2.)
-		return;
-	rotate(&x,&y,t.turret_dir+t.base_dir);
-	drawDrop(t.x+x,t.y+y,radius, t.turret_dir+t.base_dir+M_PI, bullet_layer);
-	/* TODO: add explosion layer?, maybe semi-transparent explosion */
-	/* TODO: make shot flare actually *not* turn with gun,
-	         that only requires modifications on the display program:
-			 record wherever whenever heat is 1.0
-			 will have to add 3 fields to tank:
-			 flare_x, flare_y, flare_dir */
+	if (t.heat >= 1./2.)
+		drawDrop(t.flare_x, t.flare_y, t.heat / 9., t.flare_dir+M_PI, bullet_layer);
 }
 
 

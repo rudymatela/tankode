@@ -47,6 +47,8 @@ struct tank {
 	/* bullets */
 	int n_bullets;
 	struct bullet bullets[MAX_BULLETS];
+
+	float flare_x, flare_y, flare_dir;
 };
 
 struct obstacle {
