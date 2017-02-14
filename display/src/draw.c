@@ -139,7 +139,7 @@ void drawRectangle(float x0, float y0, float x1, float y1, float thickness, enum
 
 void drawBullet(struct bullet b)
 {
-	drawDrop(b.x, b.y, (1./2. + b.charge) / 12., b.dir, bullet_layer);
+	drawDrop(b.x, b.y, (1 + b.charge + sqrt(b.charge)) / 30., b.dir, bullet_layer);
 }
 
 
