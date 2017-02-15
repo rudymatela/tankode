@@ -57,9 +57,10 @@ runIO ident tk s0 = do
   where
   r s = unlessEOF $ do
     input <- get
-    (s',output) <- tk input s
-    put output
-    r s'
+    when (life input > 0) $ do
+      (s',output) <- tk input s
+      put output
+      r s'
 
 runList :: TankodeList -> IO ()
 runList = undefined -- TODO: implement me

@@ -28,8 +28,11 @@ setupTankode command = do
   where
   tk i o (l,s,e,w) = do
     hPutStrLn o $ unwords [showR l, showR s, showMR e, showMR w]
-    [a,b,g,r,s] <- words <$> hGetLine i
-    return (readIncDec a, readIncDec b, readGunTurn g, readRadarTurn r, readShoot s)
+    if l <= 0
+      then return $ error "setupTankode: Tankode terminated"
+      else do
+        [a,b,g,r,s] <- words <$> hGetLine i
+        return (readIncDec a, readIncDec b, readGunTurn g, readRadarTurn r, readShoot s)
 -- TODO: detect errors (like file not found, could not execute)
 -- to do that I'll need to modify `pun`
 

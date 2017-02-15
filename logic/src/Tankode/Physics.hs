@@ -191,7 +191,9 @@ accelerate a t@Tank{speed = s}
 
 -- | asks the tankode for an action and perform it when possible
 act :: Tank -> Field -> State -> IO Tank
-act t f ts | inactive t = return t
+act t f ts | inactive t = do
+  _ <- tankode t (0, 0, Nothing, Nothing)
+  return $ t {tankode = \_ -> return $ error "act: Tankode terminated"}
 act t f ts = do
   (accel, bt, gt, rt, s) <- tankode t (integrity t, speed t, enemy, wall)
   return . turnRadar rt
