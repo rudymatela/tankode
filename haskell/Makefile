@@ -27,6 +27,8 @@ LIBS = \
 
 all: $(LIBS) $(EGS)
 
+$(EGS): $(LIBS)
+
 ghci: Tankode/Basic.ghci
 
 clean: clean-hi-o
