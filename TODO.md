@@ -37,6 +37,8 @@ stability
 ---------
 
 * kill subprocesses before exiting (remove `make kill` workaround);
+  what's missing now is to deactivate surviving tankodes at the end of simulation
+  or when SIGKILL is received
 
 ### low priority
 
