@@ -9,8 +9,6 @@ interface
 	- add constants.h;
 	- add a couple more examples (chaser, rightturner, chaserII);
 
-* write bash examples;
-
 * write ruby raw interface; add examples;
 
 ### low priority

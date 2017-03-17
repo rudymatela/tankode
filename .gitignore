@@ -37,3 +37,4 @@ doc/logo/tankode-logo-*.svg
 **/wal
 **/walls
 *.prof
+!bash/*

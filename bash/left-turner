@@ -1,0 +1,14 @@
+#!/bin/bash
+
+MAX_GUN_TURN=1/180
+
+echo "left-turner red3 red3 yellow7 red3 red9 red9"
+while read i s e w
+do
+	[ "$i" = "0/1" ] && exit 0
+	case $e in
+	  "-") shoot=0/1 ;;
+	  *)   shoot=2/3 ;;
+	esac
+	echo = = $MAX_GUN_TURN 0/1 $shoot
+done
