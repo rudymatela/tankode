@@ -65,9 +65,3 @@ display
 	- then as fading triangles;
 
 * draw bullet explosion when hitting wall or tank (simple circle?)
-
-
-documentation and project organization
---------------------------------------
-
-* make display and logic a subfolder of runner
