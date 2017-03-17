@@ -28,6 +28,7 @@ doc/logo/tankode-logo-*.svg
 */*.html
 **/sitting-duck
 **/chaser
+**/chaserII
 **/escaper
 **/left-turner
 **/right-turner

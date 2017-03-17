@@ -11,6 +11,8 @@ interface
 
 * fix tankode examples for the raw Haskell interface
 
+### low priority
+
 * change obstacles to be arbitrary convex polygons instead of triangles (easier
   to compute on logic, not actually harder to draw)
 

@@ -4,6 +4,7 @@ GHCI = ghci
 LISTHS = find . -name \*.hs
 ALLHS = $(shell $(LISTHS))
 EGS = \
+	eg/chaserII         \
 	eg/chaser           \
 	eg/escaper          \
 	eg/left-turner      \
