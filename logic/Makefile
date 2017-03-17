@@ -41,7 +41,14 @@ bin/tankode-logic: src/tankode-logic
 	cp src/tankode-logic bin/tankode-logic
 
 run: all
-	./bin/tankode-logic
+	./bin/tankode-logic $(TANKODES)
+
+bench: all
+	cat .runtimes-`hostname`
+	/usr/bin/time -f%e ./bin/tankode-logic -dt1 $(TANKODES) > /dev/null
+
+save-bench: all
+	/usr/bin/time -f%e ./bin/tankode-logic -dt1 $(TANKODES) > /dev/null 2> .runtimes-`hostname`
 
 prof:
 	make clean

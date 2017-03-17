@@ -24,24 +24,11 @@ doc:
 	markdown doc/tankode-protocol.md > doc/tankode-protocol.html
 	markdown README.md > README.html
 
-run-display: display
-	./display/bin/tankode-display
-
-run-logic: logic
-	./logic/bin/tankode-logic $(TANKODES) # +RTS -p -RTS
-
 run: display logic haskell
 	./bin/tankode $(TANKODES)
 
 run-charge: display logic haskell
 	./bin/tankode $(TANKODES) --draw-charge
-
-bench: display logic haskell
-	cat .runtimes-`hostname`
-	/usr/bin/time -f%e ./logic/bin/tankode-logic -t1 $(TANKODES) > /dev/null
-
-save-bench: display logic haskell
-	/usr/bin/time -f%e ./logic/bin/tankode-logic -t1 $(TANKODES) > /dev/null 2> .runtimes-`hostname`
 
 clean:
 	make -Cdisplay  clean
