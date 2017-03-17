@@ -18,7 +18,7 @@ leftTurner input = output
   , gun   = maxGunTurn
   , shoot = case enemy input of
               Nothing -> 0
-              Just _  -> 1/3
+              Just _  -> 2/3
   }
 
 main :: IO ()
