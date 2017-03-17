@@ -3,6 +3,7 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <math.h>
+#include <string.h>
 #include "tankode.h"
 #include "draw.h"
 #include "io.h"
@@ -10,6 +11,10 @@
 #define WIDTH 400
 #define HEIGHT 400
 #define FPS 60 /* TODO: implement VSync */
+
+int motion_blur = 1;
+int draw_charge = 1;
+int draw_health = 1;
 
 struct state state = {-1,{8.,6.,0,{}},-1,{}};
 
@@ -19,8 +24,22 @@ static void reshape(int w, int h);
 static void render();
 static void render_and_reschedule(int val);
 
+void parse_args(char *argv[])
+{
+	int i;
+	for (i=0; argv[i]; i++) {
+		if (0==strcmp(argv[i],"motion-blur"))    motion_blur = 1;
+		if (0==strcmp(argv[i],"no-motion-blur")) motion_blur = 0;
+		if (0==strcmp(argv[i],"draw-charge"))    draw_charge = 1;
+		if (0==strcmp(argv[i],"no-draw-charge")) draw_charge = 0;
+		if (0==strcmp(argv[i],"draw-health"))    draw_health = 1;
+		if (0==strcmp(argv[i],"no-draw-health")) draw_health = 0;
+	}
+}
+
 int main(int argc, char *argv[])
 {
+	parse_args(argv);
 	state = get_initial_state();
 	print_state(state);
 	read_tick(&state);
@@ -99,8 +118,15 @@ void update_state()
 void render_and_reschedule(int val)
 {
 	glutTimerFunc(1000 / FPS, render_and_reschedule, val);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_LOAD,  1./2.);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_ACCUM, 1./2.);
-	glAccum(GL_RETURN, 1.);
+	if (motion_blur) {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_LOAD,  1./2.);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_ACCUM, 1./2.);
+		glAccum(GL_RETURN, 1.);
+	} else {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		update_state();
+		update_state();
+		draw();
+	}
 	glutSwapBuffers();
 }

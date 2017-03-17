@@ -5,6 +5,9 @@
 /* always make the following divisible by 2 and 3 */
 #define CIRCLE_SEGMENTS 30
 
+extern int draw_charge;
+extern int draw_health;
+
 static void rotate(float *x, float *y, float dir);
 
 float lay(enum layer l)
@@ -157,8 +160,8 @@ void drawTank(struct tank t, struct colour obstacle)
 	drawTurret(t);
 	drawRadar(t);
 	if (t.integrity > 0) {
-		drawIntegrityBar(t);
-		drawPowerBar(t);
+		if (draw_health) drawIntegrityBar(t);
+		if (draw_charge) drawPowerBar(t);
 	}
 	glColor(t.bullet_colour);
 	drawShotFlare(t);
