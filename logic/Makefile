@@ -16,13 +16,13 @@ test: $(TESTS) test-model
 	./tests/test-tankode
 
 test-model: $(BIN)
-	./bin/tankode-logic $(TANKODES) -t1 --seed    42 | diff -rud tests/model/42    -
-	./bin/tankode-logic $(TANKODES) -t1 --seed 31337 | diff -rud tests/model/31337 -
+	./bin/tankode-logic $(TANKODES) -t1 -d --seed    42 | diff -rud tests/model/42    -
+	./bin/tankode-logic $(TANKODES) -t1 -d --seed 31337 | diff -rud tests/model/31337 -
 	make kill
 
 update-test-model: $(BIN)
-	./bin/tankode-logic $(TANKODES) -t1 --seed    42 > tests/model/42
-	./bin/tankode-logic $(TANKODES) -t1 --seed 31337 > tests/model/31337
+	./bin/tankode-logic $(TANKODES) -t1 -d --seed    42 > tests/model/42
+	./bin/tankode-logic $(TANKODES) -t1 -d --seed 31337 > tests/model/31337
 	make kill
 
 kill:

@@ -1,6 +1,7 @@
 module Tankode.IPC
   ( setupTankode
   , propagateSIGTERM
+  , pipeTo
   )
 where
 

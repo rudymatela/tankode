@@ -1,5 +1,3 @@
 #!/bin/bash
 TOP="`dirname $0`/.."
-logic="$TOP/logic/bin/tankode-logic"
-display="$TOP/display/bin/tankode-display"
-$logic "$@" | $display
+$TOP/logic/bin/tankode-logic

@@ -12,6 +12,9 @@ import Control.Arrow ((***))
 import Random
 import Data.Maybe
 import System.Console.CmdArgs.Explicit
+import System.Posix.Process (createSession)
+import System.Environment
+import Control.Monad
 
 data Args = Args
   { tankodes :: [String]
@@ -19,6 +22,7 @@ data Args = Args
   , field    :: Field
   , showHelp :: Bool
   , seed     :: Maybe Int
+  , dump     :: Bool
   }
 
 prepareArgs :: Args -> Mode Args
@@ -29,6 +33,7 @@ prepareArgs args =
                                                 in makeField (read w % 1) (read h % 1)}
   , " seed"       --= \s a -> a {seed = Just $ read s}
   , "hhelp"       --.   \a -> a {showHelp = True}
+  , "ddump"       --.   \a -> a {dump = True}
   ]
   where
   (short:long) --= fun = flagReq  (filter (/= " ") [[short],long]) ((Right .) . fun) "X" ""
@@ -41,6 +46,7 @@ args = Args
   , field = updateObstacles (++ obstacles) $ makeField 12 8
   , showHelp = False
   , seed = Nothing
+  , dump = False
   }
   where
   obstacles =
@@ -70,11 +76,14 @@ printStates maxTicks n f ts
 mainWith :: Args -> IO ()
 mainWith Args{showHelp = True} = print $ helpText [] HelpFormatDefault (prepareArgs args)
 mainWith Args{tankodes = []} = putStrLn "must pass at least one tankode"
-mainWith args@Args{field = f, tankodes = ts, seed = seed} = do
+mainWith args@Args{field = f, tankodes = ts, seed = seed, dump = dump} = do
   gen <- mkNewStdGen seed
 -- TODO: make a function places :: Field -> [Loc]
   let poss = startingPositions f gen
   --propagateSIGTERM
+  --createSession
+  dn <- dirname <$> getExecutablePath
+  unless dump $ pipeTo [dn ++ "/" ++ "../../display/bin/tankode-display"]
   tanks <- traverse setupTankode $ map words ts
   let tanks' = zipWith (\t l -> t{loc = l}) (catMaybes tanks) poss
   gen' <- newStdGen
@@ -85,6 +94,9 @@ mainWith args@Args{field = f, tankodes = ts, seed = seed} = do
 main :: IO ()
 main = do
   mainWith =<< processArgs (prepareArgs args)
+
+dirname :: String -> String
+dirname = reverse . tail . dropWhile (/= '/') . reverse
 
 mkNewStdGen :: Maybe Int -> IO StdGen
 mkNewStdGen Nothing  = newStdGen

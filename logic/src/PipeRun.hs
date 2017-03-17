@@ -1,5 +1,6 @@
 module PipeRun
   ( pun
+  , pipeTo
   , propagateSIGTERM
   )
 where
@@ -35,7 +36,7 @@ porkProcessStdIO act' = porkProcess act
     hSetBuffering stdout LineBuffering
     act'
 
--- pipe-runs a program, stdio is bound to a handles
+-- pipe-runs a program, stdio is bound to a pair of handles
 pun :: [String] -> IO (Handle,Handle)
 pun as = do
   (_,fin,fout) <- pun' as
@@ -46,6 +47,34 @@ pun as = do
   return (hin,hout)
   where
   pun' as = porkProcessStdIO (execFile as)
+
+-- pipes the current process to a child.
+-- if the child terminates, sends sigTERM to the current process group
+pipeTo :: [String] -> IO ()
+pipeTo as = do
+  (fromParent,toChild) <- createPipe
+  cpid <- forkProcess (act fromParent)
+  terminateOnSIGCHLD cpid
+  dupTo toChild stdOutput
+  closeFd toChild
+  hSetBuffering stdout LineBuffering
+  return ()
+  where
+  act fromParent = do
+    dupTo fromParent stdInput
+    closeFd fromParent
+    hSetBuffering stdin LineBuffering
+    execFile as
+
+terminateOnSIGCHLD :: ProcessID -> IO ()
+terminateOnSIGCHLD pid = do
+  installHandler sigCHLD (CatchInfo handler) Nothing
+  return ()
+  where
+  handler (SignalInfo s _ (SigChldInfo pid' _ _))
+    | s == sigCHLD && pid' == pid = signalGroup sigTERM
+  handler _ = return ()
+  signalGroup signal = hPrint stderr signal >> getProcessGroupID >>= signalProcessGroup signal
 
 propagateSIGTERM :: IO ()
 propagateSIGTERM = do
