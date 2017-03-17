@@ -5,7 +5,11 @@ Tankode's TODO list
 interface
 ---------
 
-* complete c raw interface; add examples;
+* complete c raw interface:
+	- add constants.h;
+	- add a couple more examples (chaser, rightturner, chaserII);
+
+* write bash examples;
 
 * write ruby raw interface; add examples;
 
