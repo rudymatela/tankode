@@ -35,13 +35,10 @@ game rules
 stability
 ---------
 
+### low priority
+
 * improve signal handling from PipeRun and IPC
   (make tankode exit gracefully on window closing)
-
-  tankode-runner cannot work when called directly from the terminal
-  (createSession, permission denied)
-
-### low priority
 
 * add more tests to geometry module
 
