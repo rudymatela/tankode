@@ -9,6 +9,7 @@ import System.Posix
 import System.Posix.Process
 import System.Posix.Signals
 import System.IO
+import System.Exit
 
 execFile :: [String] -> IO a
 execFile (cmm:args) = do
@@ -74,7 +75,10 @@ terminateOnSIGCHLD pid = do
   handler (SignalInfo s _ (SigChldInfo pid' _ _))
     | s == sigCHLD && pid' == pid = signalGroup sigTERM
   handler _ = return ()
-  signalGroup signal = hPrint stderr signal >> getProcessGroupID >>= signalProcessGroup signal
+  signalGroup signal = do
+    gid <- getProcessGroupID
+    signalProcessGroup signal gid
+    exitSuccess
 
 propagateSIGTERM :: IO ()
 propagateSIGTERM = do
