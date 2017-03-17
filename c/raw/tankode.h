@@ -7,7 +7,7 @@ struct tankode_id {
 	char *body;
 	char *gun;
 	char *radar;
-	char *buller;
+	char *bullet;
 	char *scan;
 };
 

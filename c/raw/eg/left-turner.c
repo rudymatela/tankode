@@ -16,7 +16,7 @@ int main()
 	id.radar  = "red3";
 	id.scan   = "red8";
 	id.track  = "red3";
-	id.buller = "red9";
+	id.bullet = "red9";
 	id.gun    = "yellow7";
 	tankode_run(id, left_turner);
 	return 0;

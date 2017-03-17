@@ -17,7 +17,7 @@ void tankode_run(struct tankode_id id, struct tankode_out tankode(struct tankode
 	setlinebuf(stdin);
 	setlinebuf(stdout);
 	printf("%s %s %s %s %s %s %s\n",
-	  id.name,id.track,id.body,id.gun,id.radar,id.buller,id.scan);
+	  id.name,id.track,id.body,id.gun,id.radar,id.bullet,id.scan);
 	while (get(&in))
 		put(tankode(in));
 }

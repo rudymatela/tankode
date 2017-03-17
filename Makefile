@@ -2,7 +2,7 @@
 
 TANKODES=haskell/eg/{sitting-duck,chaser,escaper,left-turner,right-turner,zigzagger}
 
-all: runner haskell
+all: runner haskell c-raw
 
 .PHONY: runner
 runner:
@@ -11,6 +11,10 @@ runner:
 .PHONY: haskell
 haskell:
 	make -C haskell
+
+.PHONY: c-raw
+c-raw:
+	make -C c/raw
 
 test: all
 	make -C runner test

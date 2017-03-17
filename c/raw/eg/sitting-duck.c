@@ -8,15 +8,14 @@ struct tankode_out sitting_duck(struct tankode_in in)
 
 int main()
 {
-	struct tankode_id id = {
-		"sitting-duck",
-		"orange4",
-		"yellow8",
-		"orange5",
-		"grey9",
-		"orange5",
-		"orange2",
-	};
+	struct tankode_id id;
+	id.name   = "sitting-duck";
+	id.body   = "yellow8";
+	id.track  = "orange4";
+	id.gun    = "orange5";
+	id.bullet = "orange5";
+	id.radar  = "grey9";
+	id.scan   =	"orange2";
 	tankode_run(id, sitting_duck);
 	return 0;
 }
