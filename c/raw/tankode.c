@@ -4,7 +4,7 @@
 
 const float NaN = 0.0 / 0.0;
 
-static float get_ratio();
+static double get_ratio();
 static void print_ratio(float);
 static void print_colour(struct colour);
 static int get(struct tankode_in *in);
@@ -26,15 +26,15 @@ void tankode_run(struct tankode_id id, struct tankode_out tankode(struct tankode
 		put(tankode(in));
 }
 
-static float get_ratio()
+static double get_ratio()
 {
 	int n,d,r = scanf(" %d/%d",&n,&d);
-	return r == 2 ? (float)n / (float)d : NaN;
+	return r == 2 ? (double)n / (double)d : NaN;
 }
 
 static void print_ratio(float f)
 {
-	printf("%i/360\n", (int)(f*360));
+	printf("%i/360", (int)(f*360));
 }
 
 static void print_colour(struct colour c)
@@ -48,16 +48,18 @@ static void print_colour(struct colour c)
 static int get(struct tankode_in *in)
 {
 	char w[0x100];
-	get_ratio(&in->integrity);
-	get_ratio(&in->speed);
-	scanf("%s",w);
-	     if(strcmp(w, "enemy") == 0) in->what = enemy;
-	else if(strcmp(w, "wall")  == 0) in->what = wall;
-	else                             in->what = unknown;
-	/* TODO: use fgets instead */
-	return 0;
+	in->integrity = get_ratio();
+	in->speed = get_ratio();
+	in->enemy = get_ratio();
+	in->wall = get_ratio();
+	return in->integrity > 0.000000001;
 }
 
 static void put(struct tankode_out out)
 {
+	print_ratio(out.accel); printf(" ");
+	print_ratio(out.body);  printf(" ");
+	print_ratio(out.gun);   printf(" ");
+	print_ratio(out.radar); printf(" ");
+	print_ratio(out.shoot); printf("\n");
 }

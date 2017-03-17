@@ -21,8 +21,8 @@ struct tankode_id {
 struct tankode_in {
 	double integrity;
 	double speed;
-	enum what {unknown, enemy, wall} what;
-	double distance;
+	double enemy;
+	double wall;
 };
 
 struct tankode_out {
