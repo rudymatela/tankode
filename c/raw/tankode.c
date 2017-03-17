@@ -1,5 +1,6 @@
 #include "tankode.h"
 #include <stdio.h>
+#include <string.h>
 
 const float NaN = 0.0 / 0.0;
 
