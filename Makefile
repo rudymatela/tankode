@@ -34,6 +34,10 @@ run: display logic haskell
 	./bin/tankode $(TANKODES)
 	make kill
 
+run-charge: display logic haskell
+	./bin/tankode $(TANKODES) --draw-charge
+	make kill
+
 bench: display logic haskell
 	cat .runtimes-`hostname`
 	/usr/bin/time -f%e ./logic/bin/tankode-logic -t1 $(TANKODES) > /dev/null

@@ -13,7 +13,7 @@
 #define FPS 60 /* TODO: implement VSync */
 
 int motion_blur = 1;
-int draw_charge = 1;
+int draw_charge = 0;
 int draw_health = 1;
 
 struct state state = {-1,{8.,6.,0,{}},-1,{}};

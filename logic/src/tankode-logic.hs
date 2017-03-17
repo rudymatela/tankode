@@ -59,7 +59,7 @@ args = Args
   , showHelp = False
   , seed = Nothing
   , dump = False
-  , drawCharge = True
+  , drawCharge = False
   , drawHealth = True
   , motionBlur = True
   }
@@ -114,7 +114,7 @@ pipeToDisplay args = do
   dn <- dirname <$> getExecutablePath
   pipeTo . concat $
     [ [dn ++ "/" ++ "../../display/bin/tankode-display"]
-    , ["no-draw-charge" | not $ drawCharge args]
+    , ["draw-charge"    |       drawCharge args]
     , ["no-draw-health" | not $ drawHealth args]
     , ["no-motion-blur" | not $ motionBlur args]
     ]
