@@ -9,8 +9,6 @@ interface
 
 * write ruby raw interface; add examples;
 
-* fix tankode examples for the raw Haskell interface
-
 ### low priority
 
 * change obstacles to be arbitrary convex polygons instead of triangles (easier
