@@ -62,8 +62,6 @@ display
 
 * add configuration switches
 
-* make bullet area proportional to power.  Instead of bullet radius proportional to power.
-
 ### low priority
 
 * draw health bar as a torus section on top of the body on the back of the gun;
