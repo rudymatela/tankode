@@ -40,6 +40,8 @@ static int get(struct tankode_in *in)
 	in->speed = get_ratio();
 	in->enemy = get_ratio();
 	in->wall = get_ratio();
+	in->scanned_enemy = in->enemy == in->enemy; /* != NaN */
+	in->scanned_wall  = in->wall  == in->wall;  /* != NaN */
 	return in->integrity > 0.000000001;
 }
 

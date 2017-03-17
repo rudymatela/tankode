@@ -4,21 +4,20 @@ struct tankode_out left_turner(struct tankode_in in)
 {
 	struct tankode_out out = {0., 0., 0., 0., 0.};
 	out.gun   = (2./3.) / 120.;
-	out.shoot = in.enemy == in.enemy ? (2./3.) : 0.;
+	out.shoot = in.scanned_enemy ? (2./3.) : 0.;
 	return out;
 }
 
 int main()
 {
-	struct tankode_id id = {
-		"left-turner",
-		"orange4",
-		"orange5",
-		"orange6",
-		"orange7",
-		"orange8",
-		"orange9"
-	};
+	struct tankode_id id;
+	id.name   = "left-turner";
+	id.body   = "red3";
+	id.radar  = "red3";
+	id.scan   = "red8";
+	id.track  = "red3";
+	id.buller = "red9";
+	id.gun    = "yellow7";
 	tankode_run(id, left_turner);
 	return 0;
 }

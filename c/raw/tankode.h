@@ -16,6 +16,8 @@ struct tankode_in {
 	double speed;
 	double enemy;
 	double wall;
+	int scanned_enemy;
+	int scanned_wall;
 };
 
 struct tankode_out {
