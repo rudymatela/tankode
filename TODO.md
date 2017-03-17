@@ -36,7 +36,8 @@ stability
 
 ### low priority
 
-* make tankode exit gracefully on close window
+* improve signal handling from PipeRun and IPC
+  (make tankode exit gracefully on close window)
 
 * add more tests to geometry module
 
