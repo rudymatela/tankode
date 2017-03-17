@@ -26,6 +26,7 @@ data Args = Args
 
   , drawCharge :: Bool
   , drawHealth :: Bool
+  , drawScan :: Bool
   , motionBlur :: Bool
   }
 
@@ -40,12 +41,14 @@ prepareArgs args =
   , "ddump"       --.   \a -> a {dump = True}
 
   -- options passed along to the display program
-  , " draw-charge" --. \a -> a {drawCharge = True}
-  , " draw-health" --. \a -> a {drawHealth = True}
-  , " motion-blur" --. \a -> a {motionBlur = True}
+  , " draw-charge"    --. \a -> a {drawCharge = True}
+  , " draw-health"    --. \a -> a {drawHealth = True}
+  , " motion-blur"    --. \a -> a {motionBlur = True}
+  , " draw-scan"      --. \a -> a {drawScan   = True}
   , " no-draw-charge" --. \a -> a {drawCharge = False}
   , " no-draw-health" --. \a -> a {drawHealth = False}
   , " no-motion-blur" --. \a -> a {motionBlur = False}
+  , " no-draw-scan"   --. \a -> a {drawScan   = False}
   ]
   where
   (short:long) --= fun = flagReq  (filter (/= " ") [[short],long]) ((Right .) . fun) "X" ""
@@ -62,6 +65,7 @@ args = Args
   , drawCharge = False
   , drawHealth = True
   , motionBlur = True
+  , drawScan = True
   }
   where
   obstacles =
@@ -117,6 +121,7 @@ pipeToDisplay args = do
     , ["draw-charge"    |       drawCharge args]
     , ["no-draw-health" | not $ drawHealth args]
     , ["no-motion-blur" | not $ motionBlur args]
+    , ["no-draw-scan"   | not $ drawScan   args]
     ]
 
 dirname :: String -> String

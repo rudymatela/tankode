@@ -7,6 +7,7 @@
 
 extern int draw_charge;
 extern int draw_health;
+extern int draw_scan;
 
 static void rotate(float *x, float *y, float dir);
 
@@ -168,7 +169,7 @@ void drawTank(struct tank t, struct colour obstacle)
 	glColor(t.bullet_colour);
 	for (i=0; i<t.n_bullets; i++)
 		drawBullet(t.bullets[i]);
-	if (t.integrity > 0)
+	if (t.integrity > 0 && draw_scan)
 		drawScan(t);
 }
 
