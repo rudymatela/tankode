@@ -3,7 +3,7 @@
 struct tankode_out left_turner(struct tankode_in in)
 {
 	struct tankode_out out = {0., 0., 0., 0., 0.};
-	out.gun   = (2./3.) / 120.;
+	out.gun   = MAX_GUN_TURN;
 	out.shoot = in.scanned_enemy ? (2./3.) : 0.;
 	return out;
 }

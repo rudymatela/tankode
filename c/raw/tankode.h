@@ -1,6 +1,8 @@
 #ifndef _TANKODE_H
 #define _TANKODE_H
 
+#include "constants.h"
+
 struct tankode_id {
 	char *name;
 	char *track;
