@@ -1,6 +1,6 @@
 # Makefile for Tankode's logic
 GHCIMPORTDIRS = src:tests
-GHCFLAGS = -O2 #-prof -auto-all
+GHCFLAGS = -O2
 LISTHS = find src tests -name \*.hs
 ALLHS = $(shell $(LISTHS))
 BIN = bin/tankode-logic bin/html-palette bin/palette
@@ -42,6 +42,13 @@ bin/tankode-logic: src/tankode-logic
 
 run: all
 	./bin/tankode-logic
+
+prof:
+	make clean
+	make GHCFLAGS="$(GHCFLAGS) -prof -auto-all"
+	/usr/bin/time -f%e ./bin/tankode-logic -dt1 $(TANKODES) +RTS -p -RTS > /dev/null
+	make clean
+	cat tankode-logic.prof | grep -v ' [0-5].[0-9] ......$$'
 
 list-big-fractions: all
 	./bin/tankode-logic make run | \

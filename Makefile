@@ -43,13 +43,6 @@ bench: display logic haskell
 save-bench: display logic haskell
 	/usr/bin/time -f%e ./logic/bin/tankode-logic -t1 $(TANKODES) > /dev/null 2> .runtimes-`hostname`
 
-prof:
-	make -Clogic clean
-	make -Clogic GHCFLAGS="-prof -auto-all"
-	/usr/bin/time -f%e ./logic/bin/tankode-logic -t1 $(TANKODES) +RTS -p -RTS > /dev/null
-	make -Clogic clean
-	cat tankode-logic.prof | grep -v ' [0-5].[0-9] ......$$'
-
 clean:
 	make -Cdisplay  clean
 	make -Clogic    clean
