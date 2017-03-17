@@ -34,13 +34,9 @@ game rules
 stability
 ---------
 
-* kill subprocesses before exiting (remove `make kill` workaround);
-  what's missing now is to deactivate surviving tankodes at the end of simulation
-  or when SIGKILL is received
-  when tankodes are destroyed in the simulation they are gracefully terminated.
-  however, when SIGKILL is received they are not.
-
 ### low priority
+
+* make tankode exit gracefully on close window
 
 * add more tests to geometry module
 
