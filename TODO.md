@@ -14,8 +14,6 @@ interface
 * change obstacles to be arbitrary convex polygons instead of triangles (easier
   to compute on logic, not actually harder to draw)
 
-* tankode-logic automatically launches and pipes itself to display (disablable)
-
 
 game rules
 ----------
