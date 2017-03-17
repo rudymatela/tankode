@@ -68,7 +68,7 @@ toRawOutput g r output = Raw.Output
   , Raw.gun    = gun   output
   , Raw.radar  = radar output
   , Raw.shoot  = shoot output
-  , Raw.ostate = (g,r,ostate output)
+  , Raw.ostate = (g + gun output,r + radar output,ostate output)
   }
 
 toRaw :: Tankode s -> Raw.Tankode (Rational,Rational,s)
