@@ -6,7 +6,6 @@ all: runner haskell
 
 .PHONY: runner
 runner:
-	make -C runner/display
 	make -C runner
 
 .PHONY: haskell
@@ -28,11 +27,10 @@ run-charge: runner haskell
 	./bin/tankode $(TANKODES) --draw-charge
 
 clean:
-	make -Crunner/display clean
-	make -Crunner         clean
-	make -Chaskell        clean
-	make -Cc/raw          clean
-	make -Cdoc/logo       clean
+	make -Crunner   clean
+	make -Chaskell  clean
+	make -Cc/raw    clean
+	make -Cdoc/logo clean
 	rm -f runner/palette.html README.html doc/tankode-protocol.html
 
 palette: runner

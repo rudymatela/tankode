@@ -9,7 +9,11 @@ TESTS = \
 	tests/test-tankode
 TANKODES=../haskell/eg/{sitting-duck,chaser,escaper,left-turner,right-turner,zigzagger}
 
-all: $(BIN)
+all: $(BIN) display
+
+.PHONY: display
+display:
+	make -Cdisplay
 
 test: $(TESTS) test-model
 	./tests/test-ratiomath
@@ -70,5 +74,6 @@ ghci: tests/Test.ghci
 
 clean: clean-hi-o
 	rm -f *.o *.hi $(BIN) $(TESTS) src/tankode-logic src/html-palette src/palette
+	make -Cdisplay
 
 include mk/haskell.mk
