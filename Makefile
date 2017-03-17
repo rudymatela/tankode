@@ -2,42 +2,39 @@
 
 TANKODES=haskell/eg/{sitting-duck,chaser,escaper,left-turner,right-turner,zigzagger}
 
-all: display logic haskell
+all: runner haskell
 
-.PHONY: display
-display:
-	make -C display
-
-.PHONY: logic
-logic:
-	make -C logic
+.PHONY: runner
+runner:
+	make -C runner/display
+	make -C runner
 
 .PHONY: haskell
 haskell:
 	make -C haskell
 
 test: all
-	make -Clogic test
+	make -C runner test
 
 .PHONY: doc
 doc:
 	markdown doc/tankode-protocol.md > doc/tankode-protocol.html
 	markdown README.md > README.html
 
-run: display logic haskell
+run: runner haskell
 	./bin/tankode $(TANKODES)
 
-run-charge: display logic haskell
+run-charge: runner haskell
 	./bin/tankode $(TANKODES) --draw-charge
 
 clean:
-	make -Cdisplay  clean
-	make -Clogic    clean
-	make -Chaskell  clean
-	make -Cc/raw    clean
-	make -Cdoc/logo clean
-	rm -f logic/palette.html README.html doc/tankode-protocol.html
+	make -Crunner/display clean
+	make -Crunner         clean
+	make -Chaskell        clean
+	make -Cc/raw          clean
+	make -Cdoc/logo       clean
+	rm -f runner/palette.html README.html doc/tankode-protocol.html
 
-palette: logic
-	make -Clogic bin/html-palette
-	./logic/bin/html-palette > logic/palette.html
+palette: runner
+	make -Crunner bin/html-palette
+	./runner/bin/html-palette > runner/palette.html

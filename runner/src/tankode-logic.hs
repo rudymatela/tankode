@@ -113,7 +113,7 @@ pipeToDisplay :: Args -> IO ()
 pipeToDisplay args = do
   dn <- dirname <$> getExecutablePath
   pipeTo . concat $
-    [ [dn ++ "/" ++ "../../display/bin/tankode-display"]
+    [ [dn ++ "/" ++ "../display/bin/tankode-display"]
     , ["draw-charge"    |       drawCharge args]
     , ["no-draw-health" | not $ drawHealth args]
     , ["no-motion-blur" | not $ motionBlur args]
