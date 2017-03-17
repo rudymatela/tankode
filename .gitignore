@@ -1,6 +1,7 @@
 # gitignore for tankode
 
 *.swp
+*.swo
 *~
 *.o
 *.so
@@ -12,8 +13,8 @@ runner/display/tankode-display
 runner/display/bin/tankode-display
 runner/display/src/tankode-display
 runner/tankode-logic
-runner/bin/tankode-logic
-runner/src/tankode-logic
+runner/bin/tankode-runner
+runner/src/tankode-runner
 runner/bin/html-palette
 runner/src/html-palette
 runner/bin/palette
