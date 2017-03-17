@@ -1,9 +1,12 @@
 module PipeRun
   ( pun
+  , propagateSIGTERM
   )
 where
 
 import System.Posix
+import System.Posix.Process
+import System.Posix.Signals
 import System.IO
 
 execFile :: [String] -> IO a
@@ -43,3 +46,16 @@ pun as = do
   return (hin,hout)
   where
   pun' as = porkProcessStdIO (execFile as)
+
+propagateSIGTERM :: IO ()
+propagateSIGTERM = do
+  propagate sigTERM
+  propagate sigINT
+  propagate sigTSTP
+  propagate sigHUP
+  propagate sigPIPE
+  propagate sigQUIT
+  return ()
+  where
+  propagate signal = installHandler signal (CatchOnce $ signalGroup signal) Nothing
+  signalGroup signal = hPrint stderr signal >> getProcessGroupID >>= signalProcessGroup signal

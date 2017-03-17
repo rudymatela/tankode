@@ -74,6 +74,7 @@ mainWith args@Args{field = f, tankodes = ts, seed = seed} = do
   gen <- mkNewStdGen seed
 -- TODO: make a function places :: Field -> [Loc]
   let poss = startingPositions f gen
+  --propagateSIGTERM
   tanks <- traverse setupTankode $ map words ts
   let tanks' = zipWith (\t l -> t{loc = l}) (catMaybes tanks) poss
   gen' <- newStdGen

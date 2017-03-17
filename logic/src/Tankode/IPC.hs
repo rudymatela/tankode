@@ -1,5 +1,6 @@
 module Tankode.IPC
   ( setupTankode
+  , propagateSIGTERM
   )
 where
 
