@@ -57,8 +57,6 @@ performance
 display
 -------
 
-* add configuration switches
-
 ### low priority
 
 * draw health bar as a torus section on top of the body on the back of the gun;
