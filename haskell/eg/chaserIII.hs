@@ -28,12 +28,14 @@ iniState = State
   , acc = 0
   }
 
+maxRadarHeading = 2 * maxRadarTurn
+
 computeRadar :: Input State -> Rational
 computeRadar Input{radarHeading = r, istate = State{scanRight = s}}
-  | r > 0     = -maxRadarTurn
-  | r < 0     = maxRadarTurn
-  | s         = -maxRadarTurn
-  | otherwise = maxRadarTurn
+  | r ==   maxRadarHeading  = -maxRadarTurn
+  | r == (-maxRadarHeading) =  maxRadarTurn
+  | s                       = -maxRadarTurn
+  | otherwise               = maxRadarTurn
 
 scanner :: Tankode State
 scanner input@Input{radarHeading = r, istate = state} = output
@@ -47,9 +49,13 @@ scanner input@Input{radarHeading = r, istate = state} = output
           if not (seenEnemy state) && isJust (enemy input)
             then radarHeading input < 0
             else turnRight state
-      , scanRight = r > 0
+      , scanRight = sr
       }
   }
+  where
+  sr | r ==   maxRadarHeading  = True
+     | r == (-maxRadarHeading) = False
+     | otherwise               = scanRight state
 
 shooter :: Tankode State
 shooter input@Input{enemy = Just d, istate = state} = output
