@@ -31,7 +31,7 @@ maxAccel     = 1   / ticksPerSecond -- 1 second to reach full speed
 maxSpeed     = 2   / ticksPerSecond -- in units per tick
 minTurn      = 1/4 / ticksPerSecond -- body turn speed when at full speed
 maxTurn      = 1/2 / ticksPerSecond -- body turn speed when stationary
-maxGunTurn   = 2/3 / ticksPerSecond -- 1 full turn per second
+maxGunTurn   = 2/3 / ticksPerSecond -- 2/3 of a full turn per second
 maxRadarTurn = 3   / ticksPerSecond -- 3 full turns per second
 
 charging, cooling, heating :: Rational
