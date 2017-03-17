@@ -96,7 +96,7 @@ mainWith args@Args{field = f, tankodes = ts, seed = seed, dump = dump} = do
 -- TODO: make a function places :: Field -> [Loc]
   let poss = startingPositions f gen
   --propagateSIGTERM
-  --createSession
+  createSession
   unless dump $ pipeToDisplay args
   tanks <- traverse setupTankode $ map words ts
   let tanks' = zipWith (\t l -> t{loc = l}) (catMaybes tanks) poss
