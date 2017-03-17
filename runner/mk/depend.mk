@@ -52,43 +52,11 @@ src/Tankode/Data.o: \
   src/Colour.hs
 src/Tankode/IPC.o: \
   src/Tankode/Show.hs \
-  src/Tankode/Palette/Year2017.hs \
-  src/Tankode/Palette/Utils.hs \
-  src/Tankode/Palette/Pure.hs \
-  src/Tankode/Palette.hs \
-  src/Tankode/IPC.hs \
-  src/Tankode/Data.hs \
-  src/RatioMath.hs \
-  src/PipeRun.hs \
-  src/Geometry.hs \
-  src/Colour.hs
-src/tankode-logic.o: \
-  src/Tankode/Show.hs \
   src/Tankode/Physics.hs \
   src/Tankode/Palette/Year2017.hs \
   src/Tankode/Palette/Utils.hs \
   src/Tankode/Palette/Pure.hs \
   src/Tankode/Palette.hs \
-  src/Tankode.hs \
-  src/tankode-logic.hs \
-  src/Tankode/IPC.hs \
-  src/Tankode/Data.hs \
-  src/Tankode/Constants.hs \
-  src/RatioMath.hs \
-  src/Random.hs \
-  src/PipeRun.hs \
-  src/List.hs \
-  src/Geometry.hs \
-  src/Colour.hs
-src/tankode-logic: \
-  src/Tankode/Show.hs \
-  src/Tankode/Physics.hs \
-  src/Tankode/Palette/Year2017.hs \
-  src/Tankode/Palette/Utils.hs \
-  src/Tankode/Palette/Pure.hs \
-  src/Tankode/Palette.hs \
-  src/Tankode.hs \
-  src/tankode-logic.hs \
   src/Tankode/IPC.hs \
   src/Tankode/Data.hs \
   src/Tankode/Constants.hs \
@@ -145,14 +113,54 @@ src/Tankode/Physics.o: \
   src/List.hs \
   src/Geometry.hs \
   src/Colour.hs
+src/tankode-runner.o: \
+  src/Tankode/Show.hs \
+  src/tankode-runner.hs \
+  src/Tankode/Physics.hs \
+  src/Tankode/Palette/Year2017.hs \
+  src/Tankode/Palette/Utils.hs \
+  src/Tankode/Palette/Pure.hs \
+  src/Tankode/Palette.hs \
+  src/Tankode.hs \
+  src/Tankode/IPC.hs \
+  src/Tankode/Data.hs \
+  src/Tankode/Constants.hs \
+  src/RatioMath.hs \
+  src/Random.hs \
+  src/PipeRun.hs \
+  src/List.hs \
+  src/Geometry.hs \
+  src/Colour.hs
+src/tankode-runner: \
+  src/Tankode/Show.hs \
+  src/tankode-runner.hs \
+  src/Tankode/Physics.hs \
+  src/Tankode/Palette/Year2017.hs \
+  src/Tankode/Palette/Utils.hs \
+  src/Tankode/Palette/Pure.hs \
+  src/Tankode/Palette.hs \
+  src/Tankode.hs \
+  src/Tankode/IPC.hs \
+  src/Tankode/Data.hs \
+  src/Tankode/Constants.hs \
+  src/RatioMath.hs \
+  src/Random.hs \
+  src/PipeRun.hs \
+  src/List.hs \
+  src/Geometry.hs \
+  src/Colour.hs
 src/Tankode/Show.o: \
   src/Tankode/Show.hs \
+  src/Tankode/Physics.hs \
   src/Tankode/Palette/Year2017.hs \
   src/Tankode/Palette/Utils.hs \
   src/Tankode/Palette/Pure.hs \
   src/Tankode/Palette.hs \
   src/Tankode/Data.hs \
+  src/Tankode/Constants.hs \
   src/RatioMath.hs \
+  src/Random.hs \
+  src/List.hs \
   src/Geometry.hs \
   src/Colour.hs
 src/Trigonometry.o: \
