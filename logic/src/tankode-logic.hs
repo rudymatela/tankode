@@ -23,6 +23,10 @@ data Args = Args
   , showHelp :: Bool
   , seed     :: Maybe Int
   , dump     :: Bool
+
+  , drawCharge :: Bool
+  , drawHealth :: Bool
+  , motionBlur :: Bool
   }
 
 prepareArgs :: Args -> Mode Args
@@ -34,6 +38,14 @@ prepareArgs args =
   , " seed"       --= \s a -> a {seed = Just $ read s}
   , "hhelp"       --.   \a -> a {showHelp = True}
   , "ddump"       --.   \a -> a {dump = True}
+
+  -- options passed along to the display program
+  , " draw-charge" --. \a -> a {drawCharge = True}
+  , " draw-health" --. \a -> a {drawHealth = True}
+  , " motion-blur" --. \a -> a {motionBlur = True}
+  , " no-draw-charge" --. \a -> a {drawCharge = False}
+  , " no-draw-health" --. \a -> a {drawHealth = False}
+  , " no-motion-blur" --. \a -> a {motionBlur = False}
   ]
   where
   (short:long) --= fun = flagReq  (filter (/= " ") [[short],long]) ((Right .) . fun) "X" ""
@@ -47,6 +59,9 @@ args = Args
   , showHelp = False
   , seed = Nothing
   , dump = False
+  , drawCharge = True
+  , drawHealth = True
+  , motionBlur = True
   }
   where
   obstacles =
@@ -82,8 +97,7 @@ mainWith args@Args{field = f, tankodes = ts, seed = seed, dump = dump} = do
   let poss = startingPositions f gen
   --propagateSIGTERM
   --createSession
-  dn <- dirname <$> getExecutablePath
-  unless dump $ pipeTo [dn ++ "/" ++ "../../display/bin/tankode-display"]
+  unless dump $ pipeToDisplay args
   tanks <- traverse setupTankode $ map words ts
   let tanks' = zipWith (\t l -> t{loc = l}) (catMaybes tanks) poss
   gen' <- newStdGen
@@ -94,6 +108,16 @@ mainWith args@Args{field = f, tankodes = ts, seed = seed, dump = dump} = do
 main :: IO ()
 main = do
   mainWith =<< processArgs (prepareArgs args)
+
+pipeToDisplay :: Args -> IO ()
+pipeToDisplay args = do
+  dn <- dirname <$> getExecutablePath
+  pipeTo . concat $
+    [ [dn ++ "/" ++ "../../display/bin/tankode-display"]
+    , ["no-draw-charge" | not $ drawCharge args]
+    , ["no-draw-health" | not $ drawHealth args]
+    , ["no-motion-blur" | not $ motionBlur args]
+    ]
 
 dirname :: String -> String
 dirname = reverse . tail . dropWhile (/= '/') . reverse
