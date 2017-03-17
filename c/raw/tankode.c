@@ -5,8 +5,8 @@
 const float NaN = 0.0 / 0.0;
 
 static double get_ratio();
-static void print_ratio(float);
-static void print_colour(struct colour);
+static void print_ratio(double);
+static void print_incdec(double);
 static int get(struct tankode_in *in);
 static void put(struct tankode_out out);
 
@@ -14,14 +14,10 @@ void tankode_run(struct tankode_id id, struct tankode_out tankode(struct tankode
 {
 	struct tankode_in  in;
 	struct tankode_out out;
-	printf("%s",id.name);
-	printf(" "); print_colour(id.track);
-	printf(" "); print_colour(id.body);
-	printf(" "); print_colour(id.gun);
-	printf(" "); print_colour(id.radar);
-	printf(" "); print_colour(id.bullet);
-	printf(" "); print_colour(id.scan);
-	printf("\n");
+	setlinebuf(stdin);
+	setlinebuf(stdout);
+	printf("%s %s %s %s %s %s %s\n",
+	  id.name,id.track,id.body,id.gun,id.radar,id.buller,id.scan);
 	while (get(&in))
 		put(tankode(in));
 }
@@ -32,17 +28,9 @@ static double get_ratio()
 	return r == 2 ? (double)n / (double)d : NaN;
 }
 
-static void print_ratio(float f)
+static void print_ratio(double f)
 {
 	printf("%i/360", (int)(f*360));
-}
-
-static void print_colour(struct colour c)
-{
-	printf("#%02x%02x%02x",
-		(int)(c.r*255.),
-		(int)(c.g*255.),
-		(int)(c.b*255.));
 }
 
 static int get(struct tankode_in *in)
@@ -55,10 +43,17 @@ static int get(struct tankode_in *in)
 	return in->integrity > 0.000000001;
 }
 
+static void print_incdec(double f)
+{
+	if (f >  0) putchar('+');
+	if (f <  0) putchar('-');
+	if (f == 0) putchar('=');
+}
+
 static void put(struct tankode_out out)
 {
-	print_ratio(out.accel); printf(" ");
-	print_ratio(out.body);  printf(" ");
+	print_incdec(out.accel); printf(" ");
+	print_incdec(out.body);  printf(" ");
 	print_ratio(out.gun);   printf(" ");
 	print_ratio(out.radar); printf(" ");
 	print_ratio(out.shoot); printf("\n");

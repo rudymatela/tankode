@@ -1,21 +1,14 @@
 #ifndef _TANKODE_H
 #define _TANKODE_H
 
-#define MAX_NAME 0x100
-
-struct colour {
-	float r,g,b;
-};
-
 struct tankode_id {
-	char name[MAX_NAME];
-	struct colour
-	track,
-	body,
-	gun,
-	radar,
-	bullet,
-	scan;
+	char *name;
+	char *track;
+	char *body;
+	char *gun;
+	char *radar;
+	char *buller;
+	char *scan;
 };
 
 struct tankode_in {
