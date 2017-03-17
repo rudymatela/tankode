@@ -6,12 +6,11 @@ interface
 ---------
 
 * complete c raw interface:
-	- add constants.h;
 	- add a couple more examples (chaser, rightturner, chaserII);
 
-* write ruby raw interface; add examples;
-
 ### low priority
+
+* write ruby raw interface; add examples;
 
 * change obstacles to be arbitrary convex polygons instead of triangles (easier
   to compute on logic, not actually harder to draw)
@@ -61,9 +60,9 @@ display
 
 ### low priority
 
+* draw bullet explosion when hitting wall or tank (simple circle?)
+
 * draw health bar as a torus section on top of the body on the back of the gun;
 
 * draw scan rays as solid triangles;
 	- then as fading triangles;
-
-* draw bullet explosion when hitting wall or tank (simple circle?)

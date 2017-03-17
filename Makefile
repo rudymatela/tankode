@@ -1,6 +1,7 @@
 # top-level Makefile for tankode
 
-TANKODES=haskell/eg/{sitting-duck,chaser,escaper,left-turner,right-turner,zigzagger}
+#TANKODES=haskell/eg/{sitting-duck,chaserII,chaserIII,escaper,left-turner,right-turner,zigzagger}
+TANKODES=c/raw/eg/{sitting-duck,left-turner} bash/{sitting-duck,left-turner}
 
 all: runner haskell c-raw
 
