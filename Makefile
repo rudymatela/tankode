@@ -32,20 +32,16 @@ run-logic: logic
 
 run: display logic haskell
 	./bin/tankode $(TANKODES)
-	make kill
 
 run-charge: display logic haskell
 	./bin/tankode $(TANKODES) --draw-charge
-	make kill
 
 bench: display logic haskell
 	cat .runtimes-`hostname`
 	/usr/bin/time -f%e ./logic/bin/tankode-logic -t1 $(TANKODES) > /dev/null
-	make kill
 
 save-bench: display logic haskell
 	/usr/bin/time -f%e ./logic/bin/tankode-logic -t1 $(TANKODES) > /dev/null 2> .runtimes-`hostname`
-	make kill
 
 prof:
 	make -Clogic clean
@@ -53,9 +49,6 @@ prof:
 	/usr/bin/time -f%e ./logic/bin/tankode-logic -t1 $(TANKODES) +RTS -p -RTS > /dev/null
 	make -Clogic clean
 	cat tankode-logic.prof | grep -v ' [0-5].[0-9] ......$$'
-
-kill:
-	killall sitting-duck chaser escaper left-turner right-turner zigzagger
 
 clean:
 	make -Cdisplay  clean
