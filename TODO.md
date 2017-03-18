@@ -6,7 +6,7 @@ interface
 ---------
 
 * complete c raw interface:
-	- add a couple more examples (chaser, rightturner, chaserII);
+	- add a couple more examples (rightturner, chaserII);
 
 ### low priority
 
