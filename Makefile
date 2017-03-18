@@ -1,7 +1,7 @@
 # top-level Makefile for tankode
 
 #TANKODES=haskell/eg/{sitting-duck,chaserII,chaserIII,escaper,left-turner,right-turner,zigzagger}
-TANKODES=c/raw/eg/{sitting-duck,left-turner,chaser} bash/{sitting-duck,left-turner}
+TANKODES=c/raw/eg/{sitting-duck,left-turner,right-turner,chaser,chaserII} bash/{sitting-duck,left-turner}
 
 all: runner haskell c-raw
 
@@ -25,10 +25,10 @@ doc:
 	markdown doc/tankode-protocol.md > doc/tankode-protocol.html
 	markdown README.md > README.html
 
-run: runner haskell
+run: all
 	./bin/tankode $(TANKODES)
 
-run-charge: runner haskell
+run-charge: all
 	./bin/tankode $(TANKODES) --draw-charge
 
 clean:
