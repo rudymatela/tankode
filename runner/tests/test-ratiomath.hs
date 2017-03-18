@@ -9,6 +9,7 @@ import Data.Tuple (swap)
 import Control.Arrow ((***))
 import Data.Function (on)
 import Data.List (sort)
+import List
 
 main :: IO ()
 main = mainTest tests 10000
@@ -141,6 +142,9 @@ tests n =
   -- TODO: failing, fix: returning []
   , secantPointsS ((-1,0),(1,0)) ((2,1),2) =$ map (roundRR 60) $= [(2 - 2 * cos (30/360), 0)]
   , secantPointsS ((0,0),(1,0)) ((0,0),1)      =$ map (roundRR 60) $= [(1,0)]
+
+  , mapThat odd  (*10) [0,1,2,3,4,5] == [0,10,2,30,4,50]
+  , mapThat even (*10) [0,1,2,3,4,5] == [0,1,20,3,40,5]
   ]
   where
   (=.=) = (==) `on` sortMPair

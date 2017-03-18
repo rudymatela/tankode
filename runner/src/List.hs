@@ -7,6 +7,7 @@ module List
   , mapChoices
   , maybeMinimum
   , compose
+  , mapThat
   )
 where
 
@@ -43,3 +44,6 @@ maybeMinimum xs = Just $ minimum xs
 compose :: [a -> a] -> a -> a
 compose [] = id
 compose (f:fs) = f . compose fs
+
+mapThat :: (a -> Bool) -> (a -> a) -> [a] -> [a]
+mapThat p f = map (\x -> if p x then f x else x)
