@@ -5,9 +5,6 @@ Tankode's TODO list
 interface
 ---------
 
-* complete c raw interface:
-	- add a couple more examples (rightturner, chaserII);
-
 ### low priority
 
 * write ruby raw interface; add examples;
