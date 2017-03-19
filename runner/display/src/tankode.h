@@ -18,6 +18,7 @@ struct bullet {
 	float charge;
 	float x, y;
 	float dir;
+	int exploded;
 };
 
 struct tank {

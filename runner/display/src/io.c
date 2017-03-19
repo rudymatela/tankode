@@ -142,9 +142,9 @@ int read_tick(struct state *s)
 	char w[MAX_WHAT] = "";
 	scanf(" %d",&s->tick);
 	while (read_what(w)) {
-		if (strcmp(w,"tankpos") == 0) { read_tankpos(&s->tanks[++i]); s->tanks[i].n_bullets=0;       continue; }
-		if (strcmp(w,"bullet")  == 0) { s->tanks[i].bullets[s->tanks[i].n_bullets++] = get_bullet(); continue; }
-		if (strcmp(w,"explosion") == 0) { get_explosion(); continue; }
+		if (strcmp(w,"tankpos")   == 0) { read_tankpos(&s->tanks[++i]); s->tanks[i].n_bullets=0;       continue; }
+		if (strcmp(w,"bullet")    == 0) { s->tanks[i].bullets[s->tanks[i].n_bullets++] = get_bullet(); continue; }
+		if (strcmp(w,"explosion") == 0) { s->tanks[i].bullets[s->tanks[i].n_bullets++] = get_explosion(); continue; }
 		if (strcmp(w,"tick")    == 0) break;
 		goto err;
 	}
@@ -189,6 +189,7 @@ struct bullet get_bullet()
 	b.x      = get_ratio();
 	b.y      = get_ratio();
 	b.dir    = get_ratio() * 2 * M_PI;
+	b.exploded = 0;
 	return b;
 }
 
@@ -198,6 +199,8 @@ struct bullet get_explosion()
 	b.charge = get_ratio();
 	b.x      = get_ratio();
 	b.y      = get_ratio();
+	b.dir    = 0.0 / 0.0;
+	b.exploded = 1;
 	return b;
 }
 
