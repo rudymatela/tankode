@@ -9,8 +9,9 @@
 enum layer {
 	floor_layer,
 	floor_line_layer,
-	obstacle_layer,
 	track_layer,
+	explosion_layer,
+	obstacle_layer,
 	base_layer,
 	gun_layer,
 	scan_layer,

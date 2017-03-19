@@ -144,7 +144,7 @@ void drawRectangle(float x0, float y0, float x1, float y1, float thickness, enum
 void drawBullet(struct bullet b)
 {
 	if (b.exploded) {
-		drawCircle(b.x, b.y, (1 + b.charge + sqrt(b.charge)) / 10, bullet_layer);
+		drawCircle(b.x, b.y, (1 + b.charge + sqrt(b.charge)) / 10, explosion_layer);
 	} else {
 		drawDrop(b.x, b.y, (1 + b.charge + sqrt(b.charge)) / 30., b.dir, bullet_layer);
 	}
