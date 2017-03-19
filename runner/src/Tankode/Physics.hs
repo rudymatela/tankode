@@ -122,7 +122,7 @@ cool :: Tank -> Tank
 cool = updateHeat $ max 0 . subtract cooling
 
 flyBullets :: Tank -> Tank
-flyBullets = updateBullets (map fly)
+flyBullets = updateBullets (mapThat (not . bulletExploded) fly)
 
 fly :: Bullet -> Bullet
 fly b = translateBullet (bulletHeading b) (bulletSpeed b) b
