@@ -72,10 +72,10 @@ showPos f ts t = unwords
 -}
 
 showBullets :: [Bullet] -> String
-showBullets = unlines . filter (not . null) . map showBullet
+showBullets = unlines . map showBullet
 
 showBullet :: Bullet -> String
-showBullet b@Bullet{bulletExploded = True} = const [] $ unwords
+showBullet b@Bullet{bulletExploded = True} = unwords
   [ "explosion"
   , showR   (bulletCharge  b)
   , showLoc (bulletLoc     b)

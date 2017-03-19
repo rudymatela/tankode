@@ -15,5 +15,6 @@ struct obstacle get_obstacle();
 struct colour get_colour();
 struct tank get_tank();
 struct bullet get_bullet();
+struct bullet get_explosion();
 
 #endif /* _IO_H */
