@@ -133,12 +133,14 @@ processHits f ts = compose (map damageTanks allBullets)
                  $ map ph1 ts
   where
   ph1 :: Tank -> Tank
-  ph1 = updateBullets $ (discard hitObstacle) . (discard hitAnyTank)
+  ph1 = updateBullets
+      $ mapThat (\b -> hitObstacle b || hitAnyTank b) explode
+      . discard bulletExploded
   hitAnyTank b = any (b `hitTank`) ts
   hitObstacle :: Bullet -> Bool
   hitObstacle b = any (intersectSS ((bulletLoc b),(bulletLoc $ fly b)))
                 $ segments (obstacles f)
-  allBullets = concatMap bullets ts
+  allBullets = discard bulletExploded $ concatMap bullets ts
 
 damageTanks :: Bullet -> [Tank] -> [Tank]
 damageTanks b = map (damageTank b)
