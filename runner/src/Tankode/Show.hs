@@ -75,6 +75,11 @@ showBullets :: [Bullet] -> String
 showBullets = unlines . map showBullet
 
 showBullet :: Bullet -> String
+showBullet b@Bullet{bulletExploded = True} = unwords
+  [ "explosion"
+  , showR   (bulletCharge  b)
+  , showLoc (bulletLoc     b)
+  ]
 showBullet b = unwords
   [ "bullet"
   , showR   (bulletCharge  b)

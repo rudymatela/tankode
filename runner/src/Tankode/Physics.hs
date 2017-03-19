@@ -109,7 +109,7 @@ shoot p t
   | p == 0 || p > power t || heat t > 0 = t
   | otherwise = updatePower   (subtract p)
               . updateHeat    (+ heating)
-              $ updateBullets (fly (Bullet p lo th):) t
+              $ updateBullets (fly (bullet p lo th):) t
     where
     th = gunHeading t
     lo = translate th tankRadius $ loc t

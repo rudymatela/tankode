@@ -94,11 +94,15 @@ tank = Tank
   }
 
 data Bullet = Bullet
-  { bulletCharge  :: Rational
-  , bulletLoc     :: Loc
-  , bulletHeading :: Rational
+  { bulletCharge   :: Rational
+  , bulletLoc      :: Loc
+  , bulletHeading  :: Rational
+  , bulletExploded :: Bool
   }
   deriving Show
+
+bullet :: Rational -> Loc -> Rational -> Bullet
+bullet c l h = Bullet c l h False
 
 --                    life      speed     enemy           wall
 type TankodeInput  = (Rational, Rational, Maybe Rational, Maybe Rational)
@@ -167,3 +171,6 @@ segments1 (a,b,c) = [(a,b),(b,c),(c,a)]
 
 segments :: [Obstacle] -> [Segment]
 segments = concatMap segments1
+
+explode :: Bullet -> Bullet
+explode b = b{bulletExploded = True}
