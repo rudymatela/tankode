@@ -120,11 +120,12 @@ mainWith args = do
 setupAndPrintSimulation :: StdGen -> IORef [ProcessID] -> Args -> IO ()
 setupAndPrintSimulation gen pidsRef args@Args{field = f, tankodes = ts} = do
 -- TODO: make a function places :: Field -> [Loc]
-  let poss = startingPositions f gen
+  let (gen',gen'') = split gen
+  let poss = startingPositions f gen'
   tanks <- traverse setupTankode $ map words ts
   let tanks' = zipWith (\t l -> t{loc = l}) (catMaybes tanks) poss
   writeIORef pidsRef (map pid tanks')
-  let hs = startingHeadings gen
+  let hs = startingHeadings gen''
   let tanks'' = zipWith (\t h -> t{heading = h}) tanks' hs
   printSimulation args f tanks''
   putStrLn "end"
