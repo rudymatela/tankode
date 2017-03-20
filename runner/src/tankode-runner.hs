@@ -124,7 +124,6 @@ setupAndPrintSimulation gen pidsRef args@Args{field = f, tankodes = ts} = do
   tanks <- traverse setupTankode $ map words ts
   let tanks' = zipWith (\t l -> t{loc = l}) (catMaybes tanks) poss
   writeIORef pidsRef (map pid tanks')
-  gen' <- newStdGen
   let hs = startingHeadings gen
   let tanks'' = zipWith (\t h -> t{heading = h}) tanks' hs
   printSimulation args f tanks''
