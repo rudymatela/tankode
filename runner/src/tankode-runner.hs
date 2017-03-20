@@ -105,20 +105,25 @@ printStates args n winFor tieFor f ts
 mainWith :: Args -> IO ()
 mainWith Args{showHelp = True} = print $ helpText [] HelpFormatDefault (prepareArgs args)
 mainWith Args{tankodes = []} = putStrLn "must pass at least one tankode"
-mainWith args@Args{field = f, tankodes = ts, seed = seed, dump = dump} = do
-  gen <- mkNewStdGen seed
--- TODO: make a function places :: Field -> [Loc]
-  let poss = startingPositions f gen
-  --propagateSIGTERM
-  tanks <- traverse setupTankode $ map words ts
-  let tanks' = zipWith (\t l -> t{loc = l}) (catMaybes tanks) poss
-  pidsRef <- newIORef (map pid tanks')
-  dpid <- if dump
+mainWith args = do
+  pidsRef <- newIORef []
+  dpid <- if dump args
             then return Nothing
             else Just <$> pipeToDisplay pidsRef args
   -- TODO: need to handle updatding pidsRef when not pipeToDisplay,
   -- in that case, we will need an alternate sigCHLD capture
   -- otherwise we may be signaling unrelated processes to terminate
+  -- maybe do this by taking the old handler and calling it?
+  gen <- mkNewStdGen (seed args)
+  setupAndPrintSimulation gen pidsRef args
+
+setupAndPrintSimulation :: StdGen -> IORef [ProcessID] -> Args -> IO ()
+setupAndPrintSimulation gen pidsRef args@Args{field = f, tankodes = ts} = do
+-- TODO: make a function places :: Field -> [Loc]
+  let poss = startingPositions f gen
+  tanks <- traverse setupTankode $ map words ts
+  let tanks' = zipWith (\t l -> t{loc = l}) (catMaybes tanks) poss
+  writeIORef pidsRef (map pid tanks')
   gen' <- newStdGen
   let hs = startingHeadings gen
   let tanks'' = zipWith (\t h -> t{heading = h}) tanks' hs
