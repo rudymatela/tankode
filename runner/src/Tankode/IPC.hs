@@ -15,7 +15,7 @@ import Data.Ratio ((%))
 -- runs a tankode and initializes necessary fields
 setupTankode :: [String] -> IO (Maybe Tank)
 setupTankode command = do
-  (i,o) <- pun command
+  (pid,i,o) <- pun command
   (n:t:b:g:r:u:s:_) <- words <$> hGetLine i
   return $ Just $ tank
     { name = n
@@ -26,6 +26,7 @@ setupTankode command = do
     , bulletColour  = readColour u
     , scanColour    = readColour s
     , tankode = tk i o
+    , pid = pid
     }
   where
   tk i o (l,s,e,w) = do

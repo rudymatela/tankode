@@ -38,14 +38,14 @@ porkProcessStdIO act' = porkProcess act
     act'
 
 -- pipe-runs a program, stdio is bound to a pair of handles
-pun :: [String] -> IO (Handle,Handle)
+pun :: [String] -> IO (ProcessID,Handle,Handle)
 pun as = do
-  (_,fin,fout) <- pun' as
+  (pid,fin,fout) <- pun' as
   hin  <- fdToHandle fin
   hout <- fdToHandle fout
   hSetBuffering hin  LineBuffering
   hSetBuffering hout LineBuffering
-  return (hin,hout)
+  return (pid,hin,hout)
   where
   pun' as = porkProcessStdIO (execFile as)
 

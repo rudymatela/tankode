@@ -15,6 +15,7 @@ import Control.Arrow ((***))
 import Prelude hiding (sin, cos, asin, acos, sqrt)
 import RatioMath
 import Geometry
+import System.Posix.Types (ProcessID)
 
 type Loc = Point
 type Obstacle = (Loc,Loc,Loc)
@@ -46,6 +47,7 @@ data Tank = Tank
   { name :: String
 
   , tankode :: Tankode -- ^ AI
+  , pid :: ProcessID
 
   , trackColour  :: Colour
   , bodyColour   :: Colour
@@ -73,6 +75,7 @@ tank = Tank
   { name = "noname"
 
   , tankode = error "no tankode"
+  , pid = error "no pid"
 
   , trackColour  = grey4
   , bodyColour   = grey3
