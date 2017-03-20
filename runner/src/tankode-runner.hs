@@ -11,6 +11,7 @@ import List
 import Control.Arrow ((***))
 import Random
 import Data.Maybe
+import Data.Function
 import System.Console.CmdArgs.Explicit
 import System.Environment
 import Control.Monad
@@ -82,16 +83,21 @@ printSimulation :: Args -> Field -> State -> IO ()
 printSimulation args f ts = do
   putStrLn $ showField f
   putStrLn . unlines $ map showId ts
-  printStates args 0 0 f ts
+  printStates args 0 0 0 f ts
 
-printStates :: Args -> Int -> Int -> Field -> State -> IO ()
-printStates args n winFor f ts
+printStates :: Args -> Int -> Int -> Int -> Field -> State -> IO ()
+printStates args n winFor tieFor f ts
   | n >= maxTicks args = return ()
-  | winFor >= 120 = return ()
+  | winFor >= 2 * ticksPerSecond = return ()
+  | tieFor >= 6 * ticksPerSecond = return ()
   | otherwise = do
   putStrLn $ showTick n ts
+  ts' <- nextState f ts
   let winFor' = if nActive ts <= 1 then winFor + 1 else winFor
-  printStates args (n+1) winFor' f =<< nextState f ts
+  let tieFor' = if and $ zipWith ((==) `on` integrity) ts ts'
+                  then tieFor + 1
+                  else 0
+  printStates args (n+1) winFor' tieFor' f ts'
   where
   showTick i ts = "tick " ++ show i ++ "\n" ++ showState f ts
 
