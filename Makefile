@@ -47,6 +47,9 @@ demo-left: all
 demo-chaser: all
 	./bin/tankode --no-draw-scan -n12 -s4x8 haskell/eg/{sitting-duck,sitting-duck,chaser}
 
+demo-chaserII: all
+	./bin/tankode --no-draw-scan -n12 -s4x8 haskell/eg/{sitting-duck,zigzagger,chaserII}
+
 clean:
 	make -Crunner   clean
 	make -Chaskell  clean
