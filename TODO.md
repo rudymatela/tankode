@@ -18,10 +18,10 @@ interface
 game rules
 ----------
 
-* implement winning condition, automatically start new simulation after old
-
 * calibrate constants of `Tankode.Constants`;
 	- turning is currently faster than gun turning?
+
+* actuallly count wins and points and show them somehow
 
 ### low priority
 
@@ -39,8 +39,8 @@ stability
 
 ### low priority
 
-* improve signal handling from PipeRun and IPC
-  (make tankode exit gracefully on window closing)
+* wait for all child processes to get rid of defunct processes
+  (turns out I'll probably won't need to catch SIGCHLD after all...)
 
 * add more tests to geometry module
 
