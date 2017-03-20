@@ -17,6 +17,7 @@ import System.Environment
 import Control.Monad
 import System.Posix (ProcessID, signalProcess, sigINT)
 import System.IO
+import Data.IORef
 
 data Args = Args
   { tankodes :: [String]
@@ -111,20 +112,25 @@ mainWith args@Args{field = f, tankodes = ts, seed = seed, dump = dump} = do
   --propagateSIGTERM
   tanks <- traverse setupTankode $ map words ts
   let tanks' = zipWith (\t l -> t{loc = l}) (catMaybes tanks) poss
+  pidsRef <- newIORef (map pid tanks')
   dpid <- if dump
             then return Nothing
-            else Just <$> pipeToDisplay (map pid tanks') args
+            else Just <$> pipeToDisplay pidsRef args
+  -- TODO: need to handle updatding pidsRef when not pipeToDisplay,
+  -- in that case, we will need an alternate sigCHLD capture
+  -- otherwise we may be signaling unrelated processes to terminate
   gen' <- newStdGen
   let hs = startingHeadings gen
   let tanks'' = zipWith (\t h -> t{heading = h}) tanks' hs
   printSimulation args f tanks''
   putStrLn "end"
+  mapM_ (signalProcess sigINT) =<< readIORef pidsRef
 
 main :: IO ()
 main = do
   mainWith =<< processArgs (prepareArgs args)
 
-pipeToDisplay :: [ProcessID] -> Args -> IO ProcessID
+pipeToDisplay :: IORef [ProcessID] -> Args -> IO ProcessID
 pipeToDisplay pids args = do
   dn <- dirname <$> getExecutablePath
   pipeTo pids . concat $

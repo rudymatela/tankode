@@ -52,11 +52,11 @@ pun as = do
 
 -- pipes the current process to a child.
 -- if the child terminates, sends sigTERM to the current process group
-pipeTo :: [ProcessID] -> [String] -> IO ProcessID
-pipeTo cpids as = do
+pipeTo :: IORef [ProcessID] -> [String] -> IO ProcessID
+pipeTo cpidsRef as = do
   (fromParent,toChild) <- createPipe
   cpid <- forkProcess (act fromParent)
-  terminateOnSIGCHLD cpids cpid
+  terminateOnSIGCHLD cpidsRef cpid
   dupTo toChild stdOutput
   closeFd toChild
   hSetBuffering stdout LineBuffering
@@ -68,9 +68,8 @@ pipeTo cpids as = do
     hSetBuffering stdin LineBuffering
     execFile as
 
-terminateOnSIGCHLD :: [ProcessID] -> ProcessID -> IO ()
-terminateOnSIGCHLD pids pid = do
-  pidsRef <- newIORef pids
+terminateOnSIGCHLD :: IORef [ProcessID] -> ProcessID -> IO ()
+terminateOnSIGCHLD pidsRef pid = do
   installHandler sigCHLD (CatchInfo (handler pidsRef)) Nothing
   return ()
   where
