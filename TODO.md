@@ -18,6 +18,8 @@ interface
 game rules
 ----------
 
+* implement winning condition, automatically start new simulation after old
+
 * calibrate constants of `Tankode.Constants`;
 	- turning is currently faster than gun turning?
 
