@@ -14,7 +14,7 @@ import Data.Maybe
 import System.Console.CmdArgs.Explicit
 import System.Environment
 import Control.Monad
-import System.Posix.Types (ProcessID)
+import System.Posix (ProcessID, signalProcess, sigINT)
 
 data Args = Args
   { tankodes :: [String]
@@ -102,17 +102,20 @@ mainWith args@Args{field = f, tankodes = ts, seed = seed, dump = dump} = do
   --propagateSIGTERM
   tanks <- traverse setupTankode $ map words ts
   let tanks' = zipWith (\t l -> t{loc = l}) (catMaybes tanks) poss
-  unless dump $ pipeToDisplay (map pid tanks') args
+  dpid <- if dump
+            then return Nothing
+            else Just <$> pipeToDisplay (map pid tanks') args
   gen' <- newStdGen
   let hs = startingHeadings gen
   let tanks'' = zipWith (\t h -> t{heading = h}) tanks' hs
   printSimulation args f tanks''
+  when (isJust dpid) $ signalProcess sigINT (fromJust dpid)
 
 main :: IO ()
 main = do
   mainWith =<< processArgs (prepareArgs args)
 
-pipeToDisplay :: [ProcessID] -> Args -> IO ()
+pipeToDisplay :: [ProcessID] -> Args -> IO ProcessID
 pipeToDisplay pids args = do
   dn <- dirname <$> getExecutablePath
   pipeTo pids . concat $

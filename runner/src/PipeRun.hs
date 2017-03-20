@@ -52,7 +52,7 @@ pun as = do
 
 -- pipes the current process to a child.
 -- if the child terminates, sends sigTERM to the current process group
-pipeTo :: [ProcessID] -> [String] -> IO ()
+pipeTo :: [ProcessID] -> [String] -> IO ProcessID
 pipeTo cpids as = do
   (fromParent,toChild) <- createPipe
   cpid <- forkProcess (act fromParent)
@@ -60,7 +60,7 @@ pipeTo cpids as = do
   dupTo toChild stdOutput
   closeFd toChild
   hSetBuffering stdout LineBuffering
-  return ()
+  return cpid
   where
   act fromParent = do
     dupTo fromParent stdInput
