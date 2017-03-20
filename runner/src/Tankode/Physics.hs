@@ -234,3 +234,6 @@ startingHeadings = map (%24) . randomRs (0,24)
 
 inactive :: Tank -> Bool
 inactive t = integrity t <= 0
+
+nActive :: [Tank] -> Int
+nActive = length . filter (not . inactive)
