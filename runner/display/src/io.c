@@ -162,6 +162,7 @@ int read_tick(struct state *s)
 		if (strcmp(w,"bullet")    == 0) { s->tanks[i].bullets[s->tanks[i].n_bullets++] = get_bullet(); continue; }
 		if (strcmp(w,"explosion") == 0) { s->tanks[i].explosions[s->tanks[i].n_explosions++] = get_explosion(); continue; }
 		if (strcmp(w,"tick")    == 0) break;
+		if (strcmp(w,"end")     == 0) return 0;
 		goto err;
 	}
 	if (i+1 != s->n_tanks)

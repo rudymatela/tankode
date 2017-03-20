@@ -15,6 +15,7 @@ import System.Console.CmdArgs.Explicit
 import System.Environment
 import Control.Monad
 import System.Posix (ProcessID, signalProcess, sigINT)
+import System.IO
 
 data Args = Args
   { tankodes :: [String]
@@ -81,14 +82,16 @@ printSimulation :: Args -> Field -> State -> IO ()
 printSimulation args f ts = do
   putStrLn $ showField f
   putStrLn . unlines $ map showId ts
-  printStates args 0 f ts
+  printStates args 0 0 f ts
 
-printStates :: Args -> Int -> Field -> State -> IO ()
-printStates args n f ts
+printStates :: Args -> Int -> Int -> Field -> State -> IO ()
+printStates args n winFor f ts
   | n >= maxTicks args = return ()
+  | winFor >= 120 = return ()
   | otherwise = do
   putStrLn $ showTick n ts
-  printStates args (n+1) f =<< nextState f ts
+  let winFor' = if nActive ts <= 1 then winFor + 1 else winFor
+  printStates args (n+1) winFor' f =<< nextState f ts
   where
   showTick i ts = "tick " ++ show i ++ "\n" ++ showState f ts
 
@@ -109,7 +112,7 @@ mainWith args@Args{field = f, tankodes = ts, seed = seed, dump = dump} = do
   let hs = startingHeadings gen
   let tanks'' = zipWith (\t h -> t{heading = h}) tanks' hs
   printSimulation args f tanks''
-  when (isJust dpid) $ signalProcess sigINT (fromJust dpid)
+  putStrLn "end"
 
 main :: IO ()
 main = do
