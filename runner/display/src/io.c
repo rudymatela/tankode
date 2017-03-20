@@ -8,6 +8,7 @@ const float NaN = 0./0.;
 int isNaN(float f) {return f != f;}
 
 static void update_flare(struct tank *t);
+static void age_explosions(struct tank *t);
 static void rotate(float *x, float *y, float dir);
 
 
@@ -87,13 +88,14 @@ int read_tankpos(struct tank *t)
 	t->heat       = get_ratio();        if (isNaN(t->heat))       return 0;
 	t->scan_dist  = get_ratio();        if (isNaN(t->scan_dist))  return 0;
 	update_flare(t);
+	age_explosions(t);
 	return 1;
 }
 
 
 static void update_flare(struct tank *t)
 {
-	/* just shot!, update flare position */
+	/* this tank has just shot!, update flare position */
 	if (t->heat >= 1.) {
 		t->flare_x = 0.;
 		t->flare_y = 8./12.;
@@ -101,6 +103,20 @@ static void update_flare(struct tank *t)
 		rotate(&t->flare_x, &t->flare_y, t->flare_dir);
 		t->flare_x += t->x;
 		t->flare_y += t->y;
+	}
+}
+
+
+static void age_explosions(struct tank *t)
+{
+	int i, j = -1;
+	for (i=0; i<t->n_explosions; i++)
+		if (++t->explosions[i].age >= EXPLOSION_DISCARD_AGE)
+			j = i;
+	if (j >= 0) {
+		for (i=0, j++; j<t->n_explosions; i++, j++)
+			t->explosions[i] = t->explosions[j];
+		t->n_explosions = i;
 	}
 }
 
@@ -142,9 +158,9 @@ int read_tick(struct state *s)
 	char w[MAX_WHAT] = "";
 	scanf(" %d",&s->tick);
 	while (read_what(w)) {
-		if (strcmp(w,"tankpos")   == 0) { read_tankpos(&s->tanks[++i]); s->tanks[i].n_bullets=0;       continue; }
+		if (strcmp(w,"tankpos")   == 0) { read_tankpos(&s->tanks[++i]); s->tanks[i].n_bullets=0; continue; }
 		if (strcmp(w,"bullet")    == 0) { s->tanks[i].bullets[s->tanks[i].n_bullets++] = get_bullet(); continue; }
-		if (strcmp(w,"explosion") == 0) { s->tanks[i].bullets[s->tanks[i].n_bullets++] = get_explosion(); continue; }
+		if (strcmp(w,"explosion") == 0) { s->tanks[i].explosions[s->tanks[i].n_explosions++] = get_explosion(); continue; }
 		if (strcmp(w,"tick")    == 0) break;
 		goto err;
 	}
@@ -189,19 +205,17 @@ struct bullet get_bullet()
 	b.x      = get_ratio();
 	b.y      = get_ratio();
 	b.dir    = get_ratio() * 2 * M_PI;
-	b.exploded = 0;
 	return b;
 }
 
-struct bullet get_explosion()
+struct explosion get_explosion()
 {
-	struct bullet b;
-	b.charge = get_ratio();
-	b.x      = get_ratio();
-	b.y      = get_ratio();
-	b.dir    = 0.0 / 0.0;
-	b.exploded = 1;
-	return b;
+	struct explosion e;
+	e.charge = get_ratio();
+	e.x      = get_ratio();
+	e.y      = get_ratio();
+	e.age    = 0;
+	return e;
 }
 
 
@@ -216,6 +230,8 @@ struct tank get_tank()
 	t.bullet_colour = get_colour();
 	t.scan_colour   = get_colour();
 	t.scan_colour.a = 1./3.;
+	t.n_bullets = 0;
+	t.n_explosions = 0;
 	return t;
 }
 

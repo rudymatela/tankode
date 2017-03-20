@@ -60,8 +60,6 @@ display
 
 ### low priority
 
-* draw bullet explosion when hitting wall or tank (simple circle?)
-
 * draw health bar as a torus section on top of the body on the back of the gun;
 
 * draw scan rays as solid triangles;

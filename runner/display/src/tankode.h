@@ -8,7 +8,9 @@
 #define MAX_WHAT_S      "64"
 #define MAX_TANKS       256
 #define MAX_BULLETS      32
+#define MAX_EXPLOSIONS   16
 #define MAX_OBSTACLES   128
+#define EXPLOSION_DISCARD_AGE 12
 
 struct colour {
 	float r,g,b,a;
@@ -18,7 +20,12 @@ struct bullet {
 	float charge;
 	float x, y;
 	float dir;
-	int exploded;
+};
+
+struct explosion {
+	float charge;
+	float x, y;
+	int age;
 };
 
 struct tank {
@@ -48,6 +55,10 @@ struct tank {
 	/* bullets */
 	int n_bullets;
 	struct bullet bullets[MAX_BULLETS];
+
+	/* explosions, represented as a circular list */
+	int n_explosions;
+	struct explosion explosions[MAX_EXPLOSIONS];
 
 	float flare_x, flare_y, flare_dir;
 };

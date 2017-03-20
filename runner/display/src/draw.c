@@ -143,13 +143,16 @@ void drawRectangle(float x0, float y0, float x1, float y1, float thickness, enum
 
 void drawBullet(struct bullet b)
 {
-	if (b.exploded) {
-		drawCircle(b.x, b.y, (1 + b.charge + sqrt(b.charge)) / 10, explosion_layer);
-	} else {
-		drawDrop(b.x, b.y, (1 + b.charge + sqrt(b.charge)) / 30., b.dir, bullet_layer);
-	}
+	drawDrop(b.x, b.y, (1 + b.charge + sqrt(b.charge)) / 30., b.dir, bullet_layer);
 }
 
+void drawExplosion(struct explosion b)
+{
+	float minr = (1 + b.charge + sqrt(b.charge)) / 30.,
+	      maxr = minr * 3,
+		  r = (maxr-minr) * ((float)b.age+1)/EXPLOSION_DISCARD_AGE + minr;
+	drawCircle(b.x, b.y, r, explosion_layer);
+}
 
 void drawTank(struct tank t, struct colour obstacle)
 {
@@ -173,6 +176,8 @@ void drawTank(struct tank t, struct colour obstacle)
 	glColor(t.bullet_colour);
 	for (i=0; i<t.n_bullets; i++)
 		drawBullet(t.bullets[i]);
+	for (i=0; i<t.n_explosions; i++)
+		drawExplosion(t.explosions[i]);
 	if (t.integrity > 0 && draw_scan)
 		drawScan(t);
 }
