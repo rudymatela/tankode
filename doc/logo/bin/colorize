@@ -1,7 +1,7 @@
 #!/bin/bash
 dir=`dirname $0`
 original=$dir/../tankode-logo.svg
-palette=$dir/../../../logic/bin/palette
+palette=$dir/../../../runner/bin/palette
 
 get_colour() {
 	colour=`$palette | grep "^$1 " | sed -e "s/.*#//"`
