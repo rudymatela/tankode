@@ -39,7 +39,7 @@ prepareArgs args =
   mode "speculate" args "" (flagArg (\s a -> Right a {tankodes = s:tankodes a}) "")
   [ "ttime-limit" --= \s a -> a {maxTicks = read s * ticksPerSecond}
   , "ssize"       --= \s a -> a {field = let (w,'x':h) = span (/= 'x') s
-                                                in makeField (read w % 1) (read h % 1)}
+                                         in makeField (read w % 1) (read h % 1)}
   , " seed"       --= \s a -> a {seed = Just $ read s}
   , "hhelp"       --.   \a -> a {showHelp = True}
   , "ddump"       --.   \a -> a {dump = True}
