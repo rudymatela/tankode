@@ -38,6 +38,15 @@ run3: all
 run-charge: all
 	./bin/tankode $(TANKODES) --draw-charge
 
+demo-duck: all
+	./bin/tankode --no-draw-scan -n1  -s4x8 haskell/eg/{sitting-duck,sitting-duck}
+
+demo-left: all
+	./bin/tankode --no-draw-scan -n12 -s4x8 haskell/eg/{sitting-duck,left-turner}
+
+demo-chaser: all
+	./bin/tankode --no-draw-scan -n12 -s4x8 haskell/eg/{sitting-duck,sitting-duck,chaser}
+
 clean:
 	make -Crunner   clean
 	make -Chaskell  clean
