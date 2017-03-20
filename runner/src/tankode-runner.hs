@@ -76,18 +76,18 @@ args = Args
     , ((5,7/2),(7,9/2),(11/2,3))
     ]
 
-printSimulation :: Int -> Field -> State -> IO ()
-printSimulation maxTicks f ts = do
+printSimulation :: Args -> Field -> State -> IO ()
+printSimulation args f ts = do
   putStrLn $ showField f
   putStrLn . unlines $ map showId ts
-  printStates maxTicks 0 f ts
+  printStates args 0 f ts
 
-printStates :: Int -> Int -> Field -> State -> IO ()
-printStates maxTicks n f ts
-  | n >= maxTicks = return ()
+printStates :: Args -> Int -> Field -> State -> IO ()
+printStates args n f ts
+  | n >= maxTicks args = return ()
   | otherwise = do
   putStrLn $ showTick n ts
-  printStates maxTicks (n+1) f =<< nextState f ts
+  printStates args (n+1) f =<< nextState f ts
   where
   showTick i ts = "tick " ++ show i ++ "\n" ++ showState f ts
 
@@ -105,7 +105,7 @@ mainWith args@Args{field = f, tankodes = ts, seed = seed, dump = dump} = do
   gen' <- newStdGen
   let hs = startingHeadings gen
   let tanks'' = zipWith (\t h -> t{heading = h}) tanks' hs
-  printSimulation (maxTicks args) f tanks''
+  printSimulation args f tanks''
 
 main :: IO ()
 main = do
