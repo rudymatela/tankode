@@ -151,3 +151,9 @@ dirname = reverse . tail . dropWhile (/= '/') . reverse
 mkNewStdGen :: Maybe Int -> IO StdGen
 mkNewStdGen Nothing  = newStdGen
 mkNewStdGen (Just x) = return $ mkStdGen x
+
+split3 :: RandomGen g => g -> (g,g,g)
+split3 g = (g',g'',g''')
+  where
+  (g',g'''') = split g
+  (g'',g''') = split g''''
