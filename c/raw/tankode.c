@@ -1,6 +1,7 @@
 #include "tankode.h"
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 const float NaN = 0.0 / 0.0;
 
@@ -30,7 +31,7 @@ static double get_ratio()
 
 static void print_ratio(double f)
 {
-	printf("%i/360", (int)(f*360));
+	printf("%i/360", (int)round(f*360));
 }
 
 static int get(struct tankode_in *in)

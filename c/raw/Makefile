@@ -1,4 +1,5 @@
 CFLAGS = -I.
+LDFLAGS = -lm
 EGS = \
 	eg/chaser \
 	eg/chaserII \
