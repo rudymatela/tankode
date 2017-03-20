@@ -10,6 +10,7 @@ import System.Posix.Process
 import System.Posix.Signals
 import System.IO
 import System.Exit
+import Data.IORef
 
 execFile :: [String] -> IO a
 execFile (cmm:args) = do
@@ -51,11 +52,11 @@ pun as = do
 
 -- pipes the current process to a child.
 -- if the child terminates, sends sigTERM to the current process group
-pipeTo :: [String] -> IO ()
-pipeTo as = do
+pipeTo :: [ProcessID] -> [String] -> IO ()
+pipeTo cpids as = do
   (fromParent,toChild) <- createPipe
   cpid <- forkProcess (act fromParent)
-  terminateOnSIGCHLD cpid
+  terminateOnSIGCHLD cpids cpid
   dupTo toChild stdOutput
   closeFd toChild
   hSetBuffering stdout LineBuffering
@@ -67,18 +68,20 @@ pipeTo as = do
     hSetBuffering stdin LineBuffering
     execFile as
 
-terminateOnSIGCHLD :: ProcessID -> IO ()
-terminateOnSIGCHLD pid = do
-  installHandler sigCHLD (CatchInfo handler) Nothing
+terminateOnSIGCHLD :: [ProcessID] -> ProcessID -> IO ()
+terminateOnSIGCHLD pids pid = do
+  pidsRef <- newIORef pids
+  installHandler sigCHLD (CatchInfo (handler pidsRef)) Nothing
   return ()
   where
-  handler (SignalInfo s _ (SigChldInfo pid' _ _))
-    | s == sigCHLD && pid' == pid = signalGroup sigTERM
-  handler _ = return ()
-  signalGroup signal = do
-    gid <- getProcessGroupID
-    signalProcessGroup signal gid
-    exitSuccess
+  handler pidsRef (SignalInfo s _ (SigChldInfo pid' _ _)) | s == sigCHLD =
+    if pid' == pid
+      then do
+        mapM_ (signalProcess sigINT) =<< readIORef pidsRef
+        signalProcess sigTERM =<< getProcessID
+        exitSuccess
+      else modifyIORef pidsRef (filter (== pid'))
+  handler _ _ = return ()
 
 propagateSIGTERM :: IO ()
 propagateSIGTERM = do

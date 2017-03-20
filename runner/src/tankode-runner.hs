@@ -14,6 +14,7 @@ import Data.Maybe
 import System.Console.CmdArgs.Explicit
 import System.Environment
 import Control.Monad
+import System.Posix.Types (ProcessID)
 
 data Args = Args
   { tankodes :: [String]
@@ -99,9 +100,9 @@ mainWith args@Args{field = f, tankodes = ts, seed = seed, dump = dump} = do
 -- TODO: make a function places :: Field -> [Loc]
   let poss = startingPositions f gen
   --propagateSIGTERM
-  unless dump $ pipeToDisplay args
   tanks <- traverse setupTankode $ map words ts
   let tanks' = zipWith (\t l -> t{loc = l}) (catMaybes tanks) poss
+  unless dump $ pipeToDisplay (map pid tanks') args
   gen' <- newStdGen
   let hs = startingHeadings gen
   let tanks'' = zipWith (\t h -> t{heading = h}) tanks' hs
@@ -111,10 +112,10 @@ main :: IO ()
 main = do
   mainWith =<< processArgs (prepareArgs args)
 
-pipeToDisplay :: Args -> IO ()
-pipeToDisplay args = do
+pipeToDisplay :: [ProcessID] -> Args -> IO ()
+pipeToDisplay pids args = do
   dn <- dirname <$> getExecutablePath
-  pipeTo . concat $
+  pipeTo pids . concat $
     [ [dn ++ "/" ++ "../display/bin/tankode-display"]
     , ["draw-charge"    |       drawCharge args]
     , ["no-draw-health" | not $ drawHealth args]
