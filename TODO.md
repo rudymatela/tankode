@@ -5,18 +5,21 @@ Tankode's TODO list
 interface
 ---------
 
+* write Python raw interface; add examples;
+
 ### low priority
 
-* write ruby raw interface; add examples;
+* write Ruby raw interface; add examples;
 
-* change obstacles to be arbitrary convex polygons instead of triangles (easier
-  to compute on logic, not actually harder to draw)
+* change obstacles to be arbitrary convex polygons instead of triangles
+  (easier to compute on logic, not actually harder to draw)
 
 
 game rules
 ----------
 
 * calibrate constants of `Tankode.Constants`;
+	- turning is currently faster than gun turning?
 
 ### low priority
 
