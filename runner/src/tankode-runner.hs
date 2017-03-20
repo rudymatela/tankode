@@ -26,6 +26,7 @@ data Args = Args
   , showHelp :: Bool
   , seed     :: Maybe Int
   , dump     :: Bool
+  , nBattles :: Int
 
   , drawCharge :: Bool
   , drawHealth :: Bool
@@ -42,6 +43,7 @@ prepareArgs args =
   , " seed"       --= \s a -> a {seed = Just $ read s}
   , "hhelp"       --.   \a -> a {showHelp = True}
   , "ddump"       --.   \a -> a {dump = True}
+  , "nnbattles"   --= \s a -> a {nBattles = read s}
 
   -- options passed along to the display program
   , " draw-charge"    --. \a -> a {drawCharge = True}
@@ -61,6 +63,7 @@ args :: Args
 args = Args
   { tankodes = []
   , maxTicks = 100 * ticksPerSecond
+  , nBattles = 1
   , field = updateObstacles (++ obstacles) $ makeField 12 8
   , showHelp = False
   , seed = Nothing
@@ -128,8 +131,12 @@ setupAndPrintSimulation gen pidsRef args@Args{field = f, tankodes = ts} = do
   let hs = startingHeadings gen2
   let tanks'' = zipWith (\t h -> t{heading = h}) tanks' hs
   printSimulation args f tanks''
-  putStrLn "end"
-  mapM_ (signalProcess sigINT) =<< readIORef pidsRef
+  pids <- readIORef pidsRef
+  mapM_ (signalProcess sigINT) pids
+  writeIORef pidsRef []
+  if nBattles args <= 1
+    then putStrLn "end"
+    else setupAndPrintSimulation gen3 pidsRef args{nBattles = nBattles args - 1}
 
 main :: IO ()
 main = do

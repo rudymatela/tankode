@@ -129,25 +129,30 @@ int read_what(char w[MAX_WHAT])
 
 struct state get_initial_state()
 {
+	static int first_time = 1;
 	int i = 0, j = 0;
 	char w[MAX_WHAT];
 	struct state s;
 	s.tick = -1;
 
-	if (!read_what(w) || strcmp(w,"field") != 0)
-		goto err;
+	if (first_time)
+		if (!read_what(w) || strcmp(w,"field") != 0) {
+			fprintf(stderr,"error (get_initial_state): read %s, expected field\n",w);
+			goto exit;
+		}
+	first_time = 0;
 	s.field = get_field();
 
 	while (read_what(w)) {
 		if (strcmp(w,"obstacle") == 0) { s.field.obstacles[j++] = get_obstacle(); continue; }
 		if (strcmp(w,"tank")     == 0) { s.tanks[i++]           = get_tank();     continue; }
 		if (strcmp(w,"tick")     == 0) break;
-		goto err;
+		fprintf(stderr,"error (get_initial_state): 've read %s\n",w);
+		goto exit;
 	}
 	s.field.n_obstacles = j;
 	s.n_tanks           = i;
-err:
-	fprintf(stderr,"error (get_initial_state): see source\n");
+exit:
 	return s;
 }
 
@@ -162,6 +167,7 @@ int read_tick(struct state *s)
 		if (strcmp(w,"bullet")    == 0) { s->tanks[i].bullets[s->tanks[i].n_bullets++] = get_bullet(); continue; }
 		if (strcmp(w,"explosion") == 0) { s->tanks[i].explosions[s->tanks[i].n_explosions++] = get_explosion(); continue; }
 		if (strcmp(w,"tick")    == 0) break;
+		if (strcmp(w,"field")   == 0) { *s = get_initial_state(); read_tick(s); return 1; }
 		if (strcmp(w,"end")     == 0) return 0;
 		goto err;
 	}

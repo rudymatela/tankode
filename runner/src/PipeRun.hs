@@ -79,7 +79,7 @@ terminateOnSIGCHLD pidsRef pid = do
         mapM_ (signalProcess sigINT) =<< readIORef pidsRef
         signalProcess sigTERM =<< getProcessID
         exitSuccess
-      else modifyIORef pidsRef (filter (== pid'))
+      else modifyIORef pidsRef (filter (/= pid'))
   handler _ _ = return ()
 
 propagateSIGTERM :: IO ()
