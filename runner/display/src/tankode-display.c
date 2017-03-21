@@ -101,6 +101,8 @@ static void draw()
 	drawField(state.field);
 	for (i=0; i<state.n_tanks; i++)
 		drawTank(state.tanks[i],state.field.obstacle_colour);
+	for (i=0; i<state.n_tanks; i++)
+		drawExplosions(state.tanks[i]);
 }
 
 static void render()

@@ -10,7 +10,7 @@
 #define MAX_BULLETS      32
 #define MAX_EXPLOSIONS   16
 #define MAX_OBSTACLES   128
-#define EXPLOSION_DISCARD_AGE 12
+#define EXPLOSION_DISCARD_AGE 20
 
 struct colour {
 	float r,g,b,a;

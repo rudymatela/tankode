@@ -146,13 +146,22 @@ void drawBullet(struct bullet b)
 	drawDrop(b.x, b.y, (1 + b.charge + sqrt(b.charge)) / 30., b.dir, bullet_layer);
 }
 
-void drawExplosion(struct explosion b)
+void drawExplosion(struct tank t, struct explosion b)
 {
 	float minr = (1 + b.charge + sqrt(b.charge)) / 30.,
-	      maxr = minr * 3,
+	      maxr = minr * 4,
 		  r = (maxr-minr) * ((float)b.age+1)/EXPLOSION_DISCARD_AGE + minr;
+	glColorAlpha(t.bullet_colour, 1. - ((float)b.age)/EXPLOSION_DISCARD_AGE);
 	drawCircle(b.x, b.y, r, explosion_layer);
 }
+
+void drawExplosions(struct tank t)
+{
+	int i;
+	for (i=0; i<t.n_explosions; i++)
+		drawExplosion(t, t.explosions[i]);
+}
+
 
 void drawTank(struct tank t, struct colour obstacle)
 {
@@ -176,8 +185,6 @@ void drawTank(struct tank t, struct colour obstacle)
 	glColor(t.bullet_colour);
 	for (i=0; i<t.n_bullets; i++)
 		drawBullet(t.bullets[i]);
-	for (i=0; i<t.n_explosions; i++)
-		drawExplosion(t.explosions[i]);
 	if (t.integrity > 0 && draw_scan)
 		drawScan(t);
 }

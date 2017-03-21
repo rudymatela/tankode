@@ -40,5 +40,6 @@ void drawScan(struct tank);
 void drawIntegrityBar(struct tank);
 void drawPowerBar(struct tank);
 void drawShotFlare(struct tank);
+void drawExplosions(struct tank);
 
 #endif /* _DRAW_H */
