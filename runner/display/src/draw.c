@@ -4,6 +4,7 @@
 
 /* always make the following divisible by 2 and 3 */
 #define CIRCLE_SEGMENTS 30
+#define MAX_SCREEN_N_PIXELS (4096*2160*8) /* for screenshot and glDumpPixels */
 
 extern int draw_charge;
 extern int draw_health;
@@ -321,4 +322,50 @@ void drawObstacle(struct obstacle obstacle)
 	glVertex3f(obstacle.x2, obstacle.y2, z);
 	glVertex3f(obstacle.x3, obstacle.y3, z);
 	glEnd();
+}
+
+
+/* WARNING: this function fails when called > 1 000 000 000 times */
+void screenshot()
+{
+	static int i = 0;
+	char fname[0x100]; /* FIXME: magic number :-D */
+	FILE *out;
+	sprintf(fname,"%i.dump",i++);
+	fprintf(stderr,"%s\n",fname);
+	out = fopen(fname, "w");
+	if (!out) {
+		fprintf(stderr,"could not open file\n");
+		exit(1);
+	}
+	glDumpPixels(out);
+	fclose(out);
+}
+
+
+void glDumpPixels(FILE *f)
+{
+	int w=glutGet(GLUT_WINDOW_WIDTH),
+	    h=glutGet(GLUT_WINDOW_HEIGHT);
+	size_t sz = 3*w*h;
+	char *data = malloc(MAX_SCREEN_N_PIXELS);
+	if (!data)
+		fprintf(stderr,"error: out of memory\n");
+	if (sz > MAX_SCREEN_N_PIXELS) {
+		fprintf(stderr,"error: screen size greater than limit.\n"
+		               "Hello from the past (2017),\n"
+		               "you are using a screen larger than 4k.\n"
+		               "What a glorious future to live in, I envy you.\n"
+		               "See source code for details.\n");
+		exit(1);
+		/* Between the calls to glutGet and glReadPixels
+		 * the screen size might have changed and was causing a runtime error
+		 * (I am using a tiling window manager).
+		 * So, I set the size of data to a *very high* default.
+		 * HINT: you can try using glReadnPixels,
+		 * it was causing link error at the time of this writing.
+		 */
+	}
+	glReadPixels(0, 0, w, h, GL_RGB, GL_UNSIGNED_BYTE, data);
+	fwrite(data,1,sz,f);
 }

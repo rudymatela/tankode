@@ -16,6 +16,7 @@ int motion_blur = 1;
 int draw_charge = 0;
 int draw_health = 1;
 int draw_scan = 1;
+int dump_frames = 0;
 
 struct state state = {-1,{8.,6.,0,{}},-1,{}};
 
@@ -37,6 +38,8 @@ void parse_args(char *argv[])
 		if (0==strcmp(argv[i],"no-draw-health")) draw_health = 0;
 		if (0==strcmp(argv[i],"draw-scan"))      draw_scan = 1;
 		if (0==strcmp(argv[i],"no-draw-scan"))   draw_scan = 0;
+		if (0==strcmp(argv[i],"dump-frames"))    dump_frames = 1;
+		if (0==strcmp(argv[i],"no-dump-frames")) dump_frames = 0;
 	}
 }
 
@@ -133,5 +136,7 @@ void render_and_reschedule(int val)
 		update_state();
 		draw();
 	}
+	if (dump_frames)
+		screenshot();
 	glutSwapBuffers();
 }

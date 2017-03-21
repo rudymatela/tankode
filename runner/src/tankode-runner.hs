@@ -32,6 +32,7 @@ data Args = Args
   , drawHealth :: Bool
   , drawScan :: Bool
   , motionBlur :: Bool
+  , dumpFrames :: Bool
   }
 
 prepareArgs :: Args -> Mode Args
@@ -50,10 +51,12 @@ prepareArgs args =
   , " draw-health"    --. \a -> a {drawHealth = True}
   , " motion-blur"    --. \a -> a {motionBlur = True}
   , " draw-scan"      --. \a -> a {drawScan   = True}
+  , " dump-frames"    --. \a -> a {dumpFrames = True}
   , " no-draw-charge" --. \a -> a {drawCharge = False}
   , " no-draw-health" --. \a -> a {drawHealth = False}
   , " no-motion-blur" --. \a -> a {motionBlur = False}
   , " no-draw-scan"   --. \a -> a {drawScan   = False}
+  , " no-dump-frames" --. \a -> a {dumpFrames = False}
   ]
   where
   (short:long) --= fun = flagReq  (filter (/= " ") [[short],long]) ((Right .) . fun) "X" ""
@@ -72,6 +75,7 @@ args = Args
   , drawHealth = True
   , motionBlur = True
   , drawScan = True
+  , dumpFrames = False
   }
   where
   obstacles =
@@ -151,6 +155,7 @@ pipeToDisplay pids args = do
     , ["no-draw-health" | not $ drawHealth args]
     , ["no-motion-blur" | not $ motionBlur args]
     , ["no-draw-scan"   | not $ drawScan   args]
+    , ["dump-frames"    |       dumpFrames args]
     ]
 
 dirname :: String -> String

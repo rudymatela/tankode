@@ -5,6 +5,7 @@
 #include <GL/freeglut.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <stdio.h>
 
 enum layer {
 	floor_layer,
@@ -28,6 +29,8 @@ void drawLine(float x0, float y0, float x1, float y1, float thickness, enum laye
 void drawRectangle(float x0, float y0, float x1, float y1, float thickness, enum layer l);
 void glColor(struct colour);
 void glColorAlpha(struct colour, float alpha);
+void glDumpPixels(FILE *f);
+void screenshot();
 
 void drawField(struct field);
 void drawObstacle(struct obstacle);
