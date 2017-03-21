@@ -1,6 +1,7 @@
 # top-level Makefile for tankode
 
-TANKODES=haskell/eg/{sitting-duck,chaserII,chaserIII,escaper,left-turner,right-turner,zigzagger}
+TANKODES=haskell/eg/{sitting-duck,chaser,escaper,left-turner,right-turner,zigzagger}
+TANKODES1=haskell/eg/{sitting-duck,chaserII,chaserIII,escaper,left-turner,right-turner,zigzagger}
 TANKODES2=c/raw/eg/{sitting-duck,left-turner,right-turner,chaser,chaserII} bash/{sitting-duck,left-turner}
 TANKODES3=c/raw/eg/{sitting-duck,left-turner} haskell/eg/sitting-duck
 
@@ -29,6 +30,9 @@ doc:
 run: all
 	./bin/tankode $(TANKODES)
 
+run1: all
+	./bin/tankode $(TANKODES1)
+
 run2: all
 	./bin/tankode $(TANKODES2)
 
@@ -37,6 +41,9 @@ run3: all
 
 run-charge: all
 	./bin/tankode $(TANKODES) --draw-charge
+
+demo: all
+	./bin/tankode --no-draw-scan -n24 $(TANKODES)
 
 demo-duck: all
 	./bin/tankode --no-draw-scan -n1  -s4x8 haskell/eg/{sitting-duck,sitting-duck}
