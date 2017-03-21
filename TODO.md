@@ -19,7 +19,6 @@ game rules
 ----------
 
 * calibrate constants of `Tankode.Constants`;
-	- turning is currently faster than gun turning?
 
 * actuallly count wins and points and show them somehow
 
@@ -41,6 +40,7 @@ stability
 
 * wait for all child processes to get rid of defunct processes
   (turns out I'll probably won't need to catch SIGCHLD after all...)
+  including the display process
 
 * add more tests to geometry module
 
