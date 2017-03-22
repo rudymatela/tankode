@@ -175,8 +175,9 @@ if (dump_frames) {
 		draw();
 	}
 }
-	if (dump_frames)
-		screenshot();
-	if (!stop)
+	if (!stop) {
+		if (dump_frames)
+			screenshot();
 		glutSwapBuffers();
+	}
 }
