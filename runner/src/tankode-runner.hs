@@ -33,6 +33,7 @@ data Args = Args
   , drawScan :: Bool
   , motionBlur :: Bool
   , dumpFrames :: Bool
+  , windowSize :: Maybe (Int,Int)
   }
 
 prepareArgs :: Args -> Mode Args
@@ -57,6 +58,9 @@ prepareArgs args =
   , " no-motion-blur" --. \a -> a {motionBlur = False}
   , " no-draw-scan"   --. \a -> a {drawScan   = False}
   , " no-dump-frames" --. \a -> a {dumpFrames = False}
+  , " window-size" --= \s a ->
+       a {windowSize = let (w,'x':h) = span (/= 'x') s
+                       in Just (read w,read h)}
   ]
   where
   (short:long) --= fun = flagReq  (filter (/= " ") [[short],long]) ((Right .) . fun) "X" ""
@@ -76,6 +80,7 @@ args = Args
   , motionBlur = True
   , drawScan = True
   , dumpFrames = False
+  , windowSize = Nothing
   }
   where
   obstacles =
@@ -156,6 +161,8 @@ pipeToDisplay pids args = do
     , ["no-motion-blur" | not $ motionBlur args]
     , ["no-draw-scan"   | not $ drawScan   args]
     , ["dump-frames"    |       dumpFrames args]
+    , ["window-size=" ++ show w ++ "x" ++ show h
+      | let sz = windowSize args, isJust sz, let Just (w,h) = sz]
     ]
 
 dirname :: String -> String

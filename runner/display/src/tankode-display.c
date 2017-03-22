@@ -8,8 +8,8 @@
 #include "draw.h"
 #include "io.h"
 
-#define WIDTH 400
-#define HEIGHT 400
+#define DEFAULT_WINDOW_WIDTH 800
+#define DEFAULT_WINDOW_HEIGHT 600
 #define FPS 60 /* TODO: implement VSync */
 
 int motion_blur = 1;
@@ -17,6 +17,8 @@ int draw_charge = 0;
 int draw_health = 1;
 int draw_scan = 1;
 int dump_frames = 0;
+int window_width  = DEFAULT_WINDOW_WIDTH;
+int window_height = DEFAULT_WINDOW_HEIGHT;
 
 struct state state = {-1,{8.,6.,0,{}},-1,{}};
 
@@ -28,7 +30,7 @@ static void render_and_reschedule(int val);
 
 void parse_args(char *argv[])
 {
-	int i;
+	int i, r, w, h;
 	for (i=0; argv[i]; i++) {
 		if (0==strcmp(argv[i],"motion-blur"))    motion_blur = 1;
 		if (0==strcmp(argv[i],"no-motion-blur")) motion_blur = 0;
@@ -40,6 +42,13 @@ void parse_args(char *argv[])
 		if (0==strcmp(argv[i],"no-draw-scan"))   draw_scan = 0;
 		if (0==strcmp(argv[i],"dump-frames"))    dump_frames = 1;
 		if (0==strcmp(argv[i],"no-dump-frames")) dump_frames = 0;
+		if (0==strncmp(argv[i],"window-size=",12)) {
+			r = sscanf(argv[i]+12,"%ix%i",&w,&h);
+			if (r != 2)
+				fprintf(stderr,"could not parse screen size %s\n",argv[i]);
+			window_width  = w;
+			window_height = h;
+		}
 	}
 }
 
@@ -53,7 +62,7 @@ int main(int argc, char *argv[])
 	glutInit(&argc, argv);
 	glutInitContextVersion(2, 1);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_MULTISAMPLE | GLUT_DEPTH);
-	glutInitWindowSize(WIDTH, HEIGHT);
+	glutInitWindowSize(window_width, window_height);
 	glutCreateWindow("tankode");
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
