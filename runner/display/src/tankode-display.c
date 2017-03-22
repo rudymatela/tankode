@@ -136,49 +136,43 @@ int update_state()
 	if (reading) {
 		reading = read_tick(&state);
 	} else if (close_window) {
-		return 1;
+		glutDestroyWindow(window);
+		exit(0);
 	}
 	return 0;
 }
 
 void render_and_reschedule(int val)
 {
-	static int stop = 0;
-	if (stop) {
-		glutDestroyWindow(window);
-		return;
-	}
 	glutTimerFunc(1000 / FPS, render_and_reschedule, val);
 if (dump_frames) {
 	if (motion_blur) {
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); stop = update_state(); draw(); glAccum(GL_LOAD,  1./4.);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); stop = update_state(); draw(); glAccum(GL_ACCUM, 1./4.);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); stop = update_state(); draw(); glAccum(GL_ACCUM, 1./4.);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); stop = update_state(); draw(); glAccum(GL_ACCUM, 1./4.);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_LOAD,  1./4.);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_ACCUM, 1./4.);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_ACCUM, 1./4.);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_ACCUM, 1./4.);
 		glAccum(GL_RETURN, 1.);
 	} else {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		stop = update_state();
-		stop = update_state();
-		stop = update_state();
-		stop = update_state();
+		update_state();
+		update_state();
+		update_state();
+		update_state();
 		draw();
 	}
 } else {
 	if (motion_blur) {
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); stop = update_state(); draw(); glAccum(GL_LOAD,  1./2.);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); stop = update_state(); draw(); glAccum(GL_ACCUM, 1./2.);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_LOAD,  1./2.);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_ACCUM, 1./2.);
 		glAccum(GL_RETURN, 1.);
 	} else {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		stop = update_state();
-		stop = update_state();
+		update_state();
+		update_state();
 		draw();
 	}
 }
-	if (!stop) {
-		if (dump_frames)
-			screenshot();
-		glutSwapBuffers();
-	}
+	if (dump_frames)
+		screenshot();
+	glutSwapBuffers();
 }
