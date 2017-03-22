@@ -24,9 +24,9 @@ Tankode is under active development
 
 Tankode is under active development:
 
-* __ Expect it to crash often for now; __
-* _ Linux-only at the moment; _
-* _ Documentation is not great. _
+* __Expect it to crash often for now;__
+* _Linux-only at the moment;_
+* _Documentation is not great._
 
 See the [TODO list] for more details.
 
