@@ -19,6 +19,9 @@ int draw_scan = 1;
 int dump_frames = 0;
 int window_width  = DEFAULT_WINDOW_WIDTH;
 int window_height = DEFAULT_WINDOW_HEIGHT;
+int close_window = 0;
+
+int window;
 
 struct state state = {-1,{8.,6.,0,{}},-1,{}};
 
@@ -32,16 +35,18 @@ void parse_args(char *argv[])
 {
 	int i, r, w, h;
 	for (i=0; argv[i]; i++) {
-		if (0==strcmp(argv[i],"motion-blur"))    motion_blur = 1;
-		if (0==strcmp(argv[i],"no-motion-blur")) motion_blur = 0;
-		if (0==strcmp(argv[i],"draw-charge"))    draw_charge = 1;
-		if (0==strcmp(argv[i],"no-draw-charge")) draw_charge = 0;
-		if (0==strcmp(argv[i],"draw-health"))    draw_health = 1;
-		if (0==strcmp(argv[i],"no-draw-health")) draw_health = 0;
-		if (0==strcmp(argv[i],"draw-scan"))      draw_scan = 1;
-		if (0==strcmp(argv[i],"no-draw-scan"))   draw_scan = 0;
-		if (0==strcmp(argv[i],"dump-frames"))    dump_frames = 1;
-		if (0==strcmp(argv[i],"no-dump-frames")) dump_frames = 0;
+		if (0==strcmp(argv[i],"motion-blur"))     motion_blur  = 1;
+		if (0==strcmp(argv[i],"no-motion-blur"))  motion_blur  = 0;
+		if (0==strcmp(argv[i],"draw-charge"))     draw_charge  = 1;
+		if (0==strcmp(argv[i],"no-draw-charge"))  draw_charge  = 0;
+		if (0==strcmp(argv[i],"draw-health"))     draw_health  = 1;
+		if (0==strcmp(argv[i],"no-draw-health"))  draw_health  = 0;
+		if (0==strcmp(argv[i],"draw-scan"))       draw_scan    = 1;
+		if (0==strcmp(argv[i],"no-draw-scan"))    draw_scan    = 0;
+		if (0==strcmp(argv[i],"dump-frames"))     dump_frames  = 1;
+		if (0==strcmp(argv[i],"no-dump-frames"))  dump_frames  = 0;
+		if (0==strcmp(argv[i],"close-window"))    close_window = 1;
+		if (0==strcmp(argv[i],"no-close-window")) close_window = 0;
 		if (0==strncmp(argv[i],"window-size=",12)) {
 			r = sscanf(argv[i]+12,"%ix%i",&w,&h);
 			if (r != 2)
@@ -63,7 +68,7 @@ int main(int argc, char *argv[])
 	glutInitContextVersion(2, 1);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_MULTISAMPLE | GLUT_DEPTH);
 	glutInitWindowSize(window_width, window_height);
-	glutCreateWindow("tankode");
+	window = glutCreateWindow("tankode");
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
@@ -124,45 +129,54 @@ static void render()
 	glutSwapBuffers();
 }
 
-void update_state()
+/* returns 1 when it needs to stop */
+int update_state()
 {
 	static int reading = 1;
 	if (reading) {
 		reading = read_tick(&state);
+	} else if (close_window) {
+		glutDestroyWindow(window);
+		return 1;
 	}
+	return 0;
 }
 
 void render_and_reschedule(int val)
 {
+	static int stop;
+	if (stop)
+		return;
 	glutTimerFunc(1000 / FPS, render_and_reschedule, val);
 if (dump_frames) {
 	if (motion_blur) {
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_LOAD,  1./4.);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_ACCUM, 1./4.);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_ACCUM, 1./4.);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_ACCUM, 1./4.);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); stop = update_state(); draw(); glAccum(GL_LOAD,  1./4.);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); stop = update_state(); draw(); glAccum(GL_ACCUM, 1./4.);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); stop = update_state(); draw(); glAccum(GL_ACCUM, 1./4.);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); stop = update_state(); draw(); glAccum(GL_ACCUM, 1./4.);
 		glAccum(GL_RETURN, 1.);
 	} else {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		update_state();
-		update_state();
-		update_state();
-		update_state();
+		stop = update_state();
+		stop = update_state();
+		stop = update_state();
+		stop = update_state();
 		draw();
 	}
-} else{
+} else {
 	if (motion_blur) {
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_LOAD,  1./2.);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); update_state(); draw(); glAccum(GL_ACCUM, 1./2.);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); stop = update_state(); draw(); glAccum(GL_LOAD,  1./2.);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); stop = update_state(); draw(); glAccum(GL_ACCUM, 1./2.);
 		glAccum(GL_RETURN, 1.);
 	} else {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		update_state();
-		update_state();
+		stop = update_state();
+		stop = update_state();
 		draw();
 	}
 }
 	if (dump_frames)
 		screenshot();
-	glutSwapBuffers();
+	if (!stop)
+		glutSwapBuffers();
 }
