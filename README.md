@@ -1,13 +1,13 @@
 Tankode
 =======
 
-	[insert logo here]
+![tankode-logo](https://github.com/rudymatela/tankode/releases/download/v0.0.1/tankode-logo-colour.svg)
 
 Tankode is a programming action game.  The goal is to write a program to
 control a robot: a tankode.  Tankodes battle in a virtual arena: they must fire
 at enemies and dodge bullets.  The last tankode standing wins.
 
-	[insert gif here, github.com/rudymatela/tankode/releases/0.1/cover.gif]
+![tankode-demo](https://github.com/rudymatela/tankode/releases/download/v0.0.1/tankode-400x200.gif)
 
 The game has a simple API for Haskell, C and Bash.  Example tankodes are
 provided with the game package.
