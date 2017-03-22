@@ -1,7 +1,7 @@
 Tankode
 =======
 
-![tankode-logo](https://github.com/rudymatela/tankode/releases/download/v0.0.1/tankode-logo-colour.svg)
+![tankode-logo](https://github.com/rudymatela/tankode/releases/download/v0.0.1/tankode-logo-colour.png)
 
 Tankode is a programming action game.  The goal is to write a program to
 control a robot: a tankode.  Tankodes battle in a virtual arena: they must fire
