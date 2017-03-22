@@ -331,7 +331,7 @@ void screenshot()
 	static int i = 0;
 	char fname[0x100]; /* FIXME: magic number :-D */
 	FILE *out;
-	sprintf(fname,"%i.dump",i++);
+	sprintf(fname,"%04i.pnm",i++);
 	fprintf(stderr,"%s\n",fname);
 	out = fopen(fname, "w");
 	if (!out) {
@@ -348,7 +348,8 @@ void glDumpPixels(FILE *f)
 	int w=glutGet(GLUT_WINDOW_WIDTH),
 	    h=glutGet(GLUT_WINDOW_HEIGHT);
 	size_t sz = 3*w*h;
-	char *data = malloc(MAX_SCREEN_N_PIXELS);
+	unsigned char *data = malloc(MAX_SCREEN_N_PIXELS);
+	int i;
 	if (!data)
 		fprintf(stderr,"error: out of memory\n");
 	if (sz > MAX_SCREEN_N_PIXELS) {
@@ -367,5 +368,10 @@ void glDumpPixels(FILE *f)
 		 */
 	}
 	glReadPixels(0, 0, w, h, GL_RGB, GL_UNSIGNED_BYTE, data);
-	fwrite(data,1,sz,f);
+	fprintf(f,"P3\n");
+	fprintf(f,"%d %d\n",w,h);
+	fprintf(f,"255\n");
+	for (i=0; i<sz; i++) {
+		fprintf(f,"%u%c",data[i],i%w==w-1?'\n':' ');
+	}
 }
