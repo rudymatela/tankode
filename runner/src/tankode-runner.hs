@@ -15,7 +15,7 @@ import Data.Function
 import System.Console.CmdArgs.Explicit
 import System.Environment
 import Control.Monad
-import System.Posix (ProcessID, signalProcess, sigINT)
+import System.Posix (ProcessID, signalProcess, sigINT, getProcessStatus)
 import System.IO
 import Data.IORef
 
@@ -131,10 +131,10 @@ mainWith args = do
   -- otherwise we may be signaling unrelated processes to terminate
   -- maybe do this by taking the old handler and calling it?
   gen <- mkNewStdGen (seed args)
-  setupAndPrintSimulation gen pidsRef args
+  setupAndPrintSimulation gen pidsRef dpid args
 
-setupAndPrintSimulation :: StdGen -> IORef [ProcessID] -> Args -> IO ()
-setupAndPrintSimulation gen pidsRef args@Args{field = f, tankodes = ts} = do
+setupAndPrintSimulation :: StdGen -> IORef [ProcessID] -> Maybe ProcessID -> Args -> IO ()
+setupAndPrintSimulation gen pidsRef dpid args@Args{field = f, tankodes = ts} = do
 -- TODO: make a function places :: Field -> [Loc]
   let (gen1,gen2,gen3) = split3 gen
   let poss = startingPositions f gen1
@@ -148,8 +148,11 @@ setupAndPrintSimulation gen pidsRef args@Args{field = f, tankodes = ts} = do
   mapM_ (signalProcess sigINT) pids
   writeIORef pidsRef []
   if nBattles args <= 1
-    then putStrLn "end"
-    else setupAndPrintSimulation gen3 pidsRef args{nBattles = nBattles args - 1}
+    then do
+      putStrLn "end"
+      when (isJust dpid) $
+        getProcessStatus True False (fromJust dpid) >> return ()
+    else setupAndPrintSimulation gen3 pidsRef dpid args{nBattles = nBattles args - 1}
 
 main :: IO ()
 main = do
