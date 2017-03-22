@@ -40,7 +40,7 @@ run2: all
 run3: all
 	./bin/tankode $(ARGS) $(TANKODES3)
 
-run-small:
+run-small: all
 	primusrun ./bin/tankode $(TANKODESM) -s8x4 --window-size=600x300 --close-window --seed 1 -t6
 
 gif: all
