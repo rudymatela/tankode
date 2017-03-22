@@ -49,17 +49,17 @@ prepareArgs args =
   , "nnbattles"   --= \s a -> a {nBattles = read s}
 
   -- options passed along to the display program
-  , " draw-charge"    --. \a -> a {drawCharge = True}
-  , " draw-health"    --. \a -> a {drawHealth = True}
-  , " motion-blur"    --. \a -> a {motionBlur = True}
-  , " draw-scan"      --. \a -> a {drawScan   = True}
-  , " dump-frames"    --. \a -> a {dumpFrames = True}
-  , " close-window"   --. \a -> a {closeWindow = True}
-  , " no-draw-charge" --. \a -> a {drawCharge = False}
-  , " no-draw-health" --. \a -> a {drawHealth = False}
-  , " no-motion-blur" --. \a -> a {motionBlur = False}
-  , " no-draw-scan"   --. \a -> a {drawScan   = False}
-  , " no-dump-frames" --. \a -> a {dumpFrames = False}
+  , " draw-charge"     --. \a -> a {drawCharge  = True}
+  , " draw-health"     --. \a -> a {drawHealth  = True}
+  , " motion-blur"     --. \a -> a {motionBlur  = True}
+  , " draw-scan"       --. \a -> a {drawScan    = True}
+  , " dump-frames"     --. \a -> a {dumpFrames  = True}
+  , " close-window"    --. \a -> a {closeWindow = True}
+  , " no-draw-charge"  --. \a -> a {drawCharge  = False}
+  , " no-draw-health"  --. \a -> a {drawHealth  = False}
+  , " no-motion-blur"  --. \a -> a {motionBlur  = False}
+  , " no-draw-scan"    --. \a -> a {drawScan    = False}
+  , " no-dump-frames"  --. \a -> a {dumpFrames  = False}
   , " no-close-window" --. \a -> a {closeWindow = False}
   , " window-size" --= \s a ->
        a {windowSize = let (w,'x':h) = span (/= 'x') s
