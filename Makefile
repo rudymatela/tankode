@@ -28,23 +28,23 @@ doc:
 	markdown README.md > README.html
 
 run: all
-	./bin/tankode $(TANKODES)
+	./bin/tankode $(ARGS) $(TANKODES)
 
 run1: all
-	./bin/tankode $(TANKODES1)
+	./bin/tankode $(ARGS) $(TANKODES1)
 
 run2: all
-	./bin/tankode $(TANKODES2)
+	./bin/tankode $(ARGS) $(TANKODES2)
 
 run3: all
-	./bin/tankode $(TANKODES3)
+	./bin/tankode $(ARGS) $(TANKODES3)
 
 gif: all
 	primusrun ./bin/tankode haskell/eg/{sitting-duck,chaser,left-turner,escaper} -s8x4 --dump-frames --seed 1
 	convert -delay 3 -loop 0 *.pnm tankode.gif
 
 run-charge: all
-	./bin/tankode $(TANKODES) --draw-charge
+	./bin/tankode $(ARGS) $(TANKODES) --draw-charge
 
 demo: all
 	./bin/tankode --no-draw-scan -n24 $(TANKODES)
