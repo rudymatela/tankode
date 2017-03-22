@@ -1,60 +1,52 @@
 Tankode
 =======
 
-Write a Tankode (tank AI) to battle other Tankodes.
+	[insert logo here]
+
+Tankode is a programming action game.  The goal is to write a program to
+control a robot: a tankode.  Tankodes battle in a virtual arena: they must fire
+at enemies and dodge bullets.  The last tankode standing wins.
 
 	[insert gif here, github.com/rudymatela/tankode/releases/0.1/cover.gif]
 
-Tankode is programming-language independent.  Tankodes read-and-write
-to-and-from text streams following the very simple [Tankode Protocol].
+The game has a simple API for Haskell, C and Bash.  Example tankodes are
+provided with the game package.
 
-Advanced language bindings are provided for:
-	* no language at the moment.
+The game has been designed to be programming-language independent.  Tankodes
+read-and-write to-and-from standard input-output following the very simple
+[Tankode Protocol].  So, it is very easy to add new language bindings.
 
-
-Features
---------
-
-Tankode's features:
-
-* inspired by robocode;
-* language independent (based on reading and writing to pipes / files).
+The game is open-source, and licenced under the LGPLv2.
 
 
-Differences to Robocode
------------------------
+Tankode is under active development
+-----------------------------------
 
-Tankode has some differences to Robocode:
+Tankode is under active development:
 
-* some game rule changes;
-* tanks do not have GPS and cannot query their `x` and `y` coordinates:
-	- if needed, tanks have to calculate this based on initial position and
-	  movements);
-	- this makes things simpler for the implementor of simpler machines;
-* battlefields are not necessarily square, and can have obstacles.
+* __ Expect it to crash often for now; __
+* _ Linux-only at the moment; _
+* _ Documentation is not great. _
 
-
-Notes
------
-
-* for the purposes of collision and hit detection, tanks have 1 unit of
-  diameter.  bullets are points.
-
-* 360 ticks per second, 6 ticks per frame.
-
-Some of those may not apply anymore:
-
-each tank is a circle for purposes of collision detection, it has radius 1
-at full speed, in one second, it can walk its diameter, 1/60 of diameter in 1 tick
-4 seconds,   base full turn
-1 second,    gun  full turn
-1/6 seconds, radar full turn
-at each tick, charge increases by 1/60
-a shot deals 1/6 of its charge
-bullet travels 3 units per second.
+See the [TODO list] for more details.
 
 
+Tankode compared to Robocode
+----------------------------
+
+The Tankode game is very similar to, and inspired by, [Robocode].
+Differences include:
+
+* Robocode Java and .NET only, Tankode is designed to be language independent;
+* game physics;
+* game graphics;
+* battlefields are not necessarily square, and can have obstacles;
+* tankodes cannot query their their `x` and `y` coordinates,
+  if needed, those need to be calculated based on initial position and movements.
 
 
 [Tankode Protocol]: doc/tankode-protocol.md
 [Tankode Display Protocol]: doc/tankode-display-protocol.md
+[TODO list]: TODO.md
+
+[Robocode]: http://robocode.sourceforge.net/
