@@ -39,6 +39,10 @@ run2: all
 run3: all
 	./bin/tankode $(TANKODES3)
 
+gif: all
+	primusrun ./bin/tankode haskell/eg/{sitting-duck,chaser,left-turner,escaper} -s8x4 --dump-frames --seed 1
+	convert -delay 3 -loop 0 *.pnm tankode.gif
+
 run-charge: all
 	./bin/tankode $(TANKODES) --draw-charge
 
