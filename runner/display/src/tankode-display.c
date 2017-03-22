@@ -136,7 +136,6 @@ int update_state()
 	if (reading) {
 		reading = read_tick(&state);
 	} else if (close_window) {
-		glutDestroyWindow(window);
 		return 1;
 	}
 	return 0;
@@ -144,9 +143,11 @@ int update_state()
 
 void render_and_reschedule(int val)
 {
-	static int stop;
-	if (stop)
+	static int stop = 0;
+	if (stop) {
+		glutDestroyWindow(window);
 		return;
+	}
 	glutTimerFunc(1000 / FPS, render_and_reschedule, val);
 if (dump_frames) {
 	if (motion_blur) {
