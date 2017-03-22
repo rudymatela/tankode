@@ -349,7 +349,7 @@ void glDumpPixels(FILE *f)
 	    h=glutGet(GLUT_WINDOW_HEIGHT);
 	size_t sz = 3*w*h;
 	unsigned char *data = malloc(MAX_SCREEN_N_PIXELS);
-	int i;
+	int i,j,k;
 	if (!data)
 		fprintf(stderr,"error: out of memory\n");
 	if (sz > MAX_SCREEN_N_PIXELS) {
@@ -371,7 +371,12 @@ void glDumpPixels(FILE *f)
 	fprintf(f,"P3\n");
 	fprintf(f,"%d %d\n",w,h);
 	fprintf(f,"255\n");
-	for (i=0; i<sz; i++) {
-		fprintf(f,"%u%c",data[i],i%w==w-1?'\n':' ');
+	for (i=h-1; i>=0; i--) for (j=0; j<w; j++) {
+		k = (i*w+j)*3;
+		fprintf(f,"%u %u %u%c",
+			data[k],
+			data[k+1],
+			data[k+2],
+			j==w-1?'\n':' ');
 	}
 }
