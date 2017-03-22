@@ -8,6 +8,9 @@
 *.hi
 *.a
 
+*.pnm
+*.gif
+
 etc
 runner/display/tankode-display
 runner/display/bin/tankode-display
