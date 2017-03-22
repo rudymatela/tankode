@@ -4,6 +4,7 @@ TANKODES=haskell/eg/{sitting-duck,chaser,escaper,left-turner,right-turner,zigzag
 TANKODES1=haskell/eg/{sitting-duck,chaserII,chaserIII,escaper,left-turner,right-turner,zigzagger}
 TANKODES2=c/raw/eg/{sitting-duck,left-turner,right-turner,chaser,chaserII} bash/{sitting-duck,left-turner}
 TANKODES3=c/raw/eg/{sitting-duck,left-turner} haskell/eg/sitting-duck
+TANKODESM=haskell/eg/{sitting-duck,chaser,left-turner,escaper}
 
 all: runner haskell c-raw
 
@@ -39,8 +40,11 @@ run2: all
 run3: all
 	./bin/tankode $(ARGS) $(TANKODES3)
 
+run-small:
+	primusrun ./bin/tankode $(TANKODESM) -s8x4 --window-size=600x300 --close-window --seed 1
+
 gif: all
-	primusrun ./bin/tankode haskell/eg/{sitting-duck,chaser,left-turner,escaper} -s8x4 --dump-frames --seed 1
+	primusrun ./bin/tankode $(TANKODESM) -s8x4 --window-size=600x300 --close-window --seed 1 --dump-frames
 	convert -delay 3 -loop 0 *.pnm tankode.gif
 
 run-charge: all
