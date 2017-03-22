@@ -24,6 +24,7 @@ data Args = Args
   , maxTicks :: Int
   , field    :: Field
   , showHelp :: Bool
+  , showVersion :: Bool
   , seed     :: Maybe Int
   , dump     :: Bool
   , nBattles :: Int
@@ -45,6 +46,7 @@ prepareArgs args =
                                          in makeField (read w % 1) (read h % 1)}
   , " seed"       --= \s a -> a {seed = Just $ read s}
   , "hhelp"       --.   \a -> a {showHelp = True}
+  , "Vversion"    --.   \a -> a {showVersion = True}
   , "ddump"       --.   \a -> a {dump = True}
   , "nnbattles"   --= \s a -> a {nBattles = read s}
 
@@ -76,6 +78,7 @@ args = Args
   , nBattles = 1
   , field = updateObstacles (++ obstacles) $ makeField 12 8
   , showHelp = False
+  , showVersion = False
   , seed = Nothing
   , dump = False
   , drawCharge = False
@@ -120,6 +123,7 @@ printStates args n winFor tieFor f ts
 
 mainWith :: Args -> IO ()
 mainWith Args{showHelp = True} = print $ helpText [] HelpFormatDefault (prepareArgs args)
+mainWith Args{showVersion = True} = putStrLn "Tankode 0.0.0"
 mainWith Args{tankodes = []} = putStrLn "must pass at least one tankode"
 mainWith args = do
   pidsRef <- newIORef []
