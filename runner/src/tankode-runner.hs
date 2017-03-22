@@ -123,7 +123,7 @@ printStates args n winFor tieFor f ts
 
 mainWith :: Args -> IO ()
 mainWith Args{showHelp = True} = print $ helpText [] HelpFormatDefault (prepareArgs args)
-mainWith Args{showVersion = True} = putStrLn "Tankode 0.0.0"
+mainWith Args{showVersion = True} = putStrLn "Tankode 0.0.1"
 mainWith Args{tankodes = []} = putStrLn "must pass at least one tankode"
 mainWith args = do
   pidsRef <- newIORef []
