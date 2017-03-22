@@ -41,10 +41,10 @@ run3: all
 	./bin/tankode $(ARGS) $(TANKODES3)
 
 run-small: all
-	./bin/tankode           $(TANKODESM) -s8x4 --window-size=600x300 --close-window --seed=18 -t16 $(ARGS)
+	./bin/tankode           $(TANKODESM) -s8x4 --window-size=600x300 --close-window --seed=18 -t16 --no-draw-scan $(ARGS)
 
 gif: all
-	primusrun ./bin/tankode $(TANKODESM) -s8x4 --window-size=600x300 --close-window --seed=18 -t16 --dump-frames $(ARGS)
+	primusrun ./bin/tankode $(TANKODESM) -s8x4 --window-size=600x300 --close-window --seed=18 -t16 --no-draw-scan --dump-frames $(ARGS)
 	time convert -delay 3 -loop 0 {0171..0470}.pnm tankode.gif
 	rm *.pnm
 	du -hcs tankode.gif
