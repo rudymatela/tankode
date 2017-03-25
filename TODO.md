@@ -62,6 +62,9 @@ display
 
 ### low priority
 
+* draw explosion on wall hit
+  (just as a simple circle?  size being half the speed?);
+
 * draw health bar as a torus section on top of the body on the back of the gun;
 
 * draw scan rays as solid triangles;
