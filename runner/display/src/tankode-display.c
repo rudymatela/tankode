@@ -89,7 +89,14 @@ int main(int argc, char *argv[])
 	glutReshapeFunc(reshape);
 	glutDisplayFunc(render);
 	glutTimerFunc(1000 / FPS, render_and_reschedule, 0);
-	tankode_audio_init(dirname(argv[0]));
+	tankode_audio_init(
+		dirname(argv[0]),
+		state.field.width/2,
+		state.field.height/2,
+		state.field.width > state.field.height ?
+			state.field.width :
+			state.field.height
+	);
 	glutMainLoop();
 	return 0;
 }

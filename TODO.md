@@ -60,16 +60,11 @@ performance
 sound
 -----
 
-* fix position of listener:
-	- centered on screen, at screen distance
-
 * make runner work when sound files are not present:
 	1. have a global boolean indicating if sound was initialized succesfully
 	2. guard all sound playing functions by checking the aforementioned boolean
 
 * add flag to not initialize sound
-
-* make sounds a bit louder
 
 
 display

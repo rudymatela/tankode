@@ -23,9 +23,9 @@ static void errxit(char msg[]) { fprintf(stderr,"error: %s\n",msg); exit(1); }
 static void errxitif(int c, char msg[]) { if (c) errxit(msg); }
 static void alerrxit(char msg[]) { errxitif(alGetError() != AL_NO_ERROR, msg); }
 
-void audio_init()
+void audio_init(float x, float y, float z)
 {
-	ALfloat orientation[] = {0, 0, 1, 0, -1, 0};
+	ALfloat orientation[] = {x, y, z, 0, -1, 0};
 
 	device = alcOpenDevice(NULL);
 	errxitif(!device, "open device");
@@ -33,9 +33,10 @@ void audio_init()
 	context = alcCreateContext(device, NULL);
 	errxitif(!alcMakeContextCurrent(context),"create context"); alerrxit("create context");
 
-	alListener3f(AL_POSITION, 0, 0, 1);        alerrxit("listener position");
+	alListener3f(AL_POSITION, x, y, z);        alerrxit("listener position");
 	alListener3f(AL_VELOCITY, 0, 0, 0);        alerrxit("listener velocity");
 	alListenerfv(AL_ORIENTATION, orientation); alerrxit("listener orientation");
+	alListenerf(AL_GAIN, z);                   alerrxit("listener gain");
 	init_sources();
 }
 

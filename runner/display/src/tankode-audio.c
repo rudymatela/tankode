@@ -52,9 +52,9 @@ static void unload_sounds()
 		unload_sound(sounds[i]);
 }
 
-void tankode_audio_init(char dirname[])
+void tankode_audio_init(char dirname[], float x, float y, float z)
 {
-	audio_init();
+	audio_init(x, y, z);
 	load_sounds(dirname);
 }
 
