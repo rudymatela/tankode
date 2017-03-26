@@ -8,6 +8,10 @@
 *.hi
 *.a
 
+*.wav
+*.mp3
+*.zip
+
 *.pnm
 *.gif
 
