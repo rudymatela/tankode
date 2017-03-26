@@ -16,6 +16,8 @@ src/io.o: src/io.c src/io.h src/tankode.h
 
 src/draw.o: src/draw.c src/draw.h src/tankode.h
 
+src/tankode-audio.o: src/tankode-audio.c src/tankode-audio.h
+
 src/audio.o: src/audio.c src/audio.h
 
 run: all
