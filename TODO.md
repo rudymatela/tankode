@@ -36,6 +36,8 @@ game rules
 stability
 ---------
 
+* add copyright notice and license disclaimer on all relevant files
+
 ### low priority
 
 * wait for all child processes to get rid of defunct processes
