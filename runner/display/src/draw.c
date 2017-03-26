@@ -2,6 +2,10 @@
 #include "draw.h"
 #include <stdio.h>
 
+/* don't import the following, and process the state and sounds in a separate
+ * file */
+#include "tankode-audio.h"
+
 /* always make the following divisible by 2 and 3 */
 #define CIRCLE_SEGMENTS 30
 #define MAX_SCREEN_N_PIXELS (4096*2160*8) /* for screenshot and glDumpPixels */
@@ -153,6 +157,8 @@ void drawExplosion(struct tank t, struct explosion b)
 	      maxr = minr * 4,
 		  r = (maxr-minr) * ((float)b.age+1)/EXPLOSION_DISCARD_AGE + minr;
 	glColorAlpha(t.bullet_colour, 1. - ((float)b.age)/EXPLOSION_DISCARD_AGE);
+	if (b.age == 0)
+		play_wall_explosion(b.x, b.y, b.charge);
 	drawCircle(b.x, b.y, r, explosion_layer);
 }
 
@@ -265,6 +271,8 @@ void drawShotFlare(struct tank t)
 	static const struct colour white = {1., 1., 1., 1.};
 	mix(&t.bullet_colour, &white, .66);
 	glColorAlpha(t.bullet_colour, .66);
+	if (t.heat >= 1.)
+		play_shot(t.flare_x, t.flare_y, t.bullets[t.n_bullets-1].charge);
 	if (t.heat >= 1./2.)
 		drawDrop(t.flare_x, t.flare_y, t.heat / 6., t.flare_dir+M_PI, bullet_layer);
 }

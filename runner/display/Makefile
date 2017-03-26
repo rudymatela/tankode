@@ -10,7 +10,7 @@ bin/tankode-display: src/tankode-display
 	mkdir -p bin
 	cp src/tankode-display bin/tankode-display
 
-src/tankode-display: src/draw.o src/io.o
+src/tankode-display: src/draw.o src/io.o src/audio.o src/tankode-audio.o
 
 src/io.o: src/io.c src/io.h src/tankode.h
 
