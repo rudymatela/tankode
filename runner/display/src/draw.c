@@ -179,6 +179,8 @@ void drawTank(struct tank t, struct colour obstacle)
 		mix(&t.turret_colour,&obstacle,fade);
 		mix(&t.radar_colour ,&obstacle,fade);
 		mix(&t.track_colour ,&obstacle,fade);
+		if (t.previous_integrity > 0)
+			play_tank_disable(t.x,t.y);
 	}
 	drawBase(t);
 	drawTurret(t);

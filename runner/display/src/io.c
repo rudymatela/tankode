@@ -83,6 +83,7 @@ int read_tankpos(struct tank *t)
 	t->base_dir   = get_ratio()*2*M_PI; if (isNaN(t->base_dir))   return 0;
 	t->turret_dir = get_ratio()*2*M_PI; if (isNaN(t->turret_dir)) return 0;
 	t->radar_dir  = get_ratio()*2*M_PI; if (isNaN(t->radar_dir))  return 0;
+	t->previous_integrity = t->integrity;
 	t->integrity  = get_ratio();        if (isNaN(t->integrity))  return 0;
 	t->power      = get_ratio();        if (isNaN(t->power))      return 0;
 	t->heat       = get_ratio();        if (isNaN(t->heat))       return 0;
@@ -239,6 +240,8 @@ struct tank get_tank()
 	t.scan_colour.a = 1./3.;
 	t.n_bullets = 0;
 	t.n_explosions = 0;
+	t.integrity = 0./0.;
+	t.previous_integrity = 0./0.;
 	return t;
 }
 

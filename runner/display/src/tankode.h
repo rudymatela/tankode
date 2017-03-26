@@ -47,6 +47,7 @@ struct tank {
 		radar_dir;
 
 	/* status */
+	float previous_integrity;
 	float integrity;
 	float power;
 	float scan_dist;
