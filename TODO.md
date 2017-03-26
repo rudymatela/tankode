@@ -66,6 +66,8 @@ sound
 
 * add flag to not initialize sound
 
+* exit nicely on window close (no EE: alsomething)
+
 
 display
 -------
