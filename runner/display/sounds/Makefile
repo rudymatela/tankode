@@ -17,4 +17,4 @@ unzip-and-link:
 	ln -sf 8-bit-sound-library/Wav/Hit_02.wav       bump-on-wall.wav
 	ln -sf 8-bit-sound-library/Wav/Explosion_02.wav explosion-on-tank.wav
 	ln -sf 8-bit-sound-library/Wav/Explosion_04.wav explosion-on-wall.wav
-	ln -sf 8-bit-sound-library/Wav/Explosion_00.wav tank-disable.wav
+	ln -sf 8-bit-sound-library/Wav/Explosion_00.wav disable.wav
