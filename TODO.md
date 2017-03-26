@@ -68,6 +68,10 @@ sound
 
 * exit nicely on window close (no EE: alsomething)
 
+### low priority
+
+* separate sound processing from drawing
+
 
 display
 -------
