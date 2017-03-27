@@ -25,7 +25,7 @@ static void alerrxit(char msg[]) { errxitif(alGetError() != AL_NO_ERROR, msg); }
 
 void audio_init(float x, float y, float z)
 {
-	ALfloat orientation[] = {x, y, z, 0, -1, 0};
+	ALfloat orientation[] = {0, 0, -1, 0, 1, 0};
 
 	device = alcOpenDevice(NULL);
 	errxitif(!device, "open device");
