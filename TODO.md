@@ -62,12 +62,6 @@ performance
 sound
 -----
 
-* make runner work when sound files are not present:
-	1. have a global boolean indicating if sound was initialized succesfully
-	2. guard all sound playing functions by checking the aforementioned boolean
-
-* add flag to not initialize sound
-
 ### low priority
 
 * separate sound processing from drawing

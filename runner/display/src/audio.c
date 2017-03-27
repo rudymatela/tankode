@@ -13,6 +13,7 @@
 
 unsigned int sources[MAX_SOURCES];
 int current_source = 0;
+int initOK = 0;
 
 ALCdevice  *device;
 ALCcontext *context;
@@ -38,6 +39,7 @@ void audio_init(float x, float y, float z)
 	alListenerfv(AL_ORIENTATION, orientation); alerrxit("listener orientation");
 	alListenerf(AL_GAIN, z);                   alerrxit("listener gain");
 	init_sources();
+	initOK = 1;
 }
 
 static void init_sources()
@@ -52,6 +54,9 @@ static void init_sources()
 
 void audio_finalize()
 {
+	if (!initOK)
+		return;
+
 	alDeleteSources(MAX_SOURCES, sources);
 
 	device = alcGetContextsDevice(context);
@@ -83,6 +88,8 @@ void play_sound(sound_t sound, float pitch, float gain, float x, float y)
 {
 	int state;
 	int i = current_source;
+	if (!initOK)
+		return;
 	current_source = (current_source + 1) % MAX_SOURCES;
 	alGetSourcei(sources[i], AL_SOURCE_STATE, &state); alerrxit("get source state");
 	if (state == AL_PLAYING) {

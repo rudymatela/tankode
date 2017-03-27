@@ -36,6 +36,7 @@ data Args = Args
   , dumpFrames :: Bool
   , windowSize :: Maybe (Int,Int)
   , closeWindow :: Bool
+  , sound :: Bool
   }
 
 prepareArgs :: Args -> Mode Args
@@ -57,12 +58,14 @@ prepareArgs args =
   , " draw-scan"       --. \a -> a {drawScan    = True}
   , " dump-frames"     --. \a -> a {dumpFrames  = True}
   , " close-window"    --. \a -> a {closeWindow = True}
+  , " sound"           --. \a -> a {sound       = True}
   , " no-draw-charge"  --. \a -> a {drawCharge  = False}
   , " no-draw-health"  --. \a -> a {drawHealth  = False}
   , " no-motion-blur"  --. \a -> a {motionBlur  = False}
   , " no-draw-scan"    --. \a -> a {drawScan    = False}
   , " no-dump-frames"  --. \a -> a {dumpFrames  = False}
   , " no-close-window" --. \a -> a {closeWindow = False}
+  , " no-sound"        --. \a -> a {sound       = False}
   , " window-size" --= \s a ->
        a {windowSize = let (w,'x':h) = span (/= 'x') s
                        in Just (read w,read h)}
@@ -88,6 +91,7 @@ args = Args
   , dumpFrames = False
   , closeWindow = False
   , windowSize = Nothing
+  , sound = True
   }
   where
   obstacles =
@@ -173,6 +177,7 @@ pipeToDisplay pids args = do
     , ["no-draw-scan"   | not $ drawScan   args]
     , ["dump-frames"    |       dumpFrames args]
     , ["close-window"   |      closeWindow args]
+    , ["no-sound"       | not $      sound args]
     , ["window-size=" ++ show w ++ "x" ++ show h
       | let sz = windowSize args, isJust sz, let Just (w,h) = sz]
     ]

@@ -22,6 +22,7 @@ int dump_frames = 0;
 int window_width  = DEFAULT_WINDOW_WIDTH;
 int window_height = DEFAULT_WINDOW_HEIGHT;
 int close_window = 0;
+int sound = 1;
 
 int window;
 
@@ -50,6 +51,8 @@ void parse_args(char *argv[])
 		if (0==strcmp(argv[i],"no-dump-frames"))  dump_frames  = 0;
 		if (0==strcmp(argv[i],"close-window"))    close_window = 1;
 		if (0==strcmp(argv[i],"no-close-window")) close_window = 0;
+		if (0==strcmp(argv[i],"sound"))           sound        = 1;
+		if (0==strcmp(argv[i],"no-sound"))        sound        = 0;
 		if (0==strncmp(argv[i],"window-size=",12)) {
 			r = sscanf(argv[i]+12,"%ix%i",&w,&h);
 			if (r != 2)
@@ -89,14 +92,16 @@ int main(int argc, char *argv[])
 	glutDisplayFunc(render);
 	glutCloseFunc(close);
 	glutTimerFunc(1000 / FPS, render_and_reschedule, 0);
-	tankode_audio_init(
-		dirname(argv[0]),
-		state.field.width/2,
-		state.field.height/2,
-		state.field.width > state.field.height ?
-			state.field.width :
-			state.field.height
-	);
+	if (sound) {
+		tankode_audio_init(
+			dirname(argv[0]),
+			state.field.width/2,
+			state.field.height/2,
+			state.field.width > state.field.height ?
+				state.field.width :
+				state.field.height
+		);
+	}
 	glutMainLoop();
 	return 0;
 }

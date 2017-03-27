@@ -5,6 +5,8 @@
 #include "audio.h"
 #include "tankode-audio.h"
 
+int tankode_initOK = 0;
+
 enum sound {
 	shot,
 	tank_explosion, /* bullet x tank */
@@ -56,10 +58,13 @@ void tankode_audio_init(char dirname[], float x, float y, float z)
 {
 	audio_init(x, y, z);
 	load_sounds(dirname);
+	tankode_initOK = 1;
 }
 
 void tankode_audio_finalize()
 {
+	if (!tankode_initOK)
+		return;
 	unload_sounds();
 	audio_finalize();
 }
@@ -68,7 +73,7 @@ static void play_tankode_sound(enum sound s, float x, float y, float intensity)
 {
 	float pitch = 1. + .83*(1. - intensity);
 	float gain  = .5 + 1.*intensity;
-	if (intensity >= 1./12.)
+	if (tankode_initOK && intensity >= 1./12.)
 		play_sound(sounds[s], pitch, gain, x, y);
 }
 
