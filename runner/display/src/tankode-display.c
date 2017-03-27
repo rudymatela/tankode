@@ -63,9 +63,7 @@ int main(int argc, char *argv[])
 {
 	parse_args(argv);
 	state = get_initial_state();
-	print_state(state);
 	read_tick(&state);
-	print_state(state);
 	glutInit(&argc, argv);
 	glutInitContextVersion(2, 1);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_MULTISAMPLE | GLUT_DEPTH);
