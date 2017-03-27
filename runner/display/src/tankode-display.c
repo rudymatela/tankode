@@ -32,6 +32,7 @@ float field_proportion() {return state.field.width / state.field.height;}
 static void reshape(int w, int h);
 static void render();
 static void render_and_reschedule(int val);
+static void close();
 
 void parse_args(char *argv[])
 {
@@ -86,6 +87,7 @@ int main(int argc, char *argv[])
 	}
 	glutReshapeFunc(reshape);
 	glutDisplayFunc(render);
+	glutCloseFunc(close);
 	glutTimerFunc(1000 / FPS, render_and_reschedule, 0);
 	tankode_audio_init(
 		dirname(argv[0]),
@@ -97,6 +99,12 @@ int main(int argc, char *argv[])
 	);
 	glutMainLoop();
 	return 0;
+}
+
+static void close()
+{
+	tankode_audio_finalize();
+	exit(0);
 }
 
 static void reshape(int w_, int h_)
@@ -145,8 +153,7 @@ int update_state()
 		reading = read_tick(&state);
 	} else if (close_window) {
 		glutDestroyWindow(window);
-		tankode_audio_finalize();
-		exit(0);
+		close();
 	}
 	return 0;
 }
