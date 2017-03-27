@@ -64,6 +64,8 @@ sound
 
 ### low priority
 
+* make runner work when sound files are not present
+
 * separate sound processing from drawing
 
 
