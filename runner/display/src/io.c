@@ -32,14 +32,14 @@ void print_state(struct state s)
 	printf("field %f %f\n",s.field.width,s.field.height);
 	printf("ntanks %i\n",s.n_tanks);
 	printf("nobstacles %i\n",s.field.n_obstacles);
-	for (i=0; i<s.field.n_obstacles; i++)
-		printf("obstacle %.1f %.1f %.1f %.1f %.1f %.1f\n",
-		  s.field.obstacles[i].x1,
-		  s.field.obstacles[i].y1,
-		  s.field.obstacles[i].x2,
-		  s.field.obstacles[i].y2,
-		  s.field.obstacles[i].x3,
-		  s.field.obstacles[i].y3);
+	for (i=0; i<s.field.n_obstacles; i++) {
+		printf("obstacle");
+		for (j=0; j<s.field.obstacles[i].n; j++)
+			printf(" %.1f %.1f",
+			  s.field.obstacles[i].x[j],
+			  s.field.obstacles[i].y[j]);
+		printf("\n");
+	}
 	for (i=0; i<s.n_tanks; i++)
 		printf("tank %-12s  %.2f %.2f %.2f  %.2f %.2f %.2f  %.2f %.2f %.2f\n",
 		  s.tanks[i].name,
@@ -193,15 +193,16 @@ struct field get_field()
 }
 
 
-struct obstacle get_obstacle()
+struct obstacle get_obstacle(char what[])
 {
-	struct obstacle o = {NaN, NaN, NaN, NaN, NaN, NaN};
-	if (isNaN(o.x1 = get_ratio())) return o;
-	if (isNaN(o.y1 = get_ratio())) return o;
-	if (isNaN(o.x2 = get_ratio())) return o;
-	if (isNaN(o.y2 = get_ratio())) return o;
-	if (isNaN(o.x3 = get_ratio())) return o;
-	if (isNaN(o.y3 = get_ratio())) return o;
+	int i;
+	float r;
+	struct obstacle o;
+	for (i=0; r = get_ratio(), r==r; i++) {
+		o.x[i] = r;
+		o.y[i] = get_ratio();
+	}
+	o.n = i;
 	return o;
 }
 

@@ -326,11 +326,11 @@ void drawField(struct field field)
 
 void drawObstacle(struct obstacle obstacle)
 {
+	int i;
 	float z = lay(obstacle_layer);
-	glBegin(GL_TRIANGLES);
-	glVertex3f(obstacle.x1, obstacle.y1, z);
-	glVertex3f(obstacle.x2, obstacle.y2, z);
-	glVertex3f(obstacle.x3, obstacle.y3, z);
+	glBegin(GL_TRIANGLE_FAN);
+	for (i=0; i<obstacle.n; i++)
+		glVertex3f(obstacle.x[i], obstacle.y[i], z);
 	glEnd();
 }
 

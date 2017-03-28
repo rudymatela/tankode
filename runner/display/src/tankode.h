@@ -10,7 +10,10 @@
 #define MAX_BULLETS      32
 #define MAX_EXPLOSIONS   16
 #define MAX_OBSTACLES   128
+#define MAX_OBSTACLE_SIDES 60
 #define EXPLOSION_DISCARD_AGE 20
+/* in general, those bounds are not being checked,
+ * they will in a future version */
 
 struct colour {
 	float r,g,b,a;
@@ -65,9 +68,9 @@ struct tank {
 };
 
 struct obstacle {
-	float x1, y1;
-	float x2, y2;
-	float x3, y3;
+	float x[MAX_OBSTACLE_SIDES];
+	float y[MAX_OBSTACLE_SIDES];
+	float n;
 };
 
 struct field {
