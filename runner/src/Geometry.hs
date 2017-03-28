@@ -262,9 +262,12 @@ sqDistanceSP (p1,p2) p =
   rotatePoint90 = rotatePoint 1 0
 
 sqDistanceTP :: Triangle -> Point -> Rational
-sqDistanceTP t@(a,b,c) p
-  | insideTriangle t p = 0
-  | otherwise = minimum [sqDistanceSP s p | s <- triangleSegments t]
+sqDistanceTP (a,b,c) = sqDistancePolyPoint [a,b,c]
+
+sqDistancePolyPoint :: Polygon -> Point -> Rational
+sqDistancePolyPoint ps p
+  | insidePolygon ps p = 0
+  | otherwise = minimum [sqDistanceSP s p | s <- polygonSegments ps]
 
 rotatePoint :: Rational -> Rational -> Point -> Point -> Point
 rotatePoint sin cos (x,y) = translatePoint x y
@@ -290,9 +293,6 @@ translatePoint x y (x0,y0) = (x0 + x, y0 + y)
 
 translateLine :: Rational -> Rational -> Line -> Line
 translateLine x y (a,b,c) = (a, b, 1 - a*x - b*y)
-
-triangleSegments :: Triangle -> [Segment]
-triangleSegments (a,b,c) = [(a,b),(b,c),(c,a)]
 
 polygonSegments :: Polygon -> [Segment]
 polygonSegments []    = error "polygonSegments: not a polygon"
