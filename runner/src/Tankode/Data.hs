@@ -18,7 +18,10 @@ import Geometry
 import System.Posix.Types (ProcessID)
 
 type Loc = Point
-type Obstacle = (Loc,Loc,Loc)
+
+-- data Invariant: convex polygons only
+-- >= 3 points
+type Obstacle = [Loc]
 
 data Field = Field
   { width  :: Rational
@@ -34,10 +37,10 @@ makeField w h = Field
   { width = w
   , height = h
   , obstacles = -- obstacles on border, to avoid special case
-    [ ((- w, h), (w + w, h), (w / 2, h + h)) -- top
-    , ((- w, 0), (w + w, 0), (w / 2,   - h)) -- bottom
-    , ((0, - h), (0, h + h), (  - w, h / 2)) -- left
-    , ((w, - h), (w, h + h), (w + w, h / 2)) -- right
+    [ [(- w, h), (w + w, h), (w / 2, h + h)] -- top
+    , [(- w, 0), (w + w, 0), (w / 2,   - h)] -- bottom
+    , [(0, - h), (0, h + h), (  - w, h / 2)] -- left
+    , [(w, - h), (w, h + h), (w + w, h / 2)] -- right
     ]
   , fieldColour = P.black
   , obstacleColour = P.darkGrey
@@ -169,11 +172,8 @@ translate' (xd, yd) (x,y) = (xd + x, yd + y)
 translateTank' :: Vector -> Tank -> Tank
 translateTank' xy = updateLoc $ translate' xy
 
-segments1 :: Obstacle -> [Segment]
-segments1 (a,b,c) = [(a,b),(b,c),(c,a)]
-
 segments :: [Obstacle] -> [Segment]
-segments = concatMap segments1
+segments = concatMap polygonSegments
 
 explode :: Bullet -> Bullet
 explode b = b{bulletExploded = True}

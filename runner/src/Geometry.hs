@@ -45,6 +45,7 @@ module Geometry
   , sqDistanceLP
   , sqDistanceSP
   , sqDistanceTP
+  , sqDistancePolyPoint
 
 -- * rotation
   , rotatePoint
@@ -64,6 +65,9 @@ module Geometry
   , bboxS
   , bboxC
   , grow
+
+-- * segments
+  , polygonSegments
   )
 where
 

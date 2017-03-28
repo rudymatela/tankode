@@ -23,12 +23,7 @@ showField f = unwords
   ] ++ "\n" ++ init (unlines . map showObstacle $ obstacles f)
 
 showObstacle :: Obstacle -> String
-showObstacle (p1,p2,p3) = unwords
-  [ "obstacle"
-  , showLoc $ p1
-  , showLoc $ p2
-  , showLoc $ p3
-  ]
+showObstacle ps = unwords $ "obstacle" : map showLoc ps
 
 showId :: Tank -> String
 showId t = unwords

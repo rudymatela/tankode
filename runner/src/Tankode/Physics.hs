@@ -226,7 +226,7 @@ startingPositions f gen = id
   . map ((%2)***(%2))
   $ randomRs ((0,0), (floor (width f) * 2,floor (height f) * 2)) gen
   where
-  touchesObstacles p = any (\o -> sqDistanceTP o p <= squaredTankRadius)
+  touchesObstacles p = any (\o -> sqDistancePolyPoint o p <= squaredTankRadius)
                      $ obstacles f
 
 startingHeadings :: RandomGen g => g -> [Rational]
