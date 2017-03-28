@@ -15,6 +15,36 @@ interface
 game rules
 ----------
 
+* parse fields from command line.  coordinate components separated by commas or
+  spaces, obstacles separated by semicolon or by a new `-o` option.
+
+	tankode \
+	  -s 12x8 \
+	  -o 0,0,0,1,1,0 \
+	  -o "0 2 2 1 3 1 3 0" \
+	  -o "3,3 3,4 4,3;  3 4, 4 3, 4 4"
+
+* parse multiple fields from the command line, each `-s` option starts a new
+  field:
+
+	tankode \
+	  -s 12x8 \
+	  -o 0,0,0,1,1,0 \
+	  -o "0 2 2 1 3 1 3 0" \
+	  -o "3,3 3,4 4,3;  3 4, 4 3, 4 4" \
+	  -s 6x4 \
+	  -o "0 0  0 1  1 0"
+
+  a field is choosen randomly from one of those listed on the arguments
+
+* allow special obstacles to be listed in `-o`, for example:
+
+    tankode \
+	  -s 12x8 -o diamond \
+	  -s  8x6 -o corners \
+	  -s  6x4 -o pill \
+	  -s  4x4 -o circle
+
 * add a selection of random starting fields;
 
 * calibrate constants of `Tankode.Constants`;
