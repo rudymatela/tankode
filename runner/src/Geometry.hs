@@ -161,12 +161,15 @@ intersectCC c1@(cc1,r1) c2@(cc2,r2) =
   && sqDistancePP cc1 cc2 <= (r1+r2)^2
 
 insideTriangle :: Triangle -> Point -> Bool
-insideTriangle (a,b,c) p = ab == 0 || bc == 0 || ca == 0
-  || signum ab == signum bc && signum bc == signum ca
+insideTriangle (a,b,c) p =
+  all (>= 0) collinearities ||
+  all (<= 0) collinearities
   where
-  ab = collinearity a b p
-  bc = collinearity b c p
-  ca = collinearity c a p
+  collinearities =
+    [ collinearity a b p
+    , collinearity b c p
+    , collinearity c a p
+    ]
 
 insideBox :: Point -> Box -> Bool
 insideBox (x,y) ((x0,y0),(x1,y1)) = x `between` (x0,x1)
