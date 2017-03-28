@@ -8,6 +8,7 @@ TESTS = \
 	tests/test-ratiomath \
 	tests/test-tankode
 TANKODES=../haskell/eg/{sitting-duck,chaser,escaper,left-turner,right-turner,zigzagger}
+TANKODESM=../haskell/eg/{sitting-duck,chaser,left-turner,escaper}
 
 all: $(BIN) display
 
@@ -22,10 +23,12 @@ test: $(TESTS) test-model
 test-model: $(BIN)
 	./bin/tankode-runner $(TANKODES) -t1 -d --seed    42 | diff -rud tests/model/42    -
 	./bin/tankode-runner $(TANKODES) -t1 -d --seed 31337 | diff -rud tests/model/31337 -
+	./bin/tankode-runner $(TANKODESM) -s8x4 -t2 -d --seed 18 | diff -rud tests/model/m18   -
 
 update-test-model: $(BIN)
 	./bin/tankode-runner $(TANKODES) -t1 -d --seed    42 > tests/model/42
 	./bin/tankode-runner $(TANKODES) -t1 -d --seed 31337 > tests/model/31337
+	./bin/tankode-runner $(TANKODESM) -s8x4 -t2 -d --seed 18 > tests/model/m18
 
 kill:
 	killall sitting-duck chaser escaper left-turner right-turner zigzagger
