@@ -15,6 +15,8 @@ interface
 game rules
 ----------
 
+* add a selection of random starting fields;
+
 * calibrate constants of `Tankode.Constants`;
 
 * actuallly count wins and points and show them somehow
