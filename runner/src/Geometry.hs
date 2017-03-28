@@ -77,6 +77,7 @@ type Segment  = (Point,Point)
 type Box      = (Point,Point)
 type Line     = (Rational,Rational,Rational) -- ax + by + c = 0
 type Triangle = (Point,Point,Point)
+type Polygon  = [Point]
 type Circle   = (Point,Rational)
 
 -- Checks if a line is valid:
@@ -161,15 +162,14 @@ intersectCC c1@(cc1,r1) c2@(cc2,r2) =
   && sqDistancePP cc1 cc2 <= (r1+r2)^2
 
 insideTriangle :: Triangle -> Point -> Bool
-insideTriangle (a,b,c) p =
-  all (>= 0) collinearities ||
-  all (<= 0) collinearities
+insideTriangle (a,b,c) = insidePolygon [a,b,c]
+
+insidePolygon :: Polygon -> Point -> Bool
+insidePolygon poly p = all (>= 0) cs
+                    || all (<= 0) cs
   where
-  collinearities =
-    [ collinearity a b p
-    , collinearity b c p
-    , collinearity c a p
-    ]
+  cs = map (\(a,b) -> collinearity a b p)
+     $ polygonSegments poly
 
 insideBox :: Point -> Box -> Bool
 insideBox (x,y) ((x0,y0),(x1,y1)) = x `between` (x0,x1)
@@ -293,6 +293,12 @@ translateLine x y (a,b,c) = (a, b, 1 - a*x - b*y)
 
 triangleSegments :: Triangle -> [Segment]
 triangleSegments (a,b,c) = [(a,b),(b,c),(c,a)]
+
+polygonSegments :: Polygon -> [Segment]
+polygonSegments []    = error "polygonSegments: not a polygon"
+polygonSegments [_]   = error "polygonSegments: not a polygon"
+polygonSegments [_,_] = error "polygonSegments: not a polygon"
+polygonSegments ps = zip ps (tail ps ++ [head ps])
 
 -- | computes the bounding box of a segment
 bboxS :: Segment -> Box
