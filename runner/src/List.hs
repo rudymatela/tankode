@@ -12,6 +12,7 @@ module List
   , pairwise
   , split
   , join
+  , trim
   )
 where
 
@@ -71,3 +72,12 @@ split x xs = case break (== x) xs of
 
 join :: a -> [[a]] -> [a]
 join x = intercalate [x]
+
+-- | dropWhile == x on both ends
+--
+-- > trim ' ' " blah " == "blah"
+-- > trim ' ' " Hello World " == "Hello World"
+trim :: Eq a => a -> [a] -> [a]
+trim x = reverse . dropWhile (== x)
+       . reverse . dropWhile (== x)
+-- TODO: make this prettier and more efficient
