@@ -1,11 +1,38 @@
 module Tankode.Obstacles
   ( corners
   , rounded
+  , old
   )
 where
 
 import Data.Tuple (swap)
 import Tankode.Data
+
+old :: Rational -> Rational -> [Obstacle]
+old w h | h > w = map (map swap) $ old h w
+old w h =
+  [ [ (0, 0)
+    , (1, 0)
+    , (0, 1)
+    ]
+  , [ (w,   h)
+    , (w-1, h)
+    , (w,   h-1)
+    ]
+  , [ (h/2,   h-1)
+    , (h/2+1, h)
+    , (h/2-1, h)
+    ]
+  , [ (w-h/2, 1)
+    , (w-h/2-1, 0)
+    , (w-h/2+1, 0)
+    ]
+  , [ (w/2 - 1,   h/2 - 1/2)
+    , (w/2 - 1/2, h/2 - 1)
+    , (w/2 + 1,   h/2 + 1/2)
+    , (w/2 + 1/2, h/2 + 1)
+    ]
+  ]
 
 corners :: Rational -> Rational -> [Obstacle]
 corners w h | h > w = map (map swap) $ corners h w

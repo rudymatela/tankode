@@ -96,15 +96,7 @@ args = Args
   , sound = True
   }
   where
-  obstacles = -- Obstacles.corners 12 8
---  {-
-    [ [(12,8),(12,7),(8,11)]
-    , [(3,8),(4,7),(5,8)]
-    , [(0,0),(1,0),(0,1)]
-    , [(7,0),(9,0),(8,1)]
-    , [(5,7/2),(11/2,3),(7,9/2),(13/2,5)]
-    ]
---  -}
+  obstacles = Obstacles.old 12 8
 
 printSimulation :: Args -> Field -> State -> IO ()
 printSimulation args f ts = do
