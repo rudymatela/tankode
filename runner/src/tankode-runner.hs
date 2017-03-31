@@ -50,6 +50,7 @@ prepareArgs args =
   , "Vversion"    --.   \a -> a {showVersion = True}
   , "ddump"       --.   \a -> a {dump = True}
   , "nnbattles"   --= \s a -> a {nBattles = read s}
+  , "oobstacle"   --= \s a -> a {field = updateObstacles (++ readObstacles s) (field a)}
 
   -- options passed along to the display program
   , " draw-charge"     --. \a -> a {drawCharge  = True}
