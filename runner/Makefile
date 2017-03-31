@@ -11,6 +11,7 @@ TESTS = \
 	tests/test-readshow
 TANKODES=../haskell/eg/{sitting-duck,chaser,escaper,left-turner,right-turner,zigzagger}
 TANKODESM=../haskell/eg/{sitting-duck,chaser,left-turner,escaper}
+ARGS=
 
 all: $(BIN) display
 
@@ -50,7 +51,7 @@ bin/tankode-runner: src/tankode-runner
 	cp src/tankode-runner bin/tankode-runner
 
 run: all
-	./bin/tankode-runner $(TANKODES)
+	./bin/tankode-runner $(ARGS) $(TANKODES)
 
 bench: all
 	cat .runtimes-`hostname`
