@@ -18,6 +18,7 @@ import Control.Monad
 import System.Posix (ProcessID, signalProcess, sigINT, getProcessStatus)
 import System.IO
 import Data.IORef
+import qualified Tankode.Obstacles as Obstacles
 
 data Args = Args
   { tankodes :: [String]
@@ -95,13 +96,15 @@ args = Args
   , sound = True
   }
   where
-  obstacles =
+  obstacles = -- Obstacles.corners 12 8
+--  {-
     [ [(12,8),(12,7),(8,11)]
     , [(3,8),(4,7),(5,8)]
     , [(0,0),(1,0),(0,1)]
     , [(7,0),(9,0),(8,1)]
     , [(5,7/2),(11/2,3),(7,9/2),(13/2,5)]
     ]
+--  -}
 
 printSimulation :: Args -> Field -> State -> IO ()
 printSimulation args f ts = do

@@ -66,6 +66,16 @@ src/Tankode/IPC.o: \
   src/List.hs \
   src/Geometry.hs \
   src/Colour.hs
+src/Tankode/Obstacles.o: \
+  src/Tankode/Palette/Year2017.hs \
+  src/Tankode/Palette/Utils.hs \
+  src/Tankode/Palette/Pure.hs \
+  src/Tankode/Palette.hs \
+  src/Tankode/Obstacles.hs \
+  src/Tankode/Data.hs \
+  src/RatioMath.hs \
+  src/Geometry.hs \
+  src/Colour.hs
 src/Tankode.o: \
   src/Tankode/Show.hs \
   src/Tankode/Physics.hs \
@@ -122,6 +132,7 @@ src/tankode-runner.o: \
   src/Tankode/Palette/Pure.hs \
   src/Tankode/Palette.hs \
   src/Tankode.hs \
+  src/Tankode/Obstacles.hs \
   src/Tankode/IPC.hs \
   src/Tankode/Data.hs \
   src/Tankode/Constants.hs \
@@ -140,6 +151,7 @@ src/tankode-runner: \
   src/Tankode/Palette/Pure.hs \
   src/Tankode/Palette.hs \
   src/Tankode.hs \
+  src/Tankode/Obstacles.hs \
   src/Tankode/IPC.hs \
   src/Tankode/Data.hs \
   src/Tankode/Constants.hs \
