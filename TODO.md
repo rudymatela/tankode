@@ -7,6 +7,8 @@ interface
 
 * write Python raw interface; add examples;
 
+* write Lua raw interface; add examples;
+
 ### low priority
 
 * write Ruby raw interface; add examples;
