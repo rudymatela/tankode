@@ -27,6 +27,7 @@ precision = 1080 -- maybe just 360 is enough
 
 roundR :: Integer -> Rational -> Rational
 roundR p r = (p * numerator r `div` denominator r) % p
+-- TODO: actually use divRound above
 
 rationalize :: RealFrac a => a -> Rational
 rationalize x = round (x * fromIntegral precision) % precision
