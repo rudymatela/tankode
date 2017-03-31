@@ -128,11 +128,11 @@ readMRDec s =
 readMRInt :: String -> Maybe Rational
 readMRInt s = Just $ read s % 1
 
-readObstacle :: String -> Obstacle
-readObstacle = pairwise . map readR . words . gsub ',' ' '
+readObstacle :: String -> [Obstacle]
+readObstacle = (:[]) . pairwise . map readR . words . gsub ',' ' '
 
 readObstacles :: String -> [Obstacle]
-readObstacles = map readObstacle . split ';'
+readObstacles = concatMap readObstacle . split ';'
 
 readColour :: String -> Colour
 readColour ('#':n)     = fromInteger (read $ "0x" ++ n)
