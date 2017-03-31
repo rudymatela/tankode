@@ -2,6 +2,9 @@ module Tankode.Obstacles
   ( corners
   , rounded
   , old
+  , centerCircle
+  , centerDiamond
+  , centerSquare
   )
 where
 
@@ -89,5 +92,36 @@ rounded w h =
   , [ (w, 0)
     , (w, 1)
     , (w-2, 0)
+    ]
+  ]
+
+centerCircle :: Rational -> Rational -> [Obstacle]
+centerCircle w h =
+  [ [ (w/2 - 1,   h/2 - 1/2)
+    , (w/2 - 1/2, h/2 - 1)
+    , (w/2 + 1/2, h/2 - 1)
+    , (w/2 + 1,   h/2 - 1/2)
+    , (w/2 + 1,   h/2 + 1/2)
+    , (w/2 + 1/2, h/2 + 1)
+    , (w/2 - 1/2, h/2 + 1)
+    , (w/2 - 1,   h/2 + 1/2)
+    ]
+  ]
+
+centerDiamond :: Rational -> Rational -> [Obstacle]
+centerDiamond w h =
+  [ [ (w/2 - 1, h/2)
+    , (w/2, h/2 - 1)
+    , (w/2 + 1, h/2)
+    , (w/2, h/2 + 1)
+    ]
+  ]
+
+centerSquare :: Rational -> Rational -> [Obstacle]
+centerSquare w h =
+  [ [ (w/2 - 1/2, h/2 - 1/2)
+    , (w/2 + 1/2, h/2 - 1/2)
+    , (w/2 + 1/2, h/2 + 1/2)
+    , (w/2 - 1/2, h/2 + 1/2)
     ]
   ]
