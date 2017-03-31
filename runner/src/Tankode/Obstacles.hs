@@ -5,6 +5,9 @@ module Tankode.Obstacles
   , centerCircle
   , centerDiamond
   , centerSquare
+  , ex
+  , ox
+  , bowtie
   )
 where
 
@@ -123,5 +126,85 @@ centerSquare w h =
     , (w/2 + 1/2, h/2 - 1/2)
     , (w/2 + 1/2, h/2 + 1/2)
     , (w/2 - 1/2, h/2 + 1/2)
+    ]
+  ]
+
+ex :: Rational -> Rational -> [Obstacle]
+ex w h | h > w = map (map swap) $ ex h w
+ex w h =
+  [ [ (w/2 + 1, 0)
+    , (w/2    , 1)
+    , (w/2 - 1, 0)
+    ]
+  , [ (w/2 - 1, h)
+    , (w/2    , h-1)
+    , (w/2 + 1, h)
+    ]
+  , [ (w/2 - h/2 + 1, h/2)
+    , (0            ,     w/2 + 1)
+    , (0            , h - w/2 - 1)
+    ]
+  , [ (w/2 + h/2 - 1, h/2)
+    , (w            ,     w/2 + 1)
+    , (w            , h - w/2 - 1)
+    ]
+  ]
+
+bowtie :: Rational -> Rational -> [Obstacle]
+bowtie w h | h > w = map (map swap) $ bowtie h w
+bowtie w h =
+  [ [ (1, h/2)
+    , (0, h/2 + 1)
+    , (0, h/2 - 1)
+    ]
+  , [ (w    , h/2 - 1)
+    , (w    , h/2 + 1)
+    , (w - 1, h/2)
+    ]
+  , [ (    h/2 + 1, h - 2)
+    , (w - h/2 - 1, h - 2)
+    , (w - h/2 + 1, h)
+    , (    h/2 - 1, h)
+    ]
+  , [ (    h/2 - 1, 0)
+    , (w - h/2 + 1, 0)
+    , (w - h/2 - 1, 2)
+    , (    h/2 + 1, 2)
+    ]
+  ]
+
+ox :: Rational -> Rational -> [Obstacle]
+ox w h | h > w = map (map swap) $ ox h w
+ox w h =
+  [ [ (0, h/2 + 1)
+    , (0, h/2 - 1)
+    , (1, h/2)
+    ]
+  , [ (w,   h/2 - 1)
+    , (w,   h/2 + 1)
+    , (w-1, h/2)
+    ]
+  , [ (0, 0)
+    , (1, 0)
+    , (0, 1)
+    ]
+  , [ (w,   h)
+    , (w-1, h)
+    , (w,   h-1)
+    ]
+  , [ (h/2,   h-1)
+    , (h/2+1, h)
+    , (h/2-1, h)
+    ]
+  , [ (w-h/2, 1)
+    , (w-h/2-1, 0)
+    , (w-h/2+1, 0)
+    ]
+  , [ (w/2 - 5/4, h/2 - 1)
+    , (w/2 - 1/2, h/2 - 1)
+    , (w/2 + 5/4, h/2 + 3/4)
+    , (w/2 + 5/4, h/2 + 1)
+    , (w/2 + 1/2, h/2 + 1)
+    , (w/2 - 5/4, h/2 - 3/4)
     ]
   ]

@@ -135,9 +135,12 @@ readObstacle w h s =
     "corners" -> O.corners w h
     "rounded" -> O.rounded w h
     "old"     -> O.old w h
-    "center-circle"  -> O.centerCircle w h
+    "center-circle"  -> O.centerCircle  w h
     "center-diamond" -> O.centerDiamond w h
-    "center-square"  -> O.centerSquare w h
+    "center-square"  -> O.centerSquare  w h
+    "ex"  -> O.ex  w h
+    "ox"  -> O.ox  w h
+    "bowtie" -> O.bowtie w h
     s -> (:[]) . pairwise . map readR . words $ gsub ',' ' ' s
 
 readObstacles :: Rational -> Rational -> String -> [Obstacle]
