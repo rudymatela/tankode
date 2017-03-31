@@ -15,6 +15,7 @@ import Data.Char
 import List
 import Data.Monoid ((<>))
 import RatioMath
+import qualified Tankode.Obstacles as O
 
 showField :: Field -> String
 showField f = unwords
@@ -129,7 +130,12 @@ readMRInt :: String -> Maybe Rational
 readMRInt s = Just $ read s % 1
 
 readObstacle :: Rational -> Rational -> String -> [Obstacle]
-readObstacle w h = (:[]) . pairwise . map readR . words . gsub ',' ' '
+readObstacle w h s =
+  case trim ' ' s of
+    "corners" -> O.corners w h
+    "rounded" -> O.rounded w h
+    "old"     -> O.old w h
+    s -> (:[]) . pairwise . map readR . words $ gsub ',' ' ' s
 
 readObstacles :: Rational -> Rational -> String -> [Obstacle]
 readObstacles w h = concatMap (readObstacle w h) . split ';'
