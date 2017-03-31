@@ -8,6 +8,10 @@ module List
   , maybeMinimum
   , compose
   , mapThat
+  , gsub
+  , pairwise
+  , split
+  , join
   )
 where
 
@@ -47,3 +51,23 @@ compose (f:fs) = f . compose fs
 
 mapThat :: (a -> Bool) -> (a -> a) -> [a] -> [a]
 mapThat p f = map (\x -> if p x then f x else x)
+
+gsub :: Eq a => a -> a -> [a] -> [a]
+gsub _ _ []     = []
+gsub y z (x:xs) = x' : gsub y z xs
+  where
+  x' | x == y    = z
+     | otherwise = x
+
+pairwise :: [a] -> [(a,a)]
+pairwise []       = []
+pairwise [_]      = error "pairwise: odd number of values"
+pairwise (x:y:xs) = (x,y):pairwise xs
+
+split :: Eq a => a -> [a] -> [[a]]
+split x xs = case break (== x) xs of
+               (ys,[])   -> [ys]
+               (ys,_:zs) -> ys:split x zs
+
+join :: a -> [[a]] -> [a]
+join x = intercalate [x]

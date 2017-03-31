@@ -6,7 +6,9 @@ ALLHS = $(shell $(LISTHS))
 BIN = bin/tankode-runner bin/html-palette bin/palette
 TESTS = \
 	tests/test-ratiomath \
-	tests/test-tankode
+	tests/test-tankode \
+	tests/test-list \
+	tests/test-readshow
 TANKODES=../haskell/eg/{sitting-duck,chaser,escaper,left-turner,right-turner,zigzagger}
 TANKODESM=../haskell/eg/{sitting-duck,chaser,left-turner,escaper}
 
@@ -19,6 +21,8 @@ display:
 test: $(TESTS) test-model
 	./tests/test-ratiomath
 	./tests/test-tankode
+	./tests/test-list
+	./tests/test-readshow
 
 test-model: $(BIN)
 	./bin/tankode-runner $(TANKODES) -t1 -d --seed    42 | diff -rud tests/model/42    -

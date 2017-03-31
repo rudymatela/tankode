@@ -165,6 +165,44 @@ src/Tankode/Show.o: \
   src/Colour.hs
 src/Trigonometry.o: \
   src/Trigonometry.hs
+tests/test-list.o: \
+  tests/Test.hs \
+  tests/test-list.hs \
+  src/Tankode/Show.hs \
+  src/Tankode/Physics.hs \
+  src/Tankode/Palette/Year2017.hs \
+  src/Tankode/Palette/Utils.hs \
+  src/Tankode/Palette/Pure.hs \
+  src/Tankode/Palette.hs \
+  src/Tankode.hs \
+  src/Tankode/IPC.hs \
+  src/Tankode/Data.hs \
+  src/Tankode/Constants.hs \
+  src/RatioMath.hs \
+  src/Random.hs \
+  src/PipeRun.hs \
+  src/List.hs \
+  src/Geometry.hs \
+  src/Colour.hs
+tests/test-list: \
+  tests/Test.hs \
+  tests/test-list.hs \
+  src/Tankode/Show.hs \
+  src/Tankode/Physics.hs \
+  src/Tankode/Palette/Year2017.hs \
+  src/Tankode/Palette/Utils.hs \
+  src/Tankode/Palette/Pure.hs \
+  src/Tankode/Palette.hs \
+  src/Tankode.hs \
+  src/Tankode/IPC.hs \
+  src/Tankode/Data.hs \
+  src/Tankode/Constants.hs \
+  src/RatioMath.hs \
+  src/Random.hs \
+  src/PipeRun.hs \
+  src/List.hs \
+  src/Geometry.hs \
+  src/Colour.hs
 tests/Test.o: \
   tests/Test.hs \
   src/Tankode/Show.hs \
@@ -204,6 +242,44 @@ tests/test-ratiomath.o: \
   src/Colour.hs
 tests/test-ratiomath: \
   tests/test-ratiomath.hs \
+  tests/Test.hs \
+  src/Tankode/Show.hs \
+  src/Tankode/Physics.hs \
+  src/Tankode/Palette/Year2017.hs \
+  src/Tankode/Palette/Utils.hs \
+  src/Tankode/Palette/Pure.hs \
+  src/Tankode/Palette.hs \
+  src/Tankode.hs \
+  src/Tankode/IPC.hs \
+  src/Tankode/Data.hs \
+  src/Tankode/Constants.hs \
+  src/RatioMath.hs \
+  src/Random.hs \
+  src/PipeRun.hs \
+  src/List.hs \
+  src/Geometry.hs \
+  src/Colour.hs
+tests/test-readshow.o: \
+  tests/test-readshow.hs \
+  tests/Test.hs \
+  src/Tankode/Show.hs \
+  src/Tankode/Physics.hs \
+  src/Tankode/Palette/Year2017.hs \
+  src/Tankode/Palette/Utils.hs \
+  src/Tankode/Palette/Pure.hs \
+  src/Tankode/Palette.hs \
+  src/Tankode.hs \
+  src/Tankode/IPC.hs \
+  src/Tankode/Data.hs \
+  src/Tankode/Constants.hs \
+  src/RatioMath.hs \
+  src/Random.hs \
+  src/PipeRun.hs \
+  src/List.hs \
+  src/Geometry.hs \
+  src/Colour.hs
+tests/test-readshow: \
+  tests/test-readshow.hs \
   tests/Test.hs \
   src/Tankode/Show.hs \
   src/Tankode/Physics.hs \

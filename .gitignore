@@ -28,6 +28,8 @@ runner/bin/palette
 runner/src/palette
 runner/tests/test-tankode
 runner/tests/test-ratiomath
+runner/tests/test-list
+runner/tests/test-readshow
 doc/logo/*.html
 doc/*.html
 doc/logo/tankode-logo-*.svg

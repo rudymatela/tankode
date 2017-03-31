@@ -7,7 +7,7 @@ import Tankode.Show
 import Tankode.Constants
 import Colour
 import Data.Ratio
-import List
+import List hiding (split)
 import Control.Arrow ((***))
 import Random
 import Data.Maybe

@@ -12,6 +12,9 @@ import Tankode.Constants
 import Data.Ratio
 import Data.Maybe
 import Data.Char
+import List
+import Data.Monoid ((<>))
+import RatioMath
 
 showField :: Field -> String
 showField f = unwords
@@ -103,14 +106,34 @@ readR :: String -> Rational
 readR = fromJust . readMR
 
 readMR :: String -> Maybe Rational
-readMR s =
+readMR "-" = Nothing
+readMR s = listToMaybe $ catMaybes [readMRFrac s, readMRDec s, readMRInt s]
+
+readMRFrac :: String -> Maybe Rational
+readMRFrac s =
   case span (/= '/') s of
     (n,'/':d) -> Just $ read n % read d
     _         -> Nothing
 
--- TODO: make it read colour intensities (appended number)
--- for now using OpenColour's colours, change that to a more appropriate pallete
--- soon
+readMRDec :: String -> Maybe Rational
+readMRDec s =
+  case span (/= '.') s of
+    ('-':n,'.':d) -> Just . negate $ readNumerator n + readDenominator d
+    (n,'.':d)     -> Just          $ readNumerator n + readDenominator d
+    _             -> Nothing
+  where
+  readNumerator   n = read n % 1
+  readDenominator d = read d % 10 ^ fromIntegral (length d)
+
+readMRInt :: String -> Maybe Rational
+readMRInt s = Just $ read s % 1
+
+readObstacle :: String -> Obstacle
+readObstacle = pairwise . map readR . words . gsub ',' ' '
+
+readObstacles :: String -> [Obstacle]
+readObstacles = map readObstacle . split ';'
+
 readColour :: String -> Colour
 readColour ('#':n)     = fromInteger (read $ "0x" ++ n)
 readColour ('0':'x':n) = fromInteger (read $ "0x" ++ n)
