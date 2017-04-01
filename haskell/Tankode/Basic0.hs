@@ -1,3 +1,21 @@
+-- |
+-- Module      : Tankode.Basic0
+-- Copyright   : (c) 2017  Rudy Matela
+-- License     : LGPL 2.1 (see the file LICENSE)
+--
+-- A basic interface for implementing Tankodes in Haskell.
+--
+-- It provides everything from the "Tankode.Raw" interface and
+-- keeps track of the 'gunHeading' and 'radarHeading'.
+--
+-- For the future:
+-- implement the Basic1 (... BasicN) interfaces that:
+--
+-- * keep track of the expected speed of the Tankode 
+--   if the next speed sent from the server is different
+--   it means that we hit an obstacle.
+--
+-- * keep track of the current gun power.
 module Tankode.Basic0
   ( Id (..), Colour, IncDec (..)
   , Input (..), Output (..), output

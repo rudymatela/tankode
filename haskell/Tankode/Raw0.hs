@@ -1,3 +1,14 @@
+-- |
+-- Module      : Tankode.Raw0
+-- Copyright   : (c) 2017  Rudy Matela
+-- License     : LGPL 2.1 (see the file LICENSE)
+--
+-- A raw interface for implementing tankodes.
+--
+-- 'Input' is just what the server sent,
+-- 'Output' is just what will be sent to the server.
+--
+-- The "Tankode.Basic" interface is recommended for beginners.
 module Tankode.Raw0
   ( Id (..), Colour, IncDec (..)
   , Input (..), Output (..), output

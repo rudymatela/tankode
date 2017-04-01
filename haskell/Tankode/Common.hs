@@ -1,3 +1,9 @@
+-- |
+-- Module      : Tankode.Common
+-- Copyright   : (c) 2017  Rudy Matela
+-- License     : LGPL 2.1 (see the file LICENSE)
+--
+-- Common functions between different interfaces.
 module Tankode.Common
   ( Id (..)
   , Colour

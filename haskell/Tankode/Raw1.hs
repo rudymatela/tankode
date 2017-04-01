@@ -1,3 +1,12 @@
+-- |
+-- Module      : Tankode.Raw1
+-- Copyright   : (c) 2017  Rudy Matela
+-- License     : LGPL 2.1 (see the file LICENSE)
+--
+-- A raw interface for implementing tankodes.
+--
+-- This interface imports "Tankode.Raw0" and changes it a bit by moving the
+-- state into the 'Input' and 'Output' datatypes.
 module Tankode.Raw1
   ( Id (..), Colour, IncDec (..)
   , Input (..), Output (..), output
