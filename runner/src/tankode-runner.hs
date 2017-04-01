@@ -148,7 +148,7 @@ setupAndPrintSimulation gen pidsRef dpid args@Args{fields = []} =
     { fields =
         [ addObstacles (Obstacles.old     12 8) $ makeField 12 8
         , addObstacles (Obstacles.ox      12 8) $ makeField 12 8
-        , addObstacles (Obstacles.rounded  9 6) $ makeField  9 6
+        , addObstacles (Obstacles.rounded 11 6) $ makeField 11 6
         , addObstacles (Obstacles.ox      11 7) $ makeField 11 7
         , addObstacles (Obstacles.rounded  6 6) $ makeField  6 6
         , addObstacles (Obstacles.bowtie  12 8) $ makeField 12 8
