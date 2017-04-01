@@ -9,7 +9,7 @@ at enemies and dodge bullets.  The last tankode standing wins.
 
 ![Tankode demo](https://github.com/rudymatela/tankode/releases/download/v0.0.1/tankode-400x200.gif)
 
-The game has a simple API for Haskell, C and Bash.  Example tankodes are
+The game has a simple API for Haskell, C, Ruby and Bash.  Example tankodes are
 provided with the game package.
 
 The game has been designed to be programming-language independent.  Tankodes
