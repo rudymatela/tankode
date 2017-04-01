@@ -79,10 +79,10 @@ Running the Tankode default example
 
 For now, to compile and run Tankode, run the following commands:
 
-$ git clone https://github.com/rudymatela/tankode
-$ cd tankode
-$ make
-$ make run
+	$ git clone https://github.com/rudymatela/tankode
+	$ cd tankode
+	$ make
+	$ make run
 
 See the [Makefile] to try to learn how to run your own examples and custom made
 tankodes.  Future versions should have better instructions and steps than this.
