@@ -17,25 +17,6 @@ interface
 game rules
 ----------
 
-* parse multiple fields from the command line, each `-s` option starts a new
-  field:
-
-	tankode \
-	  -s 12x8 \
-	  -o 0,0,0,1,1,0 \
-	  -o "0 2 2 1 3 1 3 0" \
-	  -o "3,3 3,4 4,3;  3 4, 4 3, 4 4" \
-	  -s 6x4 \
-	  -o "0 0  0 1  1 0"
-
-  a field is choosen randomly from one of those listed on the arguments
-
-  keep list of fields, if list is empty, resort to default list of random
-  fields.
-
-
-* add a selection of random starting fields;
-
 * calibrate constants of `Tankode.Constants`;
 
 * actuallly count wins and points and show them somehow
