@@ -8,11 +8,16 @@ module Tankode.Obstacles
   , ex
   , ox
   , bowtie
+
+  , makeFieldWith
   )
 where
 
 import Data.Tuple (swap)
 import Tankode.Data
+
+makeFieldWith :: [Obstacle] -> Rational -> Rational -> Field
+makeFieldWith os = updateObstacles (++ os) .: makeField where (.:) = (.) . (.)
 
 old :: Rational -> Rational -> [Obstacle]
 old w h | h > w = map (map swap) $ old h w
