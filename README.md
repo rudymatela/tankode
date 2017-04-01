@@ -58,7 +58,7 @@ To compile and run Tankode, you'll need:
 
 You probably have half of the above already installed.
 
-On, [Arch Linux], the following should be enough to install everything:
+On [Arch Linux], the following should be enough to install everything:
 
 	$ pacman -S gcc glibc make
 	$ pacman -S mesa glu freeglut
@@ -69,10 +69,30 @@ On, [Arch Linux], the following should be enough to install everything:
 On [Ubuntu] and [Debian] variants, alternate calls to `apt-get install` should be
 enough.
 
+In the future, we should provide packages for installation of Tankode and its
+language bindings on several systems (e.g.: Arch Linux & Ubuntu), so that users
+need not to worry about dependencies.
+
+
+Running the Tankode default example
+-----------------------------------
+
+For now, to compile and run Tankode, run the following commands:
+
+$ git clone https://github.com/rudymatela/tankode
+$ cd tankode
+$ make
+$ make run
+
+See the [Makefile] to try to learn how to run your own examples and custom made
+tankodes.  Future versions should have better instructions and steps than this.
+
+
 
 [Tankode Protocol]: doc/tankode-protocol.md
 [Tankode Display Protocol]: doc/tankode-display-protocol.md
 [TODO list]: TODO.md
+[Makefile]: Makefile
 
 [Arch Linux]:        https://archlinux.org
 [Ubuntu]:            https://ubuntu.com
