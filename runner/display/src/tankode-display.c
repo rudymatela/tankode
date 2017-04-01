@@ -34,6 +34,7 @@ static void reshape(int w, int h);
 static void render();
 static void render_and_reschedule(int val);
 static void close();
+static void update_ortho();
 
 void parse_args(char *argv[])
 {
@@ -73,14 +74,10 @@ int main(int argc, char *argv[])
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_MULTISAMPLE | GLUT_DEPTH);
 	glutInitWindowSize(window_width, window_height);
 	window = glutCreateWindow("tankode");
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	update_ortho();
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glOrtho(0., state.field.width, 0.,state.field.height, -1., 1.);
 	glClearColor(state.field.obstacle_colour.r, state.field.obstacle_colour.g, state.field.obstacle_colour.b, 1.);
 	GLenum error = glGetError();
 	if (error != GL_NO_ERROR)
@@ -104,6 +101,22 @@ int main(int argc, char *argv[])
 	}
 	glutMainLoop();
 	return 0;
+}
+
+static void update_ortho()
+{
+	static float ortho_w = 0.;
+	static float ortho_h = 0.;
+	if (state.field.width  == ortho_w
+	 && state.field.height == ortho_h)
+		return;
+	ortho_w = state.field.width;
+	ortho_h = state.field.height;
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glOrtho(0., ortho_w, 0., ortho_h, -1., 1.);
 }
 
 static void close()
@@ -156,6 +169,7 @@ int update_state()
 	static int reading = 1;
 	if (reading) {
 		reading = read_tick(&state);
+		update_ortho();
 	} else if (close_window) {
 		glutDestroyWindow(window);
 		close();
