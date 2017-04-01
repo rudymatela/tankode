@@ -1,3 +1,9 @@
+-- |
+-- Module      : Tankode.Data
+-- Copyright   : (c) 2016, 2017  Rudy Matela
+-- License     : LGPL 2.1 (see the file LICENSE)
+--
+-- Datatype definitions used in the Tankode game.
 module Tankode.Data
 --( Tank (..)
 --, TankId (..)

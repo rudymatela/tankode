@@ -1,3 +1,10 @@
+-- |
+-- Module      : Tankode.Obstacles
+-- Copyright   : (c) 2017  Rudy Matela
+-- License     : LGPL 2.1 (see the file LICENSE)
+--
+-- Obstacle templates so users don't need to provide explicit coordinates every
+-- time.
 module Tankode.Obstacles
   ( corners
   , rounded

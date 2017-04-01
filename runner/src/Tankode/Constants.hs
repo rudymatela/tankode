@@ -1,3 +1,9 @@
+-- |
+-- Module      : Tankode.Constants
+-- Copyright   : (c) 2016, 2017  Rudy Matela
+-- License     : LGPL 2.1 (see the file LICENSE)
+--
+-- Constants used in the Tankode game.
 module Tankode.Constants
   ( ticksPerSecond
   , maxSpeed

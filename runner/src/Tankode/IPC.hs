@@ -1,3 +1,9 @@
+-- |
+-- Module      : Tankode.IPC
+-- Copyright   : (c) 2016, 2017  Rudy Matela
+-- License     : LGPL 2.1 (see the file LICENSE)
+--
+-- Inter process communication with tankode AI processes.
 module Tankode.IPC
   ( setupTankode
   , propagateSIGTERM
