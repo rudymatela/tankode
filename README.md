@@ -45,8 +45,48 @@ Differences include:
   if needed, those need to be calculated based on initial position and movements.
 
 
+Pre-requisites
+--------------
+
+To compile and run Tankode, you'll need:
+
+* [GCC], [glibc]
+* [mesa], [glu], [freeglut]
+* [openal], [freealut]
+* [GHC], [cabal-install], [haskell-cmdargs]
+* [haskell-LeanCheck]
+
+You probably have most of the above installed.
+
+On, [Arch Linux], the following should be enough to install everything:
+
+	$ pacman -S gcc glibc
+	$ pacman -S mesa glu freeglut
+	$ pacman -S openal freealut
+	$ pacman -S ghc cabal-install haskell-cmdargs
+	$ cabal install leancheck
+
+On [Ubuntu] and [Debian] variants, alternate calls to `apt-get install` should be
+enough.
+
+
 [Tankode Protocol]: doc/tankode-protocol.md
 [Tankode Display Protocol]: doc/tankode-display-protocol.md
 [TODO list]: TODO.md
+
+[Arch Linux]:        https://archlinux.org
+[Ubuntu]:            https://ubuntu.com
+[Debian]:            https://debian.org
+[GCC]:               https://gcc.gnu.org/
+[glibc]:             https://www.gnu.org/software/libc/
+[mesa]:              https://mesa3d.org/
+[glu]:               http://freeglut.sourceforge.net/
+[freeglut]:          http://freeglut.sourceforge.net/
+[openal]:            https://openal.org
+[freealut]:          https://github.com/vancegroup/freealut
+[GHC]:               https://www.haskell.org/ghc/
+[cabal-install]:     https://www.haskell.org/cabal/
+[haskell-cmdargs]:   https://hackage.haskell.org/package/cmdargs
+[haskell-LeanCheck]: https://hackage.haskell.org/package/leancheck
 
 [Robocode]: http://robocode.sourceforge.net/
