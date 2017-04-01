@@ -1,4 +1,9 @@
--- Functions to show things from 'Tankode.Data'
+-- |
+-- Module      : Tankode.Show
+-- Copyright   : (c) 2016, 2017  Rudy Matela
+-- License     : LGPL 2.1 (see the file LICENSE)
+--
+-- Functions to read and show things from "Tankode.Data".
 --
 -- TODO: rename this module to ShowRead?
 module Tankode.Show where

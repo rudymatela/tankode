@@ -1,4 +1,23 @@
--- A simple palette for Tankode
+-- |
+-- Module      : Tankode.Palette.Year2017
+-- Copyright   : (c) 2017  Rudy Matela
+-- License     : LGPL 2.1 (see the file LICENSE)
+--
+-- A pentadic colour palette.
+--
+-- How this palette is (roughly) built:
+-- * The 5 initial colour hues are spread in 5 equidistant directions on the
+--   colour wheel starting with an azureish blue at 205 degrees then going
+--   to magenta, red, yellow and green.
+-- * the orange hue is added as the median of yellow and red
+-- * the cyan hue is added as the median of green and blue
+-- * chroma is kept contant at 50%
+-- * each hue has 9 colors of varying lightness.
+--
+-- For more details:
+--   * read the code  :-)
+--   * reverse engineer from resulting values
+--   * ask me (Rudy)
 module Tankode.Palette.Year2017
   ( black, white, grey, red, green, blue, cyan, magenta, yellow, orange
   , darkGrey, darkRed, darkGreen, darkBlue, darkCyan, darkMagenta, darkYellow, darkOrange

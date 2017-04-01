@@ -1,4 +1,9 @@
--- A simple palette for Tankode
+-- |
+-- Module      : Tankode.Palette.Pure
+-- Copyright   : (c) 2017  Rudy Matela
+-- License     : LGPL 2.1 (see the file LICENSE)
+--
+-- A "pure" colour pallete.
 module Tankode.Palette.Pure
   ( black, white, grey
   , red, green, blue

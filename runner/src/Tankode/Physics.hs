@@ -1,3 +1,9 @@
+-- |
+-- Module      : Tankode.Physics
+-- Copyright   : (c) 2016, 2017  Rudy Matela
+-- License     : LGPL 2.1 (see the file LICENSE)
+--
+-- Tankode game physics.
 module Tankode.Physics where
 
 import Data.Ratio
