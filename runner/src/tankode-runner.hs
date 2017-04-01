@@ -23,7 +23,7 @@ import qualified Tankode.Obstacles as Obstacles
 data Args = Args
   { tankodes :: [String]
   , maxTicks :: Int
-  , field    :: Field
+  , fields   :: [Field]
   , showHelp :: Bool
   , showVersion :: Bool
   , seed     :: Maybe Int
@@ -40,19 +40,26 @@ data Args = Args
   , sound :: Bool
   }
 
+addField :: Field -> Args -> Args
+addField f args@Args{fields = fs} = args{fields = f:fs}
+
+update1stField :: (Field -> Field) -> Args -> Args
+update1stField upd Args{fields = []} = error "undefined field, first set field size with -s WxH"
+update1stField upd args@Args{fields = (f:fs)} = args{fields = upd f:fs}
+
 prepareArgs :: Args -> Mode Args
 prepareArgs args =
   mode "speculate" args "" (flagArg (\s a -> Right a {tankodes = s:tankodes a}) "")
   [ "ttime-limit" --= \s a -> a {maxTicks = read s * ticksPerSecond}
-  , "ssize"       --= \s a -> a {field = let (w,'x':h) = span (/= 'x') s
-                                         in makeField (read w % 1) (read h % 1)}
+  , "ssize"       --= \s -> let (w,'x':h) = span (/= 'x') s
+                            in addField $ makeField (read w % 1) (read h % 1)
   , " seed"       --= \s a -> a {seed = Just $ read s}
   , "hhelp"       --.   \a -> a {showHelp = True}
   , "Vversion"    --.   \a -> a {showVersion = True}
   , "ddump"       --.   \a -> a {dump = True}
   , "nnbattles"   --= \s a -> a {nBattles = read s}
-  , "oobstacle"   --= \s a -> a {field = let f = field a; w = width f; h = height f
-                                         in updateObstacles (++ readObstacles w h s) f}
+  , "oobstacle"   --= \s -> update1stField $ \f -> let w = width f; h = height f
+                                                   in addObstacles (readObstacles w h s) f
 
   -- options passed along to the display program
   , " draw-charge"     --. \a -> a {drawCharge  = True}
@@ -82,7 +89,7 @@ args = Args
   { tankodes = []
   , maxTicks = 100 * ticksPerSecond
   , nBattles = 1
-  , field = addObstacles obstacles $ makeField 12 8
+  , fields = []
   , showHelp = False
   , showVersion = False
   , seed = Nothing
@@ -96,8 +103,6 @@ args = Args
   , windowSize = Nothing
   , sound = True
   }
-  where
-  obstacles = Obstacles.old 12 8
 
 printSimulation :: Args -> Field -> State -> IO ()
 printSimulation args f ts = do
@@ -138,7 +143,19 @@ mainWith args = do
   setupAndPrintSimulation gen pidsRef dpid args
 
 setupAndPrintSimulation :: StdGen -> IORef [ProcessID] -> Maybe ProcessID -> Args -> IO ()
-setupAndPrintSimulation gen pidsRef dpid args@Args{field = f, tankodes = ts} = do
+setupAndPrintSimulation gen pidsRef dpid args@Args{fields = []} =
+  setupAndPrintSimulation gen pidsRef dpid args
+    { fields =
+        [ addObstacles (Obstacles.old     12 8) $ makeField 12 8
+        , addObstacles (Obstacles.ox      12 8) $ makeField 12 8
+        , addObstacles (Obstacles.rounded  9 6) $ makeField  9 6
+        , addObstacles (Obstacles.ox      11 7) $ makeField 11 7
+        , addObstacles (Obstacles.rounded  6 6) $ makeField  6 6
+        , addObstacles (Obstacles.bowtie  12 8) $ makeField 12 8
+        , addObstacles (Obstacles.corners  7 7) $ makeField  7 7
+        ]
+    }
+setupAndPrintSimulation gen pidsRef dpid args@Args{fields = f:fs, tankodes = ts} = do
 -- TODO: make a function places :: Field -> [Loc]
   let (gen1,gen2,gen3) = split3 gen
   let poss = startingPositions f gen1
@@ -156,7 +173,7 @@ setupAndPrintSimulation gen pidsRef dpid args@Args{field = f, tankodes = ts} = d
       putStrLn "end"
       when (isJust dpid) $
         getProcessStatus True False (fromJust dpid) >> return ()
-    else setupAndPrintSimulation gen3 pidsRef dpid args{nBattles = nBattles args - 1}
+    else setupAndPrintSimulation gen3 pidsRef dpid args{fields = fs ++ [f], nBattles = nBattles args - 1}
 
 main :: IO ()
 main = do
