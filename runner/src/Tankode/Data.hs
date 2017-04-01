@@ -150,6 +150,9 @@ updateIntegrity f t = t {integrity = f $ integrity t}
 updateObstacles :: ([Obstacle] -> [Obstacle]) -> Field -> Field
 updateObstacles g f = f {obstacles = g $ obstacles f}
 
+addObstacles :: [Obstacle] -> Field -> Field
+addObstacles os = updateObstacles (++ os)
+
 turn, turnGun, turnRadar :: Rational -> Tank -> Tank
 turn      th = updateHeading (+ th)
 turnGun   th = updateGun     (+ th)
