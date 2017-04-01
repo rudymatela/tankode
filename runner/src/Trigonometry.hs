@@ -1,4 +1,12 @@
--- | Trigonometry functions for rational numbers
+-- |
+-- Module      : Tankode
+-- Copyright   : (c) 2016, 2017  Rudy Matela
+-- License     : LGPL 2.1 (see the file LICENSE)
+--
+-- Trigonometry functions for rational numbers.
+--
+-- I think this module is now unused in Tankode.
+-- Check and remove soon.
 module Trigonometry where
 
 import Test.LeanCheck.Error (errorToNothing)

@@ -1,6 +1,6 @@
 -- |
 -- Module      : Geometry
--- Copyright   : (c) 2017  Rudy Matela
+-- Copyright   : (c) 2016, 2017  Rudy Matela
 -- License     : LGPL 2.1 (see the file LICENSE)
 --
 -- A simple geometry module.
