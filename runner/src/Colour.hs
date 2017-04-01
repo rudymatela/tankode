@@ -1,6 +1,11 @@
--- Initial version created by Rudy Matela on December 2016
-
--- | Simple color module.
+-- |
+-- Module      : Colour
+-- Copyright   : (c) 2016-2017  Rudy Matela
+-- License     : 3-Clause BSD
+--
+-- Simple colour module.  (Distributed as part of Tankode.)
+--
+-- The initial version of this module was created by Rudy on Dec 2016.
 module Colour
   ( Colour (RGB)
   , Color

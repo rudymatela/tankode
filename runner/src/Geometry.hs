@@ -1,4 +1,9 @@
--- | A simple geometry module.
+-- |
+-- Module      : Geometry
+-- Copyright   : (c) 2017  Rudy Matela
+-- License     : LGPL 2.1 (see the file LICENSE)
+--
+-- A simple geometry module.
 --
 -- Note some names are currently (2017-01) inconsistent with function
 -- behaviour. e.g.: intersectCS will return true for a segment inside a circle

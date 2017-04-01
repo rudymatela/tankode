@@ -1,3 +1,9 @@
+-- |
+-- Program     : html-palette.hs
+-- Copyright   : (c) 2017  Rudy Matela
+-- License     : LGPL 2.1 (see the file LICENSE)
+--
+-- Prints the colour pallete of Tankode as a list of names and HEX colours.
 import Colour (Colour, showRGB)
 import Tankode.Palette
 

@@ -1,3 +1,9 @@
+-- |
+-- Program     : html-palette.hs
+-- Copyright   : (c) 2017  Rudy Matela
+-- License     : LGPL 2.1 (see the file LICENSE)
+--
+-- Generate an HTML with the colour pallete for Tankode.
 import Colour (Colour, showRGB)
 import Colour (red,green,blue,cyan,magenta,yellow,black)
 import Tankode.Palette

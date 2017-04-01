@@ -1,3 +1,9 @@
+-- |
+-- Module      : RatioMath
+-- Copyright   : (c) 2017  Rudy Matela
+-- License     : LGPL 2.1 (see the file LICENSE)
+--
+-- Some mathematical functions over rationals.
 module RatioMath
   ( module Data.Ratio
   , sin, cos, tan, asin, acos, atan, pi

@@ -1,3 +1,16 @@
+-- |
+-- Module      : Random
+-- Copyright   : (c) 2017  Rudy Matela
+-- License     : LGPL 2.1 (see the file LICENSE)
+--
+-- Additional instances of 'Random' for 'System.Random' from Haskell's random
+-- package.  A pull request has been made to include those in the official
+-- random package:
+--
+-- https://github.com/haskell/random/pull/43
+--
+-- Until it is merged and a new version is released this module will exist
+-- here.
 module Random (module System.Random) where
 
 import System.Random

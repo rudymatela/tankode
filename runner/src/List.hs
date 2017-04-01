@@ -1,3 +1,9 @@
+-- |
+-- Module      : List
+-- Copyright   : (c) 2017  Rudy Matela
+-- License     : LGPL 2.1 (see the file LICENSE)
+--
+-- Additional list functions to complement the functionality from "Data.List".
 module List
   ( module Data.List
   , discard

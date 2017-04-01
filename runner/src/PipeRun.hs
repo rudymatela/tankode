@@ -1,3 +1,9 @@
+-- |
+-- Module      : PipeRun
+-- Copyright   : (c) 2017  Rudy Matela
+-- License     : LGPL 2.1 (see the file LICENSE)
+--
+-- Utilities to run programs with pipes.
 module PipeRun
   ( pun
   , pipeTo
