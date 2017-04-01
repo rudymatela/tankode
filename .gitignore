@@ -47,3 +47,4 @@ doc/logo/tankode-logo-*.svg
 **/walls
 *.prof
 !bash/*
+!ruby/eg/*

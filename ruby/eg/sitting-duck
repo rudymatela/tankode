@@ -1,0 +1,10 @@
+#!/usr/bin/ruby
+#
+# sitting-duck Tankode example in Ruby
+
+require './' ++ File.dirname(__FILE__) ++ '/../tankode.rb'
+
+puts "sitting-duck orange4 yellow8 orange5 grey9 orange5 orange2"
+Tankode.run do |integrity,speed,energy,wall|
+  [0r, 0r, 0r, 0r, 0r]
+end

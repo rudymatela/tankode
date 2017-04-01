@@ -5,6 +5,7 @@ TANKODES1=haskell/eg/{sitting-duck,chaserII,chaserIII,escaper,left-turner,right-
 TANKODES2=c/raw/eg/{sitting-duck,left-turner,right-turner,chaser,chaserII} bash/{sitting-duck,left-turner}
 TANKODES3=c/raw/eg/{sitting-duck,left-turner} haskell/eg/sitting-duck
 TANKODESM=haskell/eg/{sitting-duck,chaser,left-turner,escaper}
+TANKODESR=ruby/eg/{sitting-duck,left-turner,chaser}
 
 all: runner haskell c-raw
 
@@ -39,6 +40,9 @@ run2: all
 
 run3: all
 	./bin/tankode $(ARGS) $(TANKODES3)
+
+runr: all
+	./bin/tankode $(ARGS) $(TANKODESR)
 
 run-small: all
 	./bin/tankode           $(TANKODESM) -s8x4 --window-size=600x300 --close-window --seed=18 -t16 --no-draw-scan $(ARGS)

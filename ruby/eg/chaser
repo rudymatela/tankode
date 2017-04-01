@@ -1,0 +1,22 @@
+#!/usr/bin/ruby
+#
+# chaser Tankode example in Ruby
+
+require './' ++ File.dirname(__FILE__) ++ '/../tankode.rb'
+
+puts "chaser blue2 blue4 grey7 grey1 grey9 blue1"
+Tankode.run do |integrity,speed,enemy,wall|
+  accel = 0r
+  body  = 0r
+  gun   = 0r
+  radar = 0r
+  shoot = 0r
+  if enemy
+		shoot = 1r;
+		accel = enemy > 1r ? +1r : enemy < 1r ? -1r : 0r;
+  else
+		body  = +1r;
+		accel = speed > 0r ? -1r : speed < 0r ? +1r : 0r;
+  end
+  [accel, body, gun, radar, shoot]
+end

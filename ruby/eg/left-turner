@@ -1,0 +1,12 @@
+#!/usr/bin/ruby
+#
+# left-turner Tankode example in Ruby
+
+require './' ++ File.dirname(__FILE__) ++ '/../tankode.rb'
+
+puts "left-turner red3 red3 yellow7 red3 red9 red9"
+Tankode.run do |integrity,speed,enemy,wall|
+  gun_turn = MAX_GUN_TURN
+  shoot = enemy ? 2/3r : 0r;
+  [0r, 0r, gun_turn, 0r, shoot]
+end

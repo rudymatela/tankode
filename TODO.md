@@ -9,10 +9,6 @@ interface
 
 * write Lua raw interface; add examples;
 
-### low priority
-
-* write Ruby raw interface; add examples;
-
 
 game rules
 ----------
