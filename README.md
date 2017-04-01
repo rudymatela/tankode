@@ -56,7 +56,7 @@ To compile and run Tankode, you'll need:
 * [GHC], [cabal-install], [haskell-cmdargs]
 * [haskell-LeanCheck]
 
-You probably have most of the above installed.
+You probably have half of the above already installed.
 
 On, [Arch Linux], the following should be enough to install everything:
 
