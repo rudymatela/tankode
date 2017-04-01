@@ -117,6 +117,7 @@ static void update_ortho()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glOrtho(0., ortho_w, 0., ortho_h, -1., 1.);
+	reshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 }
 
 static void close()
