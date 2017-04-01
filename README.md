@@ -50,7 +50,7 @@ Pre-requisites
 
 To compile and run Tankode, you'll need:
 
-* [GCC], [glibc]
+* [GCC], [glibc], [GNU Make]
 * [mesa], [glu], [freeglut]
 * [openal], [freealut]
 * [GHC], [cabal-install], [haskell-cmdargs]
@@ -60,7 +60,7 @@ You probably have most of the above installed.
 
 On, [Arch Linux], the following should be enough to install everything:
 
-	$ pacman -S gcc glibc
+	$ pacman -S gcc glibc make
 	$ pacman -S mesa glu freeglut
 	$ pacman -S openal freealut
 	$ pacman -S ghc cabal-install haskell-cmdargs
@@ -79,6 +79,7 @@ enough.
 [Debian]:            https://debian.org
 [GCC]:               https://gcc.gnu.org/
 [glibc]:             https://www.gnu.org/software/libc/
+[GNU Make]:          https://www.gnu.org/software/make/
 [mesa]:              https://mesa3d.org/
 [glu]:               http://freeglut.sourceforge.net/
 [freeglut]:          http://freeglut.sourceforge.net/
