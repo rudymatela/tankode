@@ -31,6 +31,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#include <tankode.h>
+
 int errxit(const char msg[])
 {
 	fprintf(stderr,msg);
@@ -55,7 +57,6 @@ int main_joy()
 {
 	int x=0, y=0;
 	SDL_Event event;
-	init();
 	for (;;) {
 		SDL_Delay(10);
 
@@ -103,5 +104,15 @@ exit:
 
 int main()
 {
+	struct tankode_id id;
+	id.name   = "human";
+	id.track  = "red2";
+	id.body   = "red4";
+	id.gun    = "grey7";
+	id.radar  = "grey1";
+	id.bullet = "grey9";
+	id.scan   = "red1";
+	init();
+	/*tankode_run(id, human);*/
 	main_joy();
 }
