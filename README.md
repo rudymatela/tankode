@@ -16,7 +16,7 @@ The game has been designed to be programming-language independent.  Tankodes
 read-and-write to-and-from standard input-output following the very simple
 [Tankode Protocol].  So, it is very easy to add new language bindings.
 
-The game is open-source, and licenced under the LGPLv2.
+The game is open-source, and licenced under the [LGPLv2.1].
 
 
 Tankode is under active development
@@ -119,6 +119,8 @@ Tankode.
 [cabal-install]:     https://www.haskell.org/cabal/
 [haskell-cmdargs]:   https://hackage.haskell.org/package/cmdargs
 [haskell-LeanCheck]: https://hackage.haskell.org/package/leancheck
+
+[LGPLv2.1]:          https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
 
 [Little Robot Sound Factory]: http://www.littlerobotsoundfactory.com
 [Sound effects]: https://opengameart.org/content/8-bit-sound-effects-library
