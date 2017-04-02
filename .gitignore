@@ -48,3 +48,4 @@ doc/logo/tankode-logo-*.svg
 *.prof
 !bash/*
 !ruby/eg/*
+human/human
