@@ -15,15 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- * *THIS IS A WORK IN PROGRESS AND DOES NOT WORK YET*
- *
- * currently, it just print joystick events on the screen.
- *
- * I have two ideas of how to go about this:
- *   * have two processses communicating via shared memory (shmget, shmat, shmdt)
- *     one for polling the joystick, other for communicating with the server
- *   * have a single process, the reading from the server would act as the
- *     SDL_Delay
+ * This is a Hack.  This program makes the game run a bit slower: the delay to
+ * sync the game logic program and the display program is introduced here.
  */
 #include <SDL2/SDL.h>
 
@@ -57,6 +50,8 @@ struct tankode_out human(struct tankode_in in)
 {
 	static int x=0, y=0;
 	static int pressed[0x100] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	static int ticks = 0;
+	int i;
 	SDL_Event event;
 	struct tankode_out out = {0., 0., 0., 0., 0.};
 	while (SDL_PollEvent(&event)) switch(event.type) {
@@ -98,7 +93,11 @@ struct tankode_out human(struct tankode_in in)
 	else if (x > 0) out.body  = -1;
 	else            out.body  =  0;
 	if (pressed[0] || pressed[1] || pressed[2] || pressed[3]) out.shoot = 1;
-	fprintf(stderr,"%i %i %i %i\n",x,y,pressed[0],pressed[1]);
+	i = 1000 / 120 - (SDL_GetTicks() - ticks);
+	fprintf(stderr,"%i %i %i %i (delay %i)\n",x,y,pressed[0],pressed[1], i);
+	if (i > 0)
+		SDL_Delay(i+1);
+	ticks = SDL_GetTicks();
 	return out;
 }
 
