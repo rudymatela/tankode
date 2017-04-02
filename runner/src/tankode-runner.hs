@@ -161,13 +161,13 @@ setupAndPrintSimulation :: StdGen -> IORef [ProcessID] -> Maybe ProcessID -> Arg
 setupAndPrintSimulation gen pidsRef dpid args@Args{fields = []} =
   setupAndPrintSimulation gen pidsRef dpid args
     { fields =
-        [ addObstacles (Obstacles.old     12 8) $ makeField 12 8
-        , addObstacles (Obstacles.ox      12 8) $ makeField 12 8
-        , addObstacles (Obstacles.rounded 11 6) $ makeField 11 6
-        , addObstacles (Obstacles.ox      11 7) $ makeField 11 7
-        , addObstacles (Obstacles.rounded  6 6) $ makeField  6 6
-        , addObstacles (Obstacles.bowtie  12 8) $ makeField 12 8
-        , addObstacles (Obstacles.corners  7 7) $ makeField  7 7
+        [ addObstacles (Obstacles.old      12 8) $ makeField 12 8
+        , addObstacles (Obstacles.ox       12 8) $ makeField 12 8
+        , addObstacles (Obstacles.rounded  11 6) $ makeField 11 6
+        , addObstacles (Obstacles.ox       11 7) $ makeField 11 7
+        , addObstacles (Obstacles.rounded3  8 8) $ makeField  8 8
+        , addObstacles (Obstacles.bowtie   12 8) $ makeField 12 8
+        , addObstacles (Obstacles.corners   7 7) $ makeField  7 7
         ]
     }
 setupAndPrintSimulation gen pidsRef dpid args@Args{fields = f:fs, tankodes = ts} = do

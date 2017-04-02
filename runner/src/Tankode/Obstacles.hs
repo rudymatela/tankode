@@ -8,6 +8,7 @@
 module Tankode.Obstacles
   ( corners
   , rounded
+  , rounded3
   , old
   , centerCircle
   , centerDiamond
@@ -107,6 +108,59 @@ rounded w h =
   , [ (w, 0)
     , (w, 1)
     , (w-2, 0)
+    ]
+  ]
+
+rounded3 :: Rational -> Rational -> [Obstacle]
+rounded3 w h | h > w = map (map swap) $ corners h w
+rounded3 w h =
+  [ [ (0, 0)
+    , (3, 0)
+    , (0, 1)
+    ]
+  , [ (0, 0)
+    , (2, 0)
+    , (0, 2)
+    ]
+  , [ (0, 0)
+    , (1, 0)
+    , (0, 3)
+    ]
+  , [ (w,   h)
+    , (w-3, h)
+    , (w,   h-1)
+    ]
+  , [ (w,   h)
+    , (w-2, h)
+    , (w,   h-2)
+    ]
+  , [ (w,   h)
+    , (w-1, h)
+    , (w,   h-3)
+    ]
+  , [ (0, h)
+    , (0, h-3)
+    , (1, h)
+    ]
+  , [ (0, h)
+    , (0, h-2)
+    , (2, h)
+    ]
+  , [ (0, h)
+    , (0, h-1)
+    , (3, h)
+    ]
+  , [ (w, 0)
+    , (w, 3)
+    , (w-1, 0)
+    ]
+  , [ (w, 0)
+    , (w, 2)
+    , (w-2, 0)
+    ]
+  , [ (w, 0)
+    , (w, 1)
+    , (w-3, 0)
     ]
   ]
 
