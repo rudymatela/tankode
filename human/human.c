@@ -91,8 +91,8 @@ struct tankode_out human(struct tankode_in in)
 	default:
 		fprintf(stderr, "Warning: Unhandled event type: %d\n", event.type);
 	}
-	if (y > 0)      out.accel = +1;
-	else if (y < 0) out.accel = -1;
+	if (y < 0)      out.accel = +1;
+	else if (y > 0) out.accel = -1;
 	else            out.accel =  0;
 	if (x < 0)      out.body  = +1;
 	else if (x > 0) out.body  = -1;
