@@ -91,6 +91,13 @@ See the [Makefile] to try to learn how to run your own examples and custom made
 tankodes.  Future versions should have better instructions and steps than this.
 
 
+Credits
+-------
+
+[Sound effects] were kindly provided by [Little Robot Sound Factory] under the
+[CC-BY 3.0] license.  Little Robot does not necessarily endorses their use in
+Tankode.
+
 
 [Tankode Protocol]: doc/tankode-protocol.md
 [Tankode Display Protocol]: doc/tankode-display-protocol.md
@@ -112,5 +119,9 @@ tankodes.  Future versions should have better instructions and steps than this.
 [cabal-install]:     https://www.haskell.org/cabal/
 [haskell-cmdargs]:   https://hackage.haskell.org/package/cmdargs
 [haskell-LeanCheck]: https://hackage.haskell.org/package/leancheck
+
+[Little Robot Sound Factory]: http://www.littlerobotsoundfactory.com
+[Sound effects]: https://opengameart.org/content/8-bit-sound-effects-library
+[CC-BY 3.0]:     https://creativecommons.org/licenses/by/3.0/
 
 [Robocode]: http://robocode.sourceforge.net/
