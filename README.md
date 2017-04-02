@@ -16,7 +16,7 @@ The game has been designed to be programming-language independent.  Tankodes
 read-and-write to-and-from standard input-output following the very simple
 [Tankode Protocol].  So, it is very easy to add new language bindings.
 
-The game is open-source, and licenced under the [LGPLv2.1].
+The game is open-source, and licensed under the [LGPLv2.1].
 
 
 Tankode is under active development
