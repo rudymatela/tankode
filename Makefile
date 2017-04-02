@@ -7,7 +7,7 @@ TANKODES3=c/raw/eg/{sitting-duck,left-turner} haskell/eg/sitting-duck
 TANKODESM=haskell/eg/{sitting-duck,chaser,left-turner,escaper}
 TANKODESR=ruby/eg/{sitting-duck,left-turner,chaser}
 
-all: runner haskell c-raw
+all: runner haskell c-raw human
 
 .PHONY: runner
 runner:
@@ -20,6 +20,10 @@ haskell:
 .PHONY: c-raw
 c-raw:
 	make -C c/raw
+
+.PHONY: human
+human:
+	make -C human
 
 test: all
 	make -C runner test
@@ -43,6 +47,9 @@ run3: all
 
 runr: all
 	./bin/tankode $(ARGS) $(TANKODESR)
+
+runh: all
+	./bin/tankode $(ARGS) $(TANKODES) human/human
 
 run-small: all
 	./bin/tankode           $(TANKODESM) -s8x4 --window-size=600x300 --close-window --seed=18 -t16 --no-draw-scan $(ARGS)

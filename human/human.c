@@ -53,52 +53,53 @@ int init()
 		errxit("unable to open joystick\n");
 }
 
-int main_joy()
+struct tankode_out human(struct tankode_in in)
 {
-	int x=0, y=0;
+	static int x=0, y=0;
+	static int pressed[0x100] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 	SDL_Event event;
-	for (;;) {
-		SDL_Delay(10);
+	struct tankode_out out = {0., 0., 0., 0., 0.};
+	while (SDL_PollEvent(&event)) switch(event.type) {
+	case SDL_JOYHATMOTION:
+		/* simulates axis event */
+		x = 0;
+		y = 0;
+		if (event.jhat.value&SDL_HAT_UP)    y = -1;
+		if (event.jhat.value&SDL_HAT_DOWN)  y =  1;
+		if (event.jhat.value&SDL_HAT_LEFT)  x = -1;
+		if (event.jhat.value&SDL_HAT_RIGHT) x =  1;
+		break;
 
-		while (SDL_PollEvent(&event)) switch(event.type) {
-		case SDL_JOYHATMOTION:
-			/* simulates axis event */
-			x = 0;
-			y = 0;
-			if (event.jhat.value&SDL_HAT_UP)    y = -1;
-			if (event.jhat.value&SDL_HAT_DOWN)  y =  1;
-			if (event.jhat.value&SDL_HAT_LEFT)  x = -1;
-			if (event.jhat.value&SDL_HAT_RIGHT) x =  1;
-			fprintf(stderr,"%i %i\n",x,y);
-			break;
-
-		case SDL_JOYAXISMOTION:
-			switch (event.jaxis.axis) {
-			case 0: x = event.jaxis.value / 256; break;
-			case 1: y = event.jaxis.value / 256; break;
-			}
-			/* for now, ignore */
-			fprintf(stderr,"%i %i\n",x,y);
-			break;
-
-		case SDL_JOYBUTTONDOWN:
-			fprintf(stderr,"%i pressed\n",event.jbutton.button);
-			break;
-
-		case SDL_JOYBUTTONUP:
-			fprintf(stderr,"%i released\n",event.jbutton.button);
-			break;
-
-		case SDL_QUIT:
-			goto exit;
-
-		default:
-			fprintf(stderr, "Warning: Unhandled event type: %d\n", event.type);
+	case SDL_JOYAXISMOTION:
+		switch (event.jaxis.axis) {
+		case 0: x = event.jaxis.value / 256; break;
+		case 1: y = event.jaxis.value / 256; break;
 		}
-	}
+		break;
 
-exit:
-	return 0;
+	case SDL_JOYBUTTONDOWN:
+		pressed[event.jbutton.button] = 1;
+		break;
+
+	case SDL_JOYBUTTONUP:
+		pressed[event.jbutton.button] = 0;
+		break;
+
+	case SDL_QUIT:
+		exit(1);
+
+	default:
+		fprintf(stderr, "Warning: Unhandled event type: %d\n", event.type);
+	}
+	if (y > 0)      out.accel = +1;
+	else if (y < 0) out.accel = -1;
+	else            out.accel =  0;
+	if (x < 0)      out.body  = +1;
+	else if (x > 0) out.body  = -1;
+	else            out.body  =  0;
+	if (pressed[0] || pressed[1] || pressed[2] || pressed[3]) out.shoot = 1;
+	fprintf(stderr,"%i %i %i %i\n",x,y,pressed[0],pressed[1]);
+	return out;
 }
 
 
@@ -113,6 +114,5 @@ int main()
 	id.bullet = "grey9";
 	id.scan   = "red1";
 	init();
-	/*tankode_run(id, human);*/
-	main_joy();
+	tankode_run(id, human);
 }
