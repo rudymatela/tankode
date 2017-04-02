@@ -37,12 +37,8 @@ int errxit(const char msg[])
 	exit(1);
 }
 
-int main_joy()
+int init()
 {
-	SDL_Event event;
-	SDL_Joystick* joy = NULL;
-	int x=0, y=0;
-
 	SDL_SetHint(SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS, "1");
 	/* NOTE: VIDEO only for SDL_PollEvent */
 	if(SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO
@@ -53,8 +49,13 @@ int main_joy()
 
 	if (!SDL_JoystickOpen(0)) /* TODO: allow selection of joy idx */
 		errxit("unable to open joystick\n");
+}
 
-
+int main_joy()
+{
+	int x=0, y=0;
+	SDL_Event event;
+	init();
 	for (;;) {
 		SDL_Delay(10);
 
