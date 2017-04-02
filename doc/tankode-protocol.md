@@ -44,7 +44,7 @@ wall.
 
 ### tankode -> server:
 
-	<accel> <turret-turn> <radar-turn> <shoot-charge>
+	<accel> <body-turn> <turret-turn> <radar-turn> <shoot-charge>
 
 ### Example (tick)
 
