@@ -85,6 +85,7 @@ void parse_args(char *argv[])
 
 int main(int argc, char *argv[])
 {
+	setlinebuf(stdin);
 	parse_args(argv);
 	state = get_initial_state();
 	read_tick(&state);
