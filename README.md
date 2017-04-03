@@ -19,10 +19,10 @@ read-and-write to-and-from standard input-output following the very simple
 The game is open-source, and licensed under the [LGPLv2.1].
 
 
-Tankode is under active development
------------------------------------
+Tankode is a work in progress
+-----------------------------
 
-Tankode is under active development:
+Tankode is work in progress under active development:
 
 * __Expect it to crash often for now;__
 * _Linux-only at the moment;_
