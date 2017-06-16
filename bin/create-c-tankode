@@ -1,0 +1,16 @@
+#!/bin/bash
+cat c/raw/eg/sitting-duck.c |
+sed -e 's/"[a-z]*[0-9]*"/""/' |
+sed -e "s/sitting.duck/$1/" > c/raw/eg/$1.c
+
+cat c/raw/Makefile              |
+sed -e "s,EGS = ,EGS = eg/$1 ," |
+sponge c/raw/Makefile
+
+echo -e "\n\neg/$1: tankode.o\n\n" >> c/raw/Makefile
+
+cat Makefile |
+sed -e "s,TANKODES=.*,& c/raw/eg/$1," |
+sponge Makefile
+
+vi -p c/raw/eg/$1.c
