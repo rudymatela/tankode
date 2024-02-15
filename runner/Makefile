@@ -1,6 +1,6 @@
 # Makefile for Tankode's logic
 GHCIMPORTDIRS = src:tests
-GHCFLAGS = -O2
+GHCFLAGS = -O2 -v0 -dynamic -package random -package cmdargs
 LISTHS = find src tests -name \*.hs
 ALLHS = $(shell $(LISTHS))
 BIN = bin/tankode-runner bin/html-palette bin/palette

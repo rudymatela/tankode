@@ -24,7 +24,7 @@ import Colour
 import Data.Ratio
 import List hiding (split)
 import Control.Arrow ((***))
-import Random
+import System.Random
 import Data.Maybe
 import Data.Function
 import System.Console.CmdArgs.Explicit

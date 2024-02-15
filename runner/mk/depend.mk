@@ -35,8 +35,6 @@ src/palette: \
   src/Colour.hs
 src/PipeRun.o: \
   src/PipeRun.hs
-src/Random.o: \
-  src/Random.hs
 src/RatioMath.o: \
   src/RatioMath.hs
 src/Tankode/Constants.o: \
@@ -57,11 +55,11 @@ src/Tankode/IPC.o: \
   src/Tankode/Palette/Utils.hs \
   src/Tankode/Palette/Pure.hs \
   src/Tankode/Palette.hs \
+  src/Tankode/Obstacles.hs \
   src/Tankode/IPC.hs \
   src/Tankode/Data.hs \
   src/Tankode/Constants.hs \
   src/RatioMath.hs \
-  src/Random.hs \
   src/PipeRun.hs \
   src/List.hs \
   src/Geometry.hs \
@@ -84,11 +82,11 @@ src/Tankode.o: \
   src/Tankode/Palette/Pure.hs \
   src/Tankode/Palette.hs \
   src/Tankode.hs \
+  src/Tankode/Obstacles.hs \
   src/Tankode/IPC.hs \
   src/Tankode/Data.hs \
   src/Tankode/Constants.hs \
   src/RatioMath.hs \
-  src/Random.hs \
   src/PipeRun.hs \
   src/List.hs \
   src/Geometry.hs \
@@ -119,7 +117,6 @@ src/Tankode/Physics.o: \
   src/Tankode/Data.hs \
   src/Tankode/Constants.hs \
   src/RatioMath.hs \
-  src/Random.hs \
   src/List.hs \
   src/Geometry.hs \
   src/Colour.hs
@@ -137,7 +134,6 @@ src/tankode-runner.o: \
   src/Tankode/Data.hs \
   src/Tankode/Constants.hs \
   src/RatioMath.hs \
-  src/Random.hs \
   src/PipeRun.hs \
   src/List.hs \
   src/Geometry.hs \
@@ -156,7 +152,6 @@ src/tankode-runner: \
   src/Tankode/Data.hs \
   src/Tankode/Constants.hs \
   src/RatioMath.hs \
-  src/Random.hs \
   src/PipeRun.hs \
   src/List.hs \
   src/Geometry.hs \
@@ -168,10 +163,10 @@ src/Tankode/Show.o: \
   src/Tankode/Palette/Utils.hs \
   src/Tankode/Palette/Pure.hs \
   src/Tankode/Palette.hs \
+  src/Tankode/Obstacles.hs \
   src/Tankode/Data.hs \
   src/Tankode/Constants.hs \
   src/RatioMath.hs \
-  src/Random.hs \
   src/List.hs \
   src/Geometry.hs \
   src/Colour.hs
@@ -187,11 +182,11 @@ tests/test-list.o: \
   src/Tankode/Palette/Pure.hs \
   src/Tankode/Palette.hs \
   src/Tankode.hs \
+  src/Tankode/Obstacles.hs \
   src/Tankode/IPC.hs \
   src/Tankode/Data.hs \
   src/Tankode/Constants.hs \
   src/RatioMath.hs \
-  src/Random.hs \
   src/PipeRun.hs \
   src/List.hs \
   src/Geometry.hs \
@@ -206,11 +201,11 @@ tests/test-list: \
   src/Tankode/Palette/Pure.hs \
   src/Tankode/Palette.hs \
   src/Tankode.hs \
+  src/Tankode/Obstacles.hs \
   src/Tankode/IPC.hs \
   src/Tankode/Data.hs \
   src/Tankode/Constants.hs \
   src/RatioMath.hs \
-  src/Random.hs \
   src/PipeRun.hs \
   src/List.hs \
   src/Geometry.hs \
@@ -224,11 +219,11 @@ tests/Test.o: \
   src/Tankode/Palette/Pure.hs \
   src/Tankode/Palette.hs \
   src/Tankode.hs \
+  src/Tankode/Obstacles.hs \
   src/Tankode/IPC.hs \
   src/Tankode/Data.hs \
   src/Tankode/Constants.hs \
   src/RatioMath.hs \
-  src/Random.hs \
   src/PipeRun.hs \
   src/List.hs \
   src/Geometry.hs \
@@ -243,11 +238,11 @@ tests/test-ratiomath.o: \
   src/Tankode/Palette/Pure.hs \
   src/Tankode/Palette.hs \
   src/Tankode.hs \
+  src/Tankode/Obstacles.hs \
   src/Tankode/IPC.hs \
   src/Tankode/Data.hs \
   src/Tankode/Constants.hs \
   src/RatioMath.hs \
-  src/Random.hs \
   src/PipeRun.hs \
   src/List.hs \
   src/Geometry.hs \
@@ -262,11 +257,11 @@ tests/test-ratiomath: \
   src/Tankode/Palette/Pure.hs \
   src/Tankode/Palette.hs \
   src/Tankode.hs \
+  src/Tankode/Obstacles.hs \
   src/Tankode/IPC.hs \
   src/Tankode/Data.hs \
   src/Tankode/Constants.hs \
   src/RatioMath.hs \
-  src/Random.hs \
   src/PipeRun.hs \
   src/List.hs \
   src/Geometry.hs \
@@ -281,11 +276,11 @@ tests/test-readshow.o: \
   src/Tankode/Palette/Pure.hs \
   src/Tankode/Palette.hs \
   src/Tankode.hs \
+  src/Tankode/Obstacles.hs \
   src/Tankode/IPC.hs \
   src/Tankode/Data.hs \
   src/Tankode/Constants.hs \
   src/RatioMath.hs \
-  src/Random.hs \
   src/PipeRun.hs \
   src/List.hs \
   src/Geometry.hs \
@@ -300,11 +295,11 @@ tests/test-readshow: \
   src/Tankode/Palette/Pure.hs \
   src/Tankode/Palette.hs \
   src/Tankode.hs \
+  src/Tankode/Obstacles.hs \
   src/Tankode/IPC.hs \
   src/Tankode/Data.hs \
   src/Tankode/Constants.hs \
   src/RatioMath.hs \
-  src/Random.hs \
   src/PipeRun.hs \
   src/List.hs \
   src/Geometry.hs \
@@ -319,11 +314,11 @@ tests/test-tankode.o: \
   src/Tankode/Palette/Pure.hs \
   src/Tankode/Palette.hs \
   src/Tankode.hs \
+  src/Tankode/Obstacles.hs \
   src/Tankode/IPC.hs \
   src/Tankode/Data.hs \
   src/Tankode/Constants.hs \
   src/RatioMath.hs \
-  src/Random.hs \
   src/PipeRun.hs \
   src/List.hs \
   src/Geometry.hs \
@@ -338,11 +333,11 @@ tests/test-tankode: \
   src/Tankode/Palette/Pure.hs \
   src/Tankode/Palette.hs \
   src/Tankode.hs \
+  src/Tankode/Obstacles.hs \
   src/Tankode/IPC.hs \
   src/Tankode/Data.hs \
   src/Tankode/Constants.hs \
   src/RatioMath.hs \
-  src/Random.hs \
   src/PipeRun.hs \
   src/List.hs \
   src/Geometry.hs \
@@ -356,11 +351,11 @@ tests/Test: \
   src/Tankode/Palette/Pure.hs \
   src/Tankode/Palette.hs \
   src/Tankode.hs \
+  src/Tankode/Obstacles.hs \
   src/Tankode/IPC.hs \
   src/Tankode/Data.hs \
   src/Tankode/Constants.hs \
   src/RatioMath.hs \
-  src/Random.hs \
   src/PipeRun.hs \
   src/List.hs \
   src/Geometry.hs \

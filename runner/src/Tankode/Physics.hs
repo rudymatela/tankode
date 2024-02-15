@@ -15,7 +15,7 @@ import Geometry
 import Prelude hiding (sin, cos, asin, acos, sqrt)
 import Tankode.Data
 import Tankode.Constants
-import Random
+import System.Random
 import Data.Maybe
 
 type State = [Tank]
